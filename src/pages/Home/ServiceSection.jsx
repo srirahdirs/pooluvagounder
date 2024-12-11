@@ -26,10 +26,10 @@ const ServicesSection = () => {
                         <div className="home-acces">
                             <ul className="hom-qui-acc-sli">
                                 {[
-                                    { title: 'Browse Profiles', imgSrc: `${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`, link: 'all-profiles.html', description: '1000+ Profiles' },
-                                    { title: 'Wedding', imgSrc: `${process.env.PUBLIC_URL}/matrimo/images/icon/gate.png`, link: 'wedding-video.html', description: '100+ Profiles' },
-                                    { title: 'All Services', imgSrc: `${process.env.PUBLIC_URL}/matrimo/images/icon/couple.png`, link: 'services.html', description: '1200+ Profiles' },
-                                    { title: 'Join Now', imgSrc: `${process.env.PUBLIC_URL}/matrimo/images/icon/hall.png`, link: 'plans.html', description: 'Start for free' }
+                                    { title: 'Browse Profiles', imgSrc: `${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`, link: 'all-profiles.html', description: 'Find Your Match' },
+                                    { title: 'Wedding', imgSrc: `${process.env.PUBLIC_URL}/matrimo/images/icon/gate.png`, link: 'wedding-video.html', description: 'Find Your Perfect Wedding Partners' },
+                                    { title: 'All Services', imgSrc: `${process.env.PUBLIC_URL}/matrimo/images/icon/couple.png`, link: 'services.html', description: 'Your One-Stop Service Hub' },
+                                    { title: 'Join Now', imgSrc: `${process.env.PUBLIC_URL}/matrimo/images/icon/hall.png`, link: '/register', description: 'Start for free' }
 
                                 ].map((item, index) => (
                                     <li key={index}>

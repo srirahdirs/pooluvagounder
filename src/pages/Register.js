@@ -106,13 +106,10 @@ const Registration = () => {
 
             const data = await response.json();
             if (data.success) {
+
                 localStorage.setItem('authToken', data.token);
                 setIsLoggedIn(true);  // Update login status
-                setUser({
-                    user_id: data.user.id,
-                    email: data.user.email,
-                    name: data.user.name,
-                });
+                setUser(data.user);
                 showToast('Registration successful! Redirecting...');
                 setTimeout(() => {
                     navigate('/home'); // Redirect to login page after registration

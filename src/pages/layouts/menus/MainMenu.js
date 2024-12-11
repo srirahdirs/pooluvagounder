@@ -63,9 +63,9 @@ const MainMenu = () => {
                             {isLoggedIn ? (
                                 <div className="al">
                                     <div className="head-pro">
-                                        {isLoggedIn && user.image ? (
+                                        {isLoggedIn && user.user_profile_picture ? (
                                             <>
-                                                <img src={`${process.env.PUBLIC_URL}/matrimo/images/profiles/1.jpg`} alt="" loading="lazy" />
+                                                <img src={`${user.user_profile_picture}`} alt="" loading="lazy" />
 
                                             </>
                                         ) : (

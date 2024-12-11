@@ -15,8 +15,15 @@ const UpdateUserProfile = () => {
         const savedUser = localStorage.getItem('user');
         return savedUser ? JSON.parse(savedUser) : {};
     });
-    const formattedDate = new Date(user.dob).toISOString().split('T')[0];  // Ensure the date format is YYYY-MM-DD
-    user.dob = formattedDate;
+    // Check if 'dob' is a valid date
+    const dob = new Date(user.dob);
+    if (isNaN(dob.getTime())) {
+        // return res.status(400).json({ message: 'Invalid date format for date of birth' });
+    } else {
+        const formattedDate = dob.toISOString().split('T')[0]; // Format to YYYY-MM-DD
+        user.dob = formattedDate;
+    }
+
     const [formData, setFormData] = useState({
         name: user.name,
         email: user.email,
@@ -622,7 +629,7 @@ const UpdateUserProfile = () => {
                                             <div className="row">
                                                 <div className="col-md-6 form-group dob-container">
                                                     <label className="lb">Date of birth:<span style={{ color: 'red' }}>*</span></label>
-                                                    <div className="card flex justify-content-center">
+                                                    <div className="flex justify-content-center">
                                                         <input
                                                             type="date"
                                                             name="dob"

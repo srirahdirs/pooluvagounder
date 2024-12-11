@@ -105,6 +105,322 @@ em {
     border-radius: 6px;
 }
 
-.plans-ban {
+.plans-ban,
+.ban-inn {
     margin-top: 0;
+}
+
+.p-dialog {
+    display: flex;
+    flex-direction: column;
+    pointer-events: auto;
+    max-height: 90%;
+    transform: scale(1);
+    position: relative;
+}
+
+.p-dialog .p-dialog-content:last-of-type {
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.p-dialog .p-dialog-content {
+    background: #ffffff;
+    color: #4b5563;
+    padding: 0 1.5rem 2rem 1.5rem;
+}
+
+.p-dialog-content {
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.p-dialog-draggable .p-dialog-header {
+    cursor: move;
+}
+
+.p-dialog .p-dialog-header {
+    border-bottom: 0 none;
+    background: #ffffff;
+    color: #374151;
+    padding: 1.5rem;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+}
+
+.p-dialog-header {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.p-dialog .p-dialog-content:last-of-type {
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.p-dialog .p-dialog-content {
+    background: #ffffff;
+    color: #4b5563;
+    padding: 0 1.5rem 2rem 1.5rem;
+}
+
+.p-dialog-content {
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.p-component,
+.p-component * {
+    box-sizing: border-box;
+}
+
+/* Container styling */
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+/* File upload container */
+.p-fileupload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Choose button styling */
+.p-fileupload-buttonbar {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.p-fileupload-choose {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.p-fileupload-choose:hover {
+    background-color: #0056b3;
+}
+
+.p-fileupload-choose input[type="file"] {
+    display: none;
+}
+
+.p-fileupload-choose svg {
+    margin-right: 10px;
+}
+
+/* File upload content */
+.p-fileupload-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* File row styling */
+.p-fileupload-row {
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.p-fileupload-file-thumbnail {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.p-fileupload-filename {
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 2px;
+}
+
+.p-fileupload-file-badge {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+.p-fileupload-file-badge.p-badge-warning {
+    background-color: #ffc107;
+    color: #856404;
+}
+
+/* Actions (delete button) */
+.p-fileupload-row .p-button {
+    /* background: transparent;
+    border: none;
+    color: #dc3545;
+    font-size: 18px;
+    cursor: pointer; */
+    display: none;
+}
+
+.p-fileupload-row .p-button:hover {
+    color: #c82333;
+}
+
+/* Uploaded images section */
+h6 {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.p-fileupload-content img {
+    width: 100px;
+    height: 100px;
+    margin: 5px;
+    border-radius: 5px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.p-fileupload-content img:hover {
+    transform: scale(1.1);
+}
+
+[data-pc-section="details"] {
+    display: none;
+    /* justify-content: center;
+    align-items: center;
+    text-align: center; */
+    /* If you want to center the text as well */
+}
+
+[data-pc-section="details"] {
+    display: none;
+    /* justify-content: center;
+    align-items: center;
+    text-align: center; */
+    /* If you want to center the text as well */
+}
+
+[data-pc-section="actions"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    /* If you want to center the text as well */
+}
+
+.img-wrapper img {
+    width: 302px;
+}
+
+.db-profile .img img {
+    width: 302px;
+}
+
+.dummy_image .img-wrapper img {
+    width: 202px;
+}
+
+.dummy_image .db-profile .img img {
+    width: 260px;
+}
+
+.p-dialog-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    /* Dark transparent background */
+    backdrop-filter: blur(10px);
+    /* Apply blur effect */
+    z-index: 1101;
+    /* Make sure it’s above the page content */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal container */
+.custom-dialog {
+    width: 50vw;
+    max-width: 600px;
+    /* Optional: Max width to prevent it from becoming too large */
+    margin: 0;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1200;
+    /* Ensure the modal content stays above the overlay */
+}
+
+/* Dialog header */
+.p-dialog-header {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+/* Close button style */
+.p-dialog-header .p-dialog-header-close {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #888;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.p-dialog-header .p-dialog-header-close:hover {
+    color: #333;
+}
+
+/* File upload button */
+.p-fileupload-buttonbar .p-button {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    padding: 8px 16px;
+}
+
+.p-fileupload-buttonbar .p-button:hover {
+    background-color: #0056b3;
+}
+
+.p-fileupload-choose .p-button-label {
+    color: #fff;
+}
+
+/* Modal content styling */
+.p-fileupload-content {
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+/* Resizable handle */
+.p-resizable-handle {
+    z-index: 90;
+}
+
+.ban-search ul li input[type="submit"] {
+    padding: 5px 25px;
 }

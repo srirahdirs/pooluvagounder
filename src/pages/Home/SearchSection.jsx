@@ -11,17 +11,34 @@ const SearchSection = () => {
 
     // Handle form change
     const handleInputChange = (e) => {
+        console.log('Input Changed:', e.target.name, e.target.value);  // Log the name and value of the input
         setSearchForm({
             ...searchForm,
-            [e.target.name]: e.target.value,
+            [e.target.name]: e.target.value, // Update the specific field
         });
     };
 
     // Submit handler (if you want to process the form submission)
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle the search action here
-        console.log('Form submitted:', searchForm);
+    const handleSubmit = async (e) => {
+        e.preventDefault(); // Ensure that the form doesn't refresh the page
+        try {
+            const response = await fetch('http://localhost:4000/api/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ gender: searchForm.gender, age: searchForm.age, religion: searchForm.religion, city: searchForm.city }),
+            });
+
+            if (response.ok) {
+
+
+            } else {
+                console.error('Failed');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
     return (
         <>
@@ -45,13 +62,17 @@ const SearchSection = () => {
                                                     <div className="form-group">
                                                         <label>I'm looking for</label>
                                                         <select
-                                                            name="lookingFor"
-                                                            className="chosen-select"
-                                                            value={searchForm.lookingFor}
-                                                            onChange={handleInputChange}>
-                                                            <option value="">I'm looking for</option>
-                                                            <option value="Men">Men</option>
-                                                            <option value="Women">Women</option>
+                                                            className="form-select"
+                                                            required
+                                                            name="gender"
+                                                            value={searchForm.gender}
+                                                            onChange={(e) => {
+                                                                handleInputChange(e);
+                                                            }}
+                                                        >
+                                                            <option value="">Select your Gender</option>
+                                                            <option value="Male">Male</option>
+                                                            <option value="Female">Female</option>
                                                         </select>
                                                     </div>
                                                 </li>
@@ -60,19 +81,21 @@ const SearchSection = () => {
                                                     <div className="form-group">
                                                         <label>Age</label>
                                                         <select
+                                                            className="form-select"
+                                                            required
                                                             name="age"
-                                                            className="chosen-select"
                                                             value={searchForm.age}
-                                                            onChange={handleInputChange}>
-                                                            <option value="">Age</option>
+                                                            onChange={(e) => {
+                                                                handleInputChange(e);
+                                                            }}
+                                                        >
+                                                            <option value="">Select Age Range</option>
                                                             <option value="18 to 30">18 to 30</option>
                                                             <option value="31 to 40">31 to 40</option>
                                                             <option value="41 to 50">41 to 50</option>
                                                             <option value="51 to 60">51 to 60</option>
                                                             <option value="61 to 70">61 to 70</option>
                                                             <option value="71 to 80">71 to 80</option>
-                                                            <option value="81 to 90">81 to 90</option>
-                                                            <option value="91 to 100">91 to 100</option>
                                                         </select>
                                                     </div>
                                                 </li>
@@ -81,10 +104,14 @@ const SearchSection = () => {
                                                     <div className="form-group">
                                                         <label>Religion</label>
                                                         <select
+                                                            className="form-select"
+                                                            required
                                                             name="religion"
-                                                            className="chosen-select"
                                                             value={searchForm.religion}
-                                                            onChange={handleInputChange}>
+                                                            onChange={(e) => {
+                                                                handleInputChange(e);
+                                                            }}
+                                                        >
                                                             <option value="">Religion</option>
                                                             <option value="Any">Any</option>
                                                             <option value="Hindu">Hindu</option>
@@ -99,16 +126,16 @@ const SearchSection = () => {
                                                     <div className="form-group">
                                                         <label>City</label>
                                                         <select
+                                                            className="form-select"
+                                                            required
                                                             name="city"
-                                                            className="chosen-select"
                                                             value={searchForm.city}
-                                                            onChange={handleInputChange}>
+                                                            onChange={(e) => {
+                                                                handleInputChange(e);
+                                                            }}
+                                                        >
                                                             <option value="">Location</option>
-                                                            <option value="Any location">Any location</option>
-                                                            <option value="Chennai">Chennai</option>
-                                                            <option value="New York">New York</option>
-                                                            <option value="Perth">Perth</option>
-                                                            <option value="London">London</option>
+                                                            <option value="Any">Any location</option>
                                                         </select>
                                                     </div>
                                                 </li>

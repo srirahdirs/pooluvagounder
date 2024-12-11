@@ -49,6 +49,7 @@ const Login = () => {
 
       const data = await response.json();
       if (data.success) {
+        console.log(data, 'data');
         localStorage.setItem('authToken', data.token);
         setIsLoggedIn(true);  // Update login status
         setUser(data.user);

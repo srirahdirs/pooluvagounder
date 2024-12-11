@@ -78,7 +78,7 @@ const AboutSection = () => {
                                             <li>
                                                 <div>
                                                     <i className="fa fa-phone" aria-hidden="true"></i>
-                                                    {/* <h4>Enquiry <em>+01 2242 3366</em></h4> */}
+                                                    <h4>Enquiry <em>+91-4223568392</em></h4>
                                                 </div>
                                             </li>
                                             <li>
