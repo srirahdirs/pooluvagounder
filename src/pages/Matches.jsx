@@ -1,24 +1,50 @@
 import React from 'react'
+import { useEffect } from 'react'
+import { useState } from 'react';
 import { useAuth } from "../context/AuthContext";
-import { useLocation } from 'react-router-dom';
-import SearchProfile from './SearchProfile';
 
-const SearchResults = () => {
+const Matches = () => {
     const { isLoggedIn, user } = useAuth();
-    const location = useLocation();
-    const searchResults = location.state?.searchResults || [];
-    console.log(searchResults);
+    const [searchResults, setSearchResults] = useState('');
+    console.log(user);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://localhost:4000/api/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        gender: user.partner_preferences.gender,
+                        age: user.partner_preferences.age,
+                        religion: user.partner_preferences.religion,
+                        city: user.partner_preferences.city
+                    }),
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log(result, 'result');
+                    setSearchResults(result.data);  // Assuming you have a setSearchResults function
+                } else {
+                    console.error('Failed to fetch data');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+        fetchData();
+    }, [setSearchResults]);
     return (
         <>
             <section>
                 <div className="all-pro-head">
                     <div className="container">
                         <div className="row">
-                            <h1>Find Your Forever with Wedding Soul Mates</h1>
-                            {isLoggedIn
-                                ? (<a href="#" className='disabled-link'>Start Searching for Your Soulmate, {user.name}!<i className="fa fa-handshake-o" aria-hidden="true"></i></a>)
-                                : (<a href="/register">Join now for Free <i className="fa fa-handshake-o" aria-hidden="true"></i></a>)
-                            }
+                            <h1>Discover Your Perfect Match with Wedding Soul Mates</h1>
+                            <a href="/partnerpreferences">Check Your Matches, {user.name}!<i className="fa fa-handshake-o" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>
@@ -31,12 +57,12 @@ const SearchResults = () => {
                 <div className="all-weddpro all-jobs all-serexp chosenini">
                     <div className="container">
                         <div className="row">
-                            <SearchProfile />
                             <div className="col-md-9">
                                 <div className="short-all">
                                     <div className="short-lhs">
                                         Showing <b>{searchResults.length}</b> profiles
                                     </div>
+
                                     <div className="short-rhs">
                                         <ul>
                                             <li>Sort by:</li>
@@ -111,7 +137,9 @@ const SearchResults = () => {
                                                 </li>
                                             ))
                                         ) : (
-                                            <p>No profiles found</p>
+                                            <p style={{ textAlign: 'center' }}>No matches found! <br /> <br /> <a href="/partnerpreferences" className="btn btn-primary">Update your partner's preferences</a></p>
+
+
                                         )}
                                     </ul>
                                 </div>
@@ -119,9 +147,9 @@ const SearchResults = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section >
         </>
     );
 };
 
-export default SearchResults;
+export default Matches;

@@ -27,6 +27,7 @@ const UpdateUserProfile = () => {
     const [formData, setFormData] = useState({
         name: user.name,
         email: user.email,
+        about: user.about,
         phone: user.phone,
         password: "",
         gender: user.gender,
@@ -55,6 +56,7 @@ const UpdateUserProfile = () => {
         linkedin: user.linkedin,
         willing_to_marry_from_another_caste: user.willing_to_marry_from_another_caste === 1, // Co Make sure it's a boolean
         religion: user.religion,
+        mother_tongue: user.mother_tongue,
         caste: user.caste,
         sub_caste: user.sub_caste,
         gothram: user.gothram,
@@ -72,6 +74,7 @@ const UpdateUserProfile = () => {
         }));
     };
     useEffect(() => {
+        console.log(user);
         const fetchStates = async () => {
             try {
                 const response = await fetch(`https://countriesnow.space/api/v0.1/countries/states`, {
@@ -310,12 +313,9 @@ const UpdateUserProfile = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Perform full form validation before submission
         if (validateForm()) {
             const apiUrl = 'http://localhost:4000/api/updateProfile';
             const token = localStorage.getItem('authToken');
-            // Gather all data from formData into a JSON object
             const payload = {
                 token,
                 user_id: formData.user_id, // Assuming you have this in your formData
@@ -329,6 +329,7 @@ const UpdateUserProfile = () => {
                 fathers_name: formData.fathersName,
                 mothers_name: formData.mothersName,
                 address: formData.address,
+                about: formData.about,
                 marital_status: formData.marital_status,
             };
             console.log(payload);
@@ -342,6 +343,7 @@ const UpdateUserProfile = () => {
                 });
 
                 const data = await response.json();
+                console.log(data, "data");
                 if (data.success) {
                     setUser(data.user);
                     localStorage.setItem('user', JSON.stringify(data.user));
@@ -467,6 +469,7 @@ const UpdateUserProfile = () => {
             token,
             user_id: formData.user_id, // Assuming you have this in your formData
             religion: formData.religion,
+            mother_tongue: formData.mother_tongue,
             caste: formData.caste,
             sub_caste: formData.sub_caste,
             gothram: formData.gothram,
@@ -590,6 +593,17 @@ const UpdateUserProfile = () => {
                                                     </select>
                                                     {genderError && <p className="error-message">{genderError}</p>}
                                                 </div>
+
+                                            </div>
+                                            <div className="form-group">
+                                                <label className="lb">About yourself:</label>
+                                                <textarea
+                                                    className="form-control"
+                                                    name="about"
+                                                    value={formData.about || ''}
+                                                    onChange={handleChange}
+                                                    placeholder="Share a little about yourself: your personality, hobbies, values, and what you're looking for in a partner."
+                                                />
 
                                             </div>
                                             <div className="row">
@@ -854,28 +868,77 @@ const UpdateUserProfile = () => {
                                             <div className="row">
                                                 <div className="col-md-6 form-group">
                                                     <label className="lb">Religion:<span style={{ color: 'red' }}>*</span></label>
-                                                    <input
-                                                        type="text"
+                                                    <select
                                                         className="form-control"
                                                         name="religion"
-                                                        value={formData.religion}
+                                                        value={formData.religion || ''}
                                                         onChange={handleChange}
-                                                        placeholder="ex:Hindu/Muslim/Christian"
-                                                    />
+                                                    >
+                                                        <option value="">Select Religion</option>
+                                                        <option value="Hindu">Hindu</option>
+                                                        <option value="Muslim">Muslim</option>
+                                                        <option value="Christian">Christian</option>
+                                                        <option value="Sikh">Sikh</option>
+                                                        <option value="Buddhist">Buddhist</option>
+                                                        <option value="Jain">Jain</option>
+                                                        <option value="Parsi">Parsi</option>
+                                                        <option value="Jewish">Jewish</option>
+                                                        <option value="Other">Other</option>
+                                                    </select>
                                                     {religionError && <p className="error-message">{religionError}</p>}
                                                 </div>
+
                                                 <div className="col-md-6 form-group">
                                                     <label className="lb">Caste:<span style={{ color: 'red' }}>*</span></label>
-                                                    <input
-                                                        type="text"
+                                                    <select
                                                         className="form-control"
                                                         name="caste"
-                                                        value={formData.caste}
+                                                        value={formData.caste || ''}
                                                         onChange={handleChange}
-                                                        placeholder="ex:Gounder/Chettiar/Adidravidar"
-                                                    />
-                                                    {casteError && <p className="error-message">{casteError}</p>}
+                                                    >
+                                                        <option value="">Select Caste</option>
+                                                        <option value="Adi Dravidar">Adi Dravidar</option>
+                                                        <option value="Agarwal">Agarwal</option>
+                                                        <option value="Arya Vysya">Arya Vysya</option>
+                                                        <option value="Bania">Bania</option>
+                                                        <option value="Brahmin">Brahmin</option>
+                                                        <option value="Chettiar">Chettiar</option>
+                                                        <option value="Choudhary">Choudhary</option>
+                                                        <option value="Devanga">Devanga</option>
+                                                        <option value="Ezhava">Ezhava</option>
+                                                        <option value="Gounder">Gounder</option>
+                                                        <option value="Gujar">Gujar</option>
+                                                        <option value="Gupta">Gupta</option>
+                                                        <option value="Iyer">Iyer</option>
+                                                        <option value="Iyengar">Iyengar</option>
+                                                        <option value="Jain">Jain</option>
+                                                        <option value="Jat">Jat</option>
+                                                        <option value="Kamma">Kamma</option>
+                                                        <option value="Kayastha">Kayastha</option>
+                                                        <option value="Koli">Koli</option>
+                                                        <option value="Kshatriya">Kshatriya</option>
+                                                        <option value="Kuruba">Kuruba</option>
+                                                        <option value="Lingayat">Lingayat</option>
+                                                        <option value="Maratha">Maratha</option>
+                                                        <option value="Mudaliar">Mudaliar</option>
+                                                        <option value="Nadar">Nadar</option>
+                                                        <option value="Naidu">Naidu</option>
+                                                        <option value="Nair">Nair</option>
+                                                        <option value="Patel">Patel</option>
+                                                        <option value="Pillai">Pillai</option>
+                                                        <option value="Rajput">Rajput</option>
+                                                        <option value="Reddy">Reddy</option>
+                                                        <option value="SC">SC (Scheduled Caste)</option>
+                                                        <option value="ST">ST (Scheduled Tribe)</option>
+                                                        <option value="Thevar">Thevar</option>
+                                                        <option value="Vanniyar">Vanniyar</option>
+                                                        <option value="Vishwakarma">Vishwakarma</option>
+                                                        <option value="Yadav">Yadav</option>
+                                                        <option value="Other">Other</option>
+                                                    </select>
                                                 </div>
+
+                                                {casteError && <p className="error-message">{casteError}</p>}
                                             </div>
                                             <div className="row">
                                                 <div className="col-md-6 form-group">
@@ -931,6 +994,18 @@ const UpdateUserProfile = () => {
                                                         onChange={handleChange}
                                                         placeholder="ex:Meenam/Mesam"
                                                     />
+                                                </div>
+                                                <div className="col-md-6 form-group">
+                                                    <label className="lb">Mother Tongue:</label>
+                                                    <input
+                                                        type="text"
+                                                        className="form-control"
+                                                        name="mother_tongue"
+                                                        value={formData.mother_tongue}
+                                                        onChange={handleChange}
+                                                        placeholder="ex:Tamil/Telugu..."
+                                                    />
+
                                                 </div>
                                                 <div className="form-group" style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
                                                     <input
@@ -1052,8 +1127,8 @@ const UpdateUserProfile = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </div >
+        </section >
     );
 };
 

@@ -16,19 +16,22 @@ const Footer = () => {
             {/* <p>Address: 3812 Lena Lane City Jackson Mississippi</p> */}
             {/* <p>Phone: <a href="tel:+917904462944">+92 (8800) 68 - 8960</a></p> */}
             <p>Email: <a href="mailto:info@weddingsoulmates.com">info@weddingsoulmates.com</a></p>
+            <p>Email: <a href="mailto:support@weddingsoulmates.com">support@weddingsoulmates.com</a></p>
           </div>
           <div className="col-md-4">
             <h4>HELP &amp; SUPPORT</h4>
             <ul>
-              <li><a href="#">Wedding Soul Mates Matrimony</a>
+              <li><a href="/privacypolicy">Privacy Policy</a>
               </li>
-              <li><a href="#">Contact us</a>
+              <li><a href="/termsconditions">Terms & Conditions</a>
+              </li>
+              <li><a href="/contact">Contact us</a>
               </li>
               <li><a href="#">Feedback</a>
               </li>
               <li><a href="#">FAQs</a>
               </li>
-              <li><a href="#">Testimonials</a>
+              <li><a href="/refundpolicy">Refund Policy</a>
               </li>
             </ul>
           </div>

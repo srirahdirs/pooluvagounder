@@ -1,0 +1,66 @@
+import React from 'react';
+import '../assets/css/PrivacyPolicy.css'; // Import the CSS file for styling
+
+const TermsAndConditions = () => {
+    return (
+        <div className="terms-container">
+            <h1>Terms and Conditions</h1>
+            <p><strong>Effective Date:</strong> Decemeber 2024</p>
+
+            <div className="terms-content">
+                <h2>1. Introduction</h2>
+                <p>Welcome to <strong>WeddingSoulMates.com</strong>. By using our website, you agree to the following terms and conditions. Please read these terms carefully. If you do not agree with any part of these terms, you should not use our website.</p>
+
+                <h2>2. Eligibility</h2>
+                <p>To use our services, you must be at least 18 years of age and legally capable of entering into a binding contract. By registering with us, you warrant that you meet these eligibility requirements.</p>
+
+                <h2>3. User Responsibilities</h2>
+                <ul>
+                    <li>You agree to provide accurate, current, and complete information during registration and to update this information to keep it accurate and complete.</li>
+                    <li>You are responsible for maintaining the confidentiality of your login credentials and are fully responsible for all activities that occur under your account.</li>
+                    <li>You agree not to use the website for any illegal or unauthorized purpose.</li>
+                </ul>
+
+                <h2>4. Use of the Website</h2>
+                <p>Our website is intended for personal use only. You may not use the site for any commercial purposes without our prior written consent. Unauthorized use of the site may result in termination of your account.</p>
+
+                <h2>5. Content Ownership</h2>
+                <p>All content, including text, images, and graphics, provided on the website is the property of <strong>WeddingSoulMates.com</strong>. You are granted a limited, non-exclusive, and revocable license to view and use the content for personal purposes only.</p>
+
+                <h2>6. Prohibited Conduct</h2>
+                <p>While using the site, you agree not to engage in any of the following activities:</p>
+                <ul>
+                    <li>Impersonating any person or entity, or falsely stating or misrepresenting your affiliation with a person or entity.</li>
+                    <li>Posting or transmitting any content that is harmful, abusive, defamatory, or otherwise objectionable.</li>
+                    <li>Engaging in harassment, threatening, or stalking other users.</li>
+                    <li>Uploading any viruses, worms, or other harmful software.</li>
+                </ul>
+
+                <h2>7. Termination</h2>
+                <p>We reserve the right to suspend or terminate your account if you violate these terms. Upon termination, your right to use the website will cease immediately.</p>
+
+                <h2>8. Privacy Policy</h2>
+                <p>Your use of the website is also governed by our Privacy Policy. Please review our Privacy Policy for more information on how we collect and use your data.</p>
+
+                <h2>9. Limitation of Liability</h2>
+                <p><strong>WeddingSoulMates.com</strong> will not be liable for any direct, indirect, incidental, or consequential damages arising from your use of the website or any content provided on the website.</p>
+
+                <h2>10. Changes to the Terms</h2>
+                <p>We may update these Terms and Conditions from time to time. Any changes will be posted on this page, and the "Effective Date" at the top of the page will be updated accordingly.</p>
+
+                <h2>11. Governing Law</h2>
+                <p>These Terms and Conditions are governed by and construed in accordance with the laws of India/Tamilnadu, and you submit to the exclusive jurisdiction of the courts located in [Insert Location] for the resolution of any disputes.</p>
+
+                <h2>12. Contact Us</h2>
+                <p>If you have any questions about these Terms and Conditions, please contact us at:</p>
+
+                <div className="contact-info">
+                    <p><strong>Email:</strong> support@weddingsoulmates.com</p>
+                    <p><strong>Address:</strong> YoungZen Technologies, No 8a, 8th Cross, Sultanpalya Main Road, RT Nagar, Bangalore 560032, Karnataka, India.</p>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default TermsAndConditions;

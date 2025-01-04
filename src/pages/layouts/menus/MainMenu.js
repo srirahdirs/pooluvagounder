@@ -40,6 +40,10 @@ const MainMenu = () => {
 
                             <div className="bl">
                                 <ul>
+                                    <li><a href="/home">Home</a></li>
+                                    <li><a href="/allprofiles">Profiles</a></li>
+                                    <li><a href="/pricing">Pricing</a></li>
+                                    <li><a href="/about">About Us</a></li>
                                     {isLoggedIn ? (
                                         <>
                                             <li><a href="/matches">Matches</a></li>
@@ -52,8 +56,6 @@ const MainMenu = () => {
                                         </>
                                     )
                                     }
-                                    <li><a href="/pricing">Pricing</a></li>
-                                    <li><a href="/about">About Us</a></li>
                                     <li><a href="/contact">Contact Us</a></li>
                                 </ul>
                             </div>

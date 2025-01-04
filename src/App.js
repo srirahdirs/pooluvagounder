@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './pages/Home';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsConditions from './pages/TermsConditions';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Register from './pages/Register';
@@ -9,11 +11,15 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import AllProfiles from './pages/SearchResults';
 import UpdateUserProfile from './pages/User/UpdateUserProfile';
+import PartnerPreferences from './pages/User/PartnerPreferences';
 import UserProfile from './pages/User/UserProfile';
 import ComingSoon from './pages/ComingSoon';
 import Footer from './pages/layouts/Footer';
 import { AuthProvider } from './context/AuthContext';  // Correct import for AuthProvider
 import MainMenu from "./pages/layouts/menus/MainMenu";
+import ProfileDetails from "./pages/ProfileDetails";
+import RefundPolicy from "./pages/RefundPolicy";
+import Matches from "./pages/Matches";
 
 function App() {
   return (
@@ -32,10 +38,16 @@ function App() {
             <Route path="/about" element={<><About /><Footer /></>} />
             <Route path="/logout" element={<><Logout /><Footer /></>} />
             <Route path="/edituserprofile" element={<><UpdateUserProfile /><Footer /></>} />
+            <Route path="/partnerpreferences" element={<><PartnerPreferences /><Footer /></>} />
             <Route path="/userprofile" element={<><UserProfile /><Footer /></>} />
             <Route path="/allprofiles" element={<><AllProfiles /><Footer /></>} />
+            <Route path="/matches" element={<><Matches /><Footer /></>} />
+            <Route path="/profiledetails/:id" element={<><ProfileDetails /><Footer /></>} />
             <Route path="*" element={<ComingSoon />} />
             <Route path="/comingsoon" element={<ComingSoon />} />
+            <Route path="/privacypolicy" element={<><PrivacyPolicy /><Footer /></>} />
+            <Route path="/termsconditions" element={<><TermsConditions /><Footer /></>} />
+            <Route path="/refundpolicy" element={<><RefundPolicy /><Footer /></>} />
           </Routes>
         </div>
       </Router>

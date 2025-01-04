@@ -56,7 +56,21 @@ const Contact = () => {
                                         <img src={`${process.env.PUBLIC_URL}/matrimo/images/icon/trust.png`} alt="Customer Relations" />
                                         <h4>Customer Relations</h4>
                                         <p>Our dedicated team is here to help you with any questions or concerns. We pride ourselves on offering the most trusted and premium matrimony services in the world.</p>
-                                        <a href="mailto:info@weddingsoulmates.com" className="cta-rou-line">Get Support</a>
+                                        <a
+                                            href="#"
+                                            className="cta-rou-line disabled-link"
+                                            data-toggle="tooltip"  // Enable the tooltip functionality
+                                            title="Exciting things are on the way! Our website is under construction and will be live soon. Stay tuned!"  // Tooltip text
+                                            onClick={(e) => e.preventDefault()}  // Prevents the default action (no page reload)
+                                            style={{ cursor: "not-allowed" }}  // Optional: Show a "not allowed" cursor
+                                        >
+                                            Get Support
+                                        </a>
+
+
+
+
+
                                     </div>
                                 </li>
                                 <li>
@@ -65,7 +79,7 @@ const Contact = () => {
                                         <p>YoungZen Technologies</p>
 
                                         <span><i className="fa fa-envelope-o" aria-hidden="true"></i> info@youngzen.in</span>
-                                        <span><i class="fa fa-phone" aria-hidden="true"></i> +91-4223568392</span>
+                                        <span><i className="fa fa-phone" aria-hidden="true"></i> +91-4223568392</span>
                                         <span><i className="fa fa-map-marker" aria-hidden="true"></i> No 8a, 8th Cross, Sultanpalya Main Road, RT Nagar, Bangalore 560032, Karnataka, India.</span>
                                     </div>
                                 </li>
@@ -74,17 +88,17 @@ const Contact = () => {
                                         <img src={`${process.env.PUBLIC_URL}/matrimo/images/icon/telephone.png`} alt="WhatsApp Support" />
                                         <h4>WhatsApp Support</h4>
                                         <p>Contact us directly on WhatsApp for instant support. Our team is available to assist you with any inquiries you may have regarding our services.</p>
-                                        <a href="https://wa.me/9789253515" className="cta-rou-line" target="_blank" rel="noopener noreferrer">Talk to Sales</a>
+                                        <a href="https://whatsapp.com/channel/0029Vb0i0A977qVRhoJKR80e" className="cta-rou-line" target="_blank" rel="noopener noreferrer">Join Channel</a>
                                     </div>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* Contact Form Section */}
-            <section>
+            < section >
                 <div className="login pg-cont">
                     <div className="container">
                         <div className="row">
@@ -165,7 +179,7 @@ const Contact = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section >
         </>
     );
 };

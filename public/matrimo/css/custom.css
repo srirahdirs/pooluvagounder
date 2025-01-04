@@ -424,3 +424,88 @@ h6 {
 .ban-search ul li input[type="submit"] {
     padding: 5px 25px;
 }
+
+.pro-info-status .stat-1 {
+    margin-right: 5px;
+}
+
+.profi-ban {
+    margin-top: 0;
+    padding: 0px;
+}
+
+.all-pro-head {
+    margin-top: 0;
+}
+
+.disabled-link {
+    pointer-events: none;
+    /* Disable the link */
+    color: grey;
+    /* Change the color to indicate it's disabled */
+    cursor: not-allowed;
+    /* Show "not allowed" cursor */
+}
+
+.disabled-link:hover::after {
+    content: attr(title);
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    white-space: nowrap;
+    font-size: 12px;
+    z-index: 10;
+    top: -25px;
+    /* Adjust as needed */
+    left: 0;
+    /* Adjust as needed */
+}
+
+/* Tooltip container */
+.cta-rou-line.disabled-link {
+    position: relative;
+    display: inline-block;
+}
+
+/* Tooltip text */
+.cta-rou-line.disabled-link::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Show tooltip on hover */
+.cta-rou-line.disabled-link:hover::after {
+    visibility: visible;
+    opacity: 1;
+}
+
+.blurred-section {
+    filter: blur(5px);
+    pointer-events: none;
+    /* Prevent interaction with the blurred content */
+}
+
+.purchase-plan-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.purchase-plan-btn:hover {
+    background-color: #0056b3;
+}

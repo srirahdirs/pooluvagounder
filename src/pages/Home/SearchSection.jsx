@@ -1,7 +1,11 @@
 import React from 'react'
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SearchSection = () => {
+    const [searchResult, setSearchResults] = useState('');
+    const navigate = useNavigate();
+
     const [searchForm, setSearchForm] = useState({
         lookingFor: '',
         age: '',
@@ -20,6 +24,7 @@ const SearchSection = () => {
 
     // Submit handler (if you want to process the form submission)
     const handleSubmit = async (e) => {
+
         e.preventDefault(); // Ensure that the form doesn't refresh the page
         try {
             const response = await fetch('http://localhost:4000/api/search', {
@@ -31,8 +36,9 @@ const SearchSection = () => {
             });
 
             if (response.ok) {
-
-
+                const result = await response.json();
+                setSearchResults(result.data);  // Assuming you have a setSearchResults function in context or state
+                navigate('/allprofiles', { state: { searchResults: result.data } });
             } else {
                 console.error('Failed');
             }

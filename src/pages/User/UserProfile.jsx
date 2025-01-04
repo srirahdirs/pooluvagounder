@@ -285,8 +285,8 @@ const UserProfile = () => {
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="user-interests.html">
-                                                    <i className="fa fa-handshake-o" aria-hidden="true"></i>Interests
+                                                <a href="/partnerpreferences">
+                                                    <i className="fa fa-handshake-o" aria-hidden="true"></i>Partner Preferences
                                                 </a>
                                             </li>
                                             <li>
