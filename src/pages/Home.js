@@ -32,7 +32,7 @@ const Home = () => {
                             <img src={`${process.env.PUBLIC_URL}/matrimo/images/ban-bg.jpg`} alt="Banner" loading="lazy" />
                         </div>
                         <div className="image">
-                            <img src={`${process.env.PUBLIC_URL}/matrimo/images/ban-bg.jpg`} alt="Banner" loading="lazy" />
+                            <img src={`${process.env.PUBLIC_URL}/matrimo/images/banner1.jpg`} style={{ width: '100%' }} alt="Banner" loading="lazy" />
                         </div>
                     </Slider>
                 </div>
