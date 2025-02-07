@@ -174,9 +174,9 @@ const UpdateUserProfile = () => {
             localStorage.setItem("user", JSON.stringify(updatedUser));
         }
 
-        // if (name != 'dob') {
-        //     setFormData({ ...formData, [name]: value });
-        // }
+        if (name != 'dob') {
+            setFormData({ ...formData, [name]: value });
+        }
         // if (name === 'dob') {
         //     if (value === '') {
         //         setDobError('Dob is required');
@@ -422,6 +422,7 @@ const UpdateUserProfile = () => {
         // Perform full form validation before submission
 
         const token = localStorage.getItem('authToken');
+
         const payload = {
             token,
             user_id: formData.user_id, // Assuming you have this in your formData
