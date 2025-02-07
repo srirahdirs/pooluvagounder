@@ -3,7 +3,7 @@ import '../assets/css/RefundPolicy.css';
 
 const RefundPolicy = () => {
     return (
-        <div className="refund-policy">
+        <div className="privacy-container mb-5">
             <main className="content">
                 <div className="container">
                     <h2>Refund Policy</h2>

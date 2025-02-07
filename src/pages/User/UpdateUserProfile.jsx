@@ -11,11 +11,30 @@ const UpdateUserProfile = () => {
     const [states, setStates] = useState([]);
     const [cities, setCities] = useState([]);
     const { toast, showToast, clearToast } = useToast();
+    const [dobError, setDobError] = useState('');
+
+    // Get today's date and set minAllowedDate to 18 years back
+    const today = new Date();
+    const minAllowedDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate())
+        .toISOString()
+        .split('T')[0];
 
     const [user, setUser] = useState(() => {
         const savedUser = localStorage.getItem('user');
         return savedUser ? JSON.parse(savedUser) : {};
     });
+
+    function calculateAge(dob) {
+        if (!dob) return "";
+        const birthDate = new Date(dob);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+    }
 
     const apiUrl = config?.apiUrl;
     let fullApiUrl;
@@ -33,7 +52,6 @@ const UpdateUserProfile = () => {
         const formattedDate = dob.toISOString().split('T')[0]; // Format to YYYY-MM-DD
         user.dob = formattedDate;
     }
-
 
     const [formData, setFormData] = useState({
         name: user.name,
@@ -130,28 +148,45 @@ const UpdateUserProfile = () => {
     const cityOptions = cities.map((city) => ({ label: city, value: city }));
 
     const handleChange = (e) => {
-
         const { name, value } = e.target;
-        if (name === 'gender') {
-            if (value.trim() === '') {
-                setGenderError('Gender is required');
-            } else {
-                setGenderError('');
-            }
-        }
-        if (name != 'dob') {
-            setFormData({ ...formData, [name]: value });
-        }
-        if (name === 'dob') {
-            if (value === '') {
-                setDobError('Dob is required');
-            } else {
-                setDobError('');
-            }
-            const formattedDate = format(value, 'yyyy-MM-dd');
 
-            setFormData({ ...formData, dob: formattedDate });
+        if (name === "dob") {
+            if (!value) {
+                setDobError("Date of Birth is required");
+                return;
+            }
+            setDobError("");
+
+            const selectedDate = new Date(value);
+            const minAllowed = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+
+            if (selectedDate > minAllowed) {
+                setDobError("You must be at least 18 years old.");
+                return;
+            }
+
+            const calculatedAge = calculateAge(value);
+            setFormData({ ...formData, dob: value, age: calculatedAge });
+
+            // Update localStorage as well
+            const updatedUser = { ...user, dob: value };
+            setUser(updatedUser);
+            localStorage.setItem("user", JSON.stringify(updatedUser));
         }
+
+        // if (name != 'dob') {
+        //     setFormData({ ...formData, [name]: value });
+        // }
+        // if (name === 'dob') {
+        //     if (value === '') {
+        //         setDobError('Dob is required');
+        //     } else {
+        //         setDobError('');
+        //     }
+        //     const formattedDate = format(value, 'yyyy-MM-dd');
+
+        //     setFormData({ ...formData, dob: formattedDate });
+        // }
         if (name === 'state') {
             if (value.trim() === '') {
                 setStateError('State is required');
@@ -167,14 +202,24 @@ const UpdateUserProfile = () => {
             }
         }
 
-        if (name === 'age') {
+        // if (name === 'age') {
 
-            if (value.trim() === '') {
-                setAgeError('Age is required');
+        //     if (value.trim() === '') {
+        //         setAgeError('Age is required');
+        //     } else {
+        //         setAgeError('');
+        //     }
+        // }
+
+
+        if (name === "age") {
+            if (value.trim() === "") {
+                setAgeError("Age is required");
             } else {
-                setAgeError('');
+                setAgeError("");
             }
         }
+
         if (name === 'weight') {
             if (value.trim() === '') {
                 setWeightError('Weight is required');
@@ -228,7 +273,6 @@ const UpdateUserProfile = () => {
         }
     };
     const validateForm = (fieldValues = formData) => {
-
 
         let isValid = true;
 
@@ -511,7 +555,7 @@ const UpdateUserProfile = () => {
     const [genderError, setGenderError] = useState('');
     const [stateError, setStateError] = useState('');
     const [cityError, setCityError] = useState('');
-    const [dobError, setDobError] = useState('');
+    // const [dobError, setDobError] = useState('');
     const [ageError, setAgeError] = useState('');
     const [heightError, setHeightError] = useState('');
     const [weightError, setWeightError] = useState('');
@@ -647,8 +691,8 @@ const UpdateUserProfile = () => {
                                                 </div>
                                             </div>
                                             <div className="row">
-                                                <div className="col-md-6 form-group dob-container">
-                                                    <label className="lb">Date of birth:<span style={{ color: 'red' }}>*</span></label>
+                                                {/* <div className="col-md-6 form-group dob-container">
+                                                    <label className="lb">Date of Birth:<span style={{ color: 'red' }}>*</span></label>
                                                     <div className="flex justify-content-center">
                                                         <input
                                                             type="date"
@@ -660,20 +704,36 @@ const UpdateUserProfile = () => {
                                                     </div>
 
                                                     {dobError && <p className="error-message">{dobError}</p>}
-                                                </div>
+                                                </div> */}
                                                 <div className="col-md-6 form-group">
-                                                    <label className="lb">Age:<span style={{ color: 'red' }}>*</span></label>
-                                                    <div className="form-group">
-                                                        <input
-                                                            type="text"
-                                                            className="form-control"
-                                                            name="age"
-                                                            onChange={(e) => {
-                                                                handleChange(e);
-                                                            }}
-                                                            value={formData.age || ''}
-                                                        />
-                                                    </div>
+                                                    <label className="lb">
+                                                        Date of Birth:<span style={{ color: "red" }}>*</span>
+                                                    </label>
+                                                    <input
+                                                        type="date"
+                                                        className="form-control"
+                                                        name="dob"
+                                                        onChange={handleChange}
+                                                        value={formData.dob}
+                                                        // defaultValue={'24/04/1992'}
+                                                        max={minAllowedDate} // Prevent future date selection
+                                                    />
+                                                    {dobError && <p className="error-message">{dobError}</p>}
+                                                </div>
+
+                                                {/* Age Input Field (Read-Only) */}
+                                                <div className="col-md-6 form-group">
+                                                    <label className="lb">
+                                                        Age:<span style={{ color: "red" }}>*</span>
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        className="form-control"
+                                                        name="age"
+                                                        onChange={handleChange}
+                                                        value={formData.age || ""}
+                                                        readOnly // Prevent manual edits
+                                                    />
                                                     {ageError && <p className="error-message">{ageError}</p>}
                                                 </div>
                                             </div>
@@ -703,7 +763,7 @@ const UpdateUserProfile = () => {
                                             </div>
                                             <div className="row">
                                                 <div className="col-md-6 form-group">
-                                                    <label className="lb">Father's name:<span style={{ color: 'red' }}>*</span></label>
+                                                    <label className="lb">Father's Name:<span style={{ color: 'red' }}>*</span></label>
                                                     <input
                                                         type="text"
                                                         className="form-control"
@@ -714,7 +774,7 @@ const UpdateUserProfile = () => {
                                                     {fathersNameError && <p className="error-message">{fathersNameError}</p>}
                                                 </div>
                                                 <div className="col-md-6 form-group">
-                                                    <label className="lb">Mother's name:<span style={{ color: 'red' }}>*</span></label>
+                                                    <label className="lb">Mother's Name:<span style={{ color: 'red' }}>*</span></label>
                                                     <input
                                                         type="text"
                                                         className="form-control"
@@ -774,14 +834,14 @@ const UpdateUserProfile = () => {
                                                 <h1>Job & Education</h1>
                                             </div>
                                             <div className="form-group">
-                                                <label className="lb">Job type:</label>
+                                                <label className="lb">Job Type:</label>
                                                 <select
                                                     className="form-select"
                                                     name="job_type"
                                                     value={formData.job_type}
                                                     onChange={handleChange}
                                                 >
-                                                    <option value="">Select your Job Type</option>
+                                                    <option value="">Select Your Job Type</option>
                                                     <option value="Business">Business</option>
                                                     <option value="Employee">Employee</option>
                                                     <option value="Government">Government</option>
@@ -789,7 +849,7 @@ const UpdateUserProfile = () => {
                                                 </select>
                                             </div>
                                             <div className="form-group">
-                                                <label className="lb">Company name:</label>
+                                                <label className="lb">Company Name:</label>
                                                 <input
                                                     type="text"
                                                     className="form-control"
@@ -810,7 +870,7 @@ const UpdateUserProfile = () => {
                                                     />
                                                 </div>
                                                 <div className="col-md-6 form-group">
-                                                    <label className="lb">Total experience:</label>
+                                                    <label className="lb">Total Experience:</label>
                                                     <input
                                                         type="text"
                                                         className="form-control"

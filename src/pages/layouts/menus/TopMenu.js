@@ -10,7 +10,7 @@ const TopMenu = () => {
                 <div className="row">
                     <div className="lhs">
                         <ul>
-                            <li><a href="#!" className="ser-open" aria-label="Search"><i className="fa fa-search" aria-hidden="true"></i></a></li>
+                            <li><a href="/matches" className="ser-open" aria-label="Search"><i className="fa fa-search" aria-hidden="true"></i></a></li>
                             <li><a href="/about">About</a></li>
                             {/* <li><a href="faq.html">FAQ</a></li> */}
                             <li><a href="/contact">Contact</a></li>

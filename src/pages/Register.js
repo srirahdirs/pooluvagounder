@@ -225,7 +225,7 @@ const Registration = () => {
                                                 <div className="form-group form-check">
                                                     <label className="form-check-label">
                                                         <input className="form-check-input" type="checkbox" name="agree" required />{' '}
-                                                        Creating an account means you're okay with our <a href="#!">Terms of Service</a>, Privacy Policy, and our default Notification Settings.
+                                                        Creating an account means you're okay with our <a href="/termsconditions">Terms of Service</a>, Privacy Policy, and our default Notification Settings.
                                                     </label>
                                                 </div>
                                                 <button type="submit" className="btn btn-primary">Create Account</button>

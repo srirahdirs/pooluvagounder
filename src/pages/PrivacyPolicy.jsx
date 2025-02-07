@@ -3,13 +3,13 @@ import '../assets/css/PrivacyPolicy.css'; // Import the CSS file for styling
 
 const PrivacyPolicy = () => {
     return (
-        <div className="privacy-container">
+        <div className="privacy-container mb-5">
             <h1>Privacy Policy</h1>
             <p><strong>Effective Date:</strong> Decemeber 2024</p>
             <div className="privacy-content">
                 <p>At <strong>WeddingSoulMates.com</strong>, your privacy is of utmost importance to us. This Privacy Policy explains how we collect, use, and protect your personal information when you visit and use our website. By using our website, you consent to the practices described in this policy.</p>
 
-                <h2>1. Information We Collect</h2>
+                <h2 className='text-start'>1. Information We Collect</h2>
                 <p>We collect various types of personal information to provide you with a safe and customized experience. The types of information we collect include:</p>
                 <ul>
                     <li><strong>Personal Information:</strong> Name, gender, age, height, weight, marital status, job type, income details, mother tongue, religion, caste, sub-caste, gothram, dosham, star, raasi, physical status, food preferences, alcohol consumption, and smoking preferences.</li>
@@ -20,7 +20,7 @@ const PrivacyPolicy = () => {
                     <li><strong>Other Information:</strong> Any data you provide through messaging, comments, and interactions on the platform.</li>
                 </ul>
 
-                <h2>2. How We Use Your Information</h2>
+                <h2 className='text-start'>2. How We Use Your Information</h2>
                 <p>The information collected is used for the following purposes:</p>
                 <ul>
                     <li>To create and manage your profile.</li>
@@ -31,7 +31,7 @@ const PrivacyPolicy = () => {
                     <li>To enforce our terms and prevent fraudulent or unauthorized activity.</li>
                 </ul>
 
-                <h2>3. Sharing of Information</h2>
+                <h2 className='text-start'>3. Sharing of Information</h2>
                 <p>We do not share your personal information with third parties except in the following situations:</p>
                 <ul>
                     <li><strong>With Consent:</strong> When you explicitly agree to share your information with another user or third party.</li>
@@ -39,10 +39,10 @@ const PrivacyPolicy = () => {
                     <li><strong>Legal Obligations:</strong> If required by law, we may disclose your information to comply with legal processes, investigations, or to protect our rights and the safety of others.</li>
                 </ul>
 
-                <h2>4. Data Security</h2>
+                <h2 className='text-start'>4. Data Security</h2>
                 <p>We implement robust security measures to protect your personal information. However, no online service can be completely secure. We encourage you to safeguard your login credentials and report any suspicious activity to us immediately.</p>
 
-                <h2>5. User Controls</h2>
+                <h2 className='text-start'>5. User Controls</h2>
                 <p>You have control over your personal information:</p>
                 <ul>
                     <li><strong>Editing Profile:</strong> You can review and update your profile details at any time.</li>
@@ -50,16 +50,16 @@ const PrivacyPolicy = () => {
                     <li><strong>Email/Notification Preferences:</strong> You can manage your notification preferences in your account settings.</li>
                 </ul>
 
-                <h2>6. Cookies and Tracking Technologies</h2>
+                <h2 className='text-start'>6. Cookies and Tracking Technologies</h2>
                 <p>We use cookies and similar tracking technologies to enhance your browsing experience, analyze site traffic, and personalize content. You can manage your cookie preferences through your browser settings.</p>
 
-                <h2>7. Children's Privacy</h2>
+                <h2 className='text-start'>7. Children's Privacy</h2>
                 <p>Our website is not intended for use by individuals under the age of 18. We do not knowingly collect personal information from children.</p>
 
-                <h2>8. Changes to This Privacy Policy</h2>
+                <h2 className='text-start'>8. Changes to This Privacy Policy</h2>
                 <p>We may update this Privacy Policy periodically to reflect changes in our practices or legal requirements. When we make changes, we will notify you by updating the "Effective Date" at the top of this page.</p>
 
-                <h2>9. Contact Us</h2>
+                <h2 className='text-start'>9. Contact Us</h2>
                 <p>If you have any questions or concerns about our Privacy Policy, please contact us at:</p>
 
                 <div className="contact-info">

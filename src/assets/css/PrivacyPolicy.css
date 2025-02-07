@@ -31,3 +31,13 @@ ul {
     color: #333;
     font-weight: bold;
 }
+
+@media(max-width:767px) {
+    .privacy-container {
+        width: 90%;
+        margin: 0 auto;
+        padding: 1px;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+}
