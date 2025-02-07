@@ -1,42 +1,61 @@
-import React from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from "../context/AuthContext";
-
+import config from '../config';
+import { useNavigate } from 'react-router-dom';
+import CryptoJS from 'crypto-js';
 const Matches = () => {
     const { isLoggedIn, user } = useAuth();
-    const [searchResults, setSearchResults] = useState('');
-    console.log(user);
+    const [searchResults, setSearchResults] = useState([]);
+    const navigate = useNavigate();
+
+    // Redirect to login if not logged in
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('http://localhost:4000/api/search', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        gender: user.partner_preferences.gender,
-                        age: user.partner_preferences.age,
-                        religion: user.partner_preferences.religion,
-                        city: user.partner_preferences.city
-                    }),
-                });
+        if (!isLoggedIn) {
+            navigate('/login');
+        }
+    }, [isLoggedIn, navigate]);
 
-                if (response.ok) {
-                    const result = await response.json();
-                    console.log(result, 'result');
-                    setSearchResults(result.data);  // Assuming you have a setSearchResults function
-                } else {
-                    console.error('Failed to fetch data');
+    const apiUrl = config?.apiUrl;
+    let fullApiUrl;
+    if (apiUrl) {
+        fullApiUrl = apiUrl + 'search';
+    } else {
+        console.error('Invalid API URL');
+    }
+
+    const secretKey = config?.cryptoSecretKey;
+    useEffect(() => {
+        if (isLoggedIn && user) {
+            const fetchData = async () => {
+                try {
+                    const response = await fetch(fullApiUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            gender: user.partner_preferences.gender,
+                            age: user.partner_preferences.age,
+                            religion: user.partner_preferences.religion,
+                            city: user.partner_preferences.city
+                        }),
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        setSearchResults(result.data || []);  // Update search results
+                    } else {
+                        console.error('Failed to fetch data');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
                 }
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        };
+            };
 
-        fetchData();
-    }, [setSearchResults]);
+            fetchData();
+        }
+    }, [isLoggedIn, user, fullApiUrl]);
+
     return (
         <>
             <section>
@@ -44,7 +63,7 @@ const Matches = () => {
                     <div className="container">
                         <div className="row">
                             <h1>Discover Your Perfect Match with Wedding Soul Mates</h1>
-                            <a href="/partnerpreferences">Check Your Matches, {user.name}!<i className="fa fa-handshake-o" aria-hidden="true"></i></a>
+                            {user && <a href="/partnerpreferences">Check Your Matches, {user.name}!<i className="fa fa-handshake-o" aria-hidden="true"></i></a>}
                         </div>
                     </div>
                 </div>
@@ -92,62 +111,60 @@ const Matches = () => {
                                 <div className="all-list-sh">
                                     <ul>
                                         {searchResults.length > 0 ? (
-                                            searchResults.map((profile, index) => (
-                                                <li key={profile.user_id || index}>
-                                                    <div className="all-pro-box user-avil-onli" data-useravil="avilyes" data-aviltxt="Available online">
-                                                        <div className="pro-img">
-
-                                                            {profile.profile_picture ? (
-                                                                <a href={`/profiledetails/${profile.user_id}`}>
-                                                                    <img src={profile.profile_picture} alt={profile.name} />
-                                                                </a>
-                                                            ) : (
-                                                                <a href={`/profiledetails/${profile.user_id}`}>
-                                                                    <img src={`${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`} alt={profile.name} />
-                                                                </a>
-                                                            )}
-
-                                                            <div className="pro-ave" title="User currently available">
-                                                                <span className="pro-ave-yes"></span>
+                                            searchResults.map((profile, index) => {
+                                                const encryptedUserId = CryptoJS.AES.encrypt(profile.user_id.toString(), secretKey).toString();
+                                                return (
+                                                    <li key={profile.user_id || index}>
+                                                        <div className="all-pro-box user-avil-onli" data-useravil="avilyes" data-aviltxt="Available online">
+                                                            <div className="pro-img">
+                                                                {profile.profile_picture ? (
+                                                                    <a href={`/profiledetails/${encodeURIComponent(encryptedUserId)}`}>
+                                                                        <img src={profile.profile_picture} alt={profile.name} />
+                                                                    </a>
+                                                                ) : (
+                                                                    <a href={`/profiledetails/${encodeURIComponent(encryptedUserId)}`}>
+                                                                        <img src={`${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`} alt={profile.name} />
+                                                                    </a>
+                                                                )}
+                                                                <div className="pro-ave" title="User currently available">
+                                                                    <span className="pro-ave-yes"></span>
+                                                                </div>
+                                                                <div className="pro-avl-status">
+                                                                    <h5>Available</h5>
+                                                                </div>
                                                             </div>
-                                                            <div className="pro-avl-status">
-                                                                <h5>Available</h5>
+
+                                                            <div className="pro-detail">
+                                                                <h4><a href={`/profiledetails/${encodeURIComponent(encryptedUserId)}`}>{profile.name}</a></h4>
+                                                                <div className="pro-bio">
+                                                                    <span>{profile.degree || 'N/A'}</span>
+                                                                    <span>{profile.job_type || 'N/A'}</span>
+                                                                    <span>{profile.age} Years old</span>
+                                                                    <span>Height: {profile.height || 'N/A'} </span>
+                                                                </div>
+                                                                <div className="links">
+                                                                    <span className="cta-chat">Chat now</span>
+                                                                    <a href={`/profiledetails/${encodeURIComponent(encryptedUserId)}`}>More details</a>
+                                                                </div>
                                                             </div>
+                                                            <span className="enq-sav" data-toggle="tooltip" title="Click to save this profile.">
+                                                                <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                                            </span>
                                                         </div>
-
-                                                        <div className="pro-detail">
-                                                            <h4><a href={`/profiledetails/${profile.user_id}`}>{profile.name}</a></h4>
-                                                            <div className="pro-bio">
-                                                                <span>{profile.degree || 'N/A'}</span>
-                                                                <span>{profile.job_type || 'N/A'}</span>
-                                                                <span>{profile.age} Years old</span>
-                                                                <span>Height: {profile.height || 'N/A'} </span>
-                                                            </div>
-                                                            <div className="links">
-                                                                <span className="cta-chat">Chat now</span>
-                                                                {/* <a href={`https://wa.me/${profile.phone}`}>WhatsApp</a> */}
-                                                                {/* <a href="#!" className="cta cta-sendint" data-bs-toggle="modal" data-bs-target="#sendInter">Send interest</a> */}
-                                                                <a href={`/profiledetails/${profile.user_id}`}>More details</a>
-                                                            </div>
-                                                        </div>
-                                                        <span className="enq-sav" data-toggle="tooltip" title="Click to save this profile.">
-                                                            <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                            ))
+                                                    </li>
+                                                );
+                                            })
                                         ) : (
                                             <p style={{ textAlign: 'center' }}>No matches found! <br /> <br /> <a href="/partnerpreferences" className="btn btn-primary">Update your partner's preferences</a></p>
-
-
                                         )}
                                     </ul>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section >
+            </section>
         </>
     );
 };

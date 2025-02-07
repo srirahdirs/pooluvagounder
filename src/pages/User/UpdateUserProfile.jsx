@@ -4,18 +4,28 @@ import Select from 'react-select';
 import { format } from 'date-fns';
 import { Toast } from "primereact/toast";
 import { useToast } from '../../assets/utils/toastUtil';
+import config from '../../config';
 const UpdateUserProfile = () => {
 
 
     const [states, setStates] = useState([]);
     const [cities, setCities] = useState([]);
-    const { toast, showToast } = useToast();
+    const { toast, showToast, clearToast } = useToast();
 
     const [user, setUser] = useState(() => {
         const savedUser = localStorage.getItem('user');
         return savedUser ? JSON.parse(savedUser) : {};
     });
-    // Check if 'dob' is a valid date
+
+    const apiUrl = config?.apiUrl;
+    let fullApiUrl;
+    if (apiUrl) {
+        fullApiUrl = apiUrl + 'updateProfile';
+    } else {
+        console.error('Invalid API url');
+    }
+
+
     const dob = new Date(user.dob);
     if (isNaN(dob.getTime())) {
         // return res.status(400).json({ message: 'Invalid date format for date of birth' });
@@ -23,6 +33,7 @@ const UpdateUserProfile = () => {
         const formattedDate = dob.toISOString().split('T')[0]; // Format to YYYY-MM-DD
         user.dob = formattedDate;
     }
+
 
     const [formData, setFormData] = useState({
         name: user.name,
@@ -314,7 +325,6 @@ const UpdateUserProfile = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validateForm()) {
-            const apiUrl = 'http://localhost:4000/api/updateProfile';
             const token = localStorage.getItem('authToken');
             const payload = {
                 token,
@@ -334,7 +344,7 @@ const UpdateUserProfile = () => {
             };
             console.log(payload);
             try {
-                const response = await fetch(apiUrl, {
+                const response = await fetch(fullApiUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -367,9 +377,7 @@ const UpdateUserProfile = () => {
 
         // Perform full form validation before submission
 
-        const apiUrl = 'http://localhost:4000/api/updateProfile';
         const token = localStorage.getItem('authToken');
-        // Gather all data from formData into a JSON object
         const payload = {
             token,
             user_id: formData.user_id, // Assuming you have this in your formData
@@ -383,7 +391,7 @@ const UpdateUserProfile = () => {
         };
 
         try {
-            const response = await fetch(apiUrl, {
+            const response = await fetch(fullApiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -409,7 +417,6 @@ const UpdateUserProfile = () => {
 
         // Perform full form validation before submission
 
-        const apiUrl = 'http://localhost:4000/api/updateProfile';
         const token = localStorage.getItem('authToken');
         // Gather all data from formData into a JSON object
         const payload = {
@@ -424,7 +431,7 @@ const UpdateUserProfile = () => {
         };
 
         try {
-            const response = await fetch(apiUrl, {
+            const response = await fetch(fullApiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -462,7 +469,6 @@ const UpdateUserProfile = () => {
         } else {
             setCasteError('');
         }
-        const apiUrl = 'http://localhost:4000/api/updateProfile';
         const token = localStorage.getItem('authToken');
         // Gather all data from formData into a JSON object
         const payload = {
@@ -480,7 +486,7 @@ const UpdateUserProfile = () => {
         };
 
         try {
-            const response = await fetch(apiUrl, {
+            const response = await fetch(fullApiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -936,9 +942,10 @@ const UpdateUserProfile = () => {
                                                         <option value="Yadav">Yadav</option>
                                                         <option value="Other">Other</option>
                                                     </select>
+                                                    {casteError && <p className="error-message">{casteError}</p>}
                                                 </div>
 
-                                                {casteError && <p className="error-message">{casteError}</p>}
+
                                             </div>
                                             <div className="row">
                                                 <div className="col-md-6 form-group">
@@ -1113,6 +1120,7 @@ const UpdateUserProfile = () => {
                                                     <button
                                                         type="button"
                                                         className="btn btn-primary"
+                                                        disabled={!(formData.whatsapp || formData.facebook || formData.instagram || formData.twitter || formData.youtube || formData.linkedin)}
                                                         onClick={handleSocialMediaSubmit}
                                                     >
                                                         Save & Complete

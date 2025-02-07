@@ -3,7 +3,7 @@ import { Toast } from 'primereact/toast';
 import { useToast } from '../assets/utils/toastUtil';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';  // Import the correct AuthContext
-
+import config from '../../src/config';
 const Login = () => {
   const { toast, showToast } = useToast();
   const navigate = useNavigate();
@@ -15,7 +15,14 @@ const Login = () => {
 
   const { setUser, isLoggedIn, setIsLoggedIn } = useAuth();
 
+  const apiUrl = config?.apiUrl;
+  let fullApiUrl;
+  if (apiUrl) {
+    fullApiUrl = apiUrl + 'login';
 
+  } else {
+    console.error('Invalid API url');
+  }
   useEffect(() => {
     if (isLoggedIn) {
       setTimeout(() => {
@@ -26,11 +33,8 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    const apiUrl = 'http://localhost:4000/api/login';  // Update API URL
-
     try {
-      const response = await fetch(apiUrl, {
+      const response = await fetch(fullApiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

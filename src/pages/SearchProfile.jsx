@@ -4,12 +4,20 @@ import { useNavigate } from 'react-router-dom';
 import { useToast } from '../assets/utils/toastUtil';
 import { Toast } from 'primereact/toast';
 import { useRef } from 'react';
+import config from '../config';
 
 const SearchProfile = () => {
   const [searchResult, setSearchResults] = useState('');
   const navigate = useNavigate();
   const { toast, showToast } = useToast();
 
+  const apiUrl = config?.apiUrl;
+  let fullApiUrl;
+  if (apiUrl) {
+    fullApiUrl = apiUrl + 'search';
+  } else {
+    console.error('Invalid API url');
+  }
   const [searchForm, setSearchForm] = useState({
     gender: '',
     age: '',
@@ -58,7 +66,7 @@ const SearchProfile = () => {
     e.preventDefault();
     if (!validateForm()) return; // Validate the form before submitting
     try {
-      const response = await fetch('http://localhost:4000/api/search', {
+      const response = await fetch(fullApiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -5,6 +5,7 @@ import { Toast } from 'primereact/toast';
 import { useToast } from '../../assets/utils/toastUtil';
 import { useAuth } from '../../context/AuthContext'
 import { Navigate } from 'react-router-dom';
+import config from '../../config';
 
 const UserProfile = () => {
 
@@ -14,6 +15,14 @@ const UserProfile = () => {
     const [visible, setVisible] = useState(false);
     const [hoveredImage, setHoveredImage] = useState(null); // Track which image is hovered
     const [profilePicture, setProfilePicture] = useState(null);
+
+    const apiUrl = config?.apiUrl;
+    let fullApiUrl;
+    if (apiUrl) {
+        fullApiUrl = apiUrl + 'makeProfilePicture';
+    } else {
+        console.error('Invalid API url');
+    }
 
     useEffect(() => {
         console.log(user);
@@ -46,7 +55,7 @@ const UserProfile = () => {
     // Function to call API and set profile picture
     const handleMakeProfilePicture = async (image) => {
         try {
-            const response = await fetch('http://localhost:4000/api/makeProfilePicture', {
+            const response = await fetch(fullApiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -80,7 +89,8 @@ const UserProfile = () => {
     };
     const deletePicture = async (image) => {
         try {
-            const response = await fetch('http://localhost:4000/api/deletePicture', {
+            const deleteApiUrl = apiUrl + 'deletePicture';
+            const response = await fetch(deleteApiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -145,7 +155,8 @@ const UserProfile = () => {
         formData.append("user_id", user.id);
 
         try {
-            const response = await fetch('http://localhost:4000/api/uploadPhotos', {
+            const uploadPhotosApiUrl = apiUrl + 'uploadPhotos';
+            const response = await fetch(uploadPhotosApiUrl, {
                 method: 'POST',
                 body: formData,
             });
@@ -295,7 +306,7 @@ const UserProfile = () => {
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="user-plan.html">
+                                                <a href="/pricing">
                                                     <i className="fa fa-money" aria-hidden="true"></i>Plan
                                                 </a>
                                             </li>

@@ -9,7 +9,7 @@ const RightMenu = () => {
                 <span className="menu-pop-clo"><i className="fa fa-times" aria-hidden="true"></i></span>
                 <div className="inn">
                     <div className="menu-pop-help">
-                        <h4>Support Team</h4>
+                        <h4>Your Details</h4>
                         <div className="user-pro">
                             {isLoggedIn && user.user_profile_picture ? (
                                 <img src={`${user.user_profile_picture}`} alt="" loading="lazy" />
@@ -39,14 +39,17 @@ const RightMenu = () => {
                 <div className="mob-me-clo"><img src={process.env.PUBLIC_URL + '/matrimo/images/icon/close.svg'} alt="" /></div>
                 <div className="mv-bus">
                     <div className="menu-pop-help">
-                        <h4>Support Team</h4>
+                        <h4>Your Details</h4>
                         <div className="user-pro">
-                            <img src={`${process.env.PUBLIC_URL}/matrimo/images/profiles/1.jpg`} alt="" loading="lazy" />
+                            {isLoggedIn && user.user_profile_picture ? (
+                                <img src={`${user.user_profile_picture}`} alt="" loading="lazy" />
+                            ) : (<img src={`${process.env.PUBLIC_URL}/matrimo/images/user_dummy.png`} alt="" loading="lazy" />)
+                            }
                         </div>
                         <div className="user-bio">
-                            <h5>Ashley emyy</h5>
-                            <span>Senior personal advisor</span>
-                            <a href="enquiry.html" className="btn btn-primary btn-sm">Ask your doubts</a>
+                            <h5>{isLoggedIn ? user.name : ''}</h5>
+                            <span>{isLoggedIn && user.email ? user.email : ''}</span> <br />
+                            <a href="/userprofile" className="btn btn-primary btn-sm">View Profile</a>
                         </div>
                     </div>
                     <div className="menu-pop-soci">

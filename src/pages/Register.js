@@ -3,7 +3,7 @@ import { useToast } from '../assets/utils/toastUtil';
 import { useNavigate, Link } from 'react-router-dom';
 import { Toast } from 'primereact/toast';
 import { useAuth } from '../context/AuthContext';
-
+import config from '../config';
 
 const Registration = () => {
     const { toast, showToast } = useToast();
@@ -11,7 +11,13 @@ const Registration = () => {
 
     const { setUser, setIsLoggedIn } = useAuth();
 
-    // Form states
+    const apiUrl = config?.apiUrl;
+    let fullApiUrl;
+    if (apiUrl) {
+        fullApiUrl = apiUrl + 'register';
+    } else {
+        console.error('Invalid API url');
+    }
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
@@ -93,10 +99,9 @@ const Registration = () => {
             return;
         }
 
-        const apiUrl = 'http://localhost:4000/api/register';  // Adjust API URL
 
         try {
-            const response = await fetch(apiUrl, {
+            const response = await fetch(fullApiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

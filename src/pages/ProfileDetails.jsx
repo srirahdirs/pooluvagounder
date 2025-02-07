@@ -1,20 +1,44 @@
 import React from 'react'
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import config from '../config';
+import CryptoJS from 'crypto-js';
 
 const ProfileDetails = () => {
-  const { id } = useParams();
+
   const [user_details, setUserDetails] = useState('');
+
+  const apiUrl = config?.apiUrl;
+  let fullApiUrl;
+  if (apiUrl) {
+    fullApiUrl = apiUrl + 'getUserDetails';
+  } else {
+    console.error('Invalid API url');
+  }
+
+  const secretKey = config?.cryptoSecretKey;
+  const { id } = useParams();  // This will give you the encrypted user ID
+
+  console.log(id, 'Encrypted User ID');
+
+  if (!id) {
+    console.error("Encrypted user ID is undefined!");
+  }
+
+  const bytes = CryptoJS.AES.decrypt(decodeURIComponent(id), secretKey);
+  const userId = bytes.toString(CryptoJS.enc.Utf8);
+
+  console.log(userId, 'Decrypted User ID');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/getUserDetails', {
+        const response = await fetch(fullApiUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ user_id: id }),
+          body: JSON.stringify({ user_id: userId }),
         });
 
         if (response.ok) {
@@ -37,7 +61,7 @@ const ProfileDetails = () => {
       // Example: If you're using a jQuery-based library that requires `.destroy()`, call it here.
       // SomeComponentInstance?.destroy();
     };
-  }, [id]);
+  }, [userId]);
   const image = user_details.gender === 'Male' ? 'user_default_boy.png' : 'user_default_girl.png';
   return (
     <>
@@ -151,7 +175,7 @@ const ProfileDetails = () => {
                     ) : (
                       <div className="">
                         <p>Contact details are available for paid members only. Please make payment to view contact details.</p>
-                        <button className="purchase-plan-btn" onClick=''>
+                        <button className="purchase-plan-btn">
                           Buy Plan
                         </button>
                       </div>

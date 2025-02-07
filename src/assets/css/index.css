@@ -11,11 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
 .App {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100%; 
+  width: 100%;
   margin: auto;
 }
 
@@ -28,6 +29,7 @@ header {
   justify-content: space-between;
   align-items: center;
 }
+
 main {
   width: 100%;
   display: flex;

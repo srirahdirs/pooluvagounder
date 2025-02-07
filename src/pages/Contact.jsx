@@ -10,10 +10,28 @@ const Contact = () => {
 
     // EmailJS onSubmit handler
     const onSubmit = (data) => {
+        console.log(data, "data");
+        console.log(form, "form");
+
+        // Format the data in an aligned format
+        const formattedMessage = `
+            <h3>Enquiry Details</h3>
+            <p><strong>Name:</strong> ${data.name}</p>
+            <p><strong>Email:</strong> ${data.email}</p>
+            <p><strong>Phone:</strong> ${data.phone}</p>
+            <p><strong>Message:</strong> ${data.message}</p>
+        `;
+
+        // Set the formatted message to the form data
+        form.current.message.value = formattedMessage;  // Assuming message field is present
+
         emailjs.sendForm('service_gfc4rcx', 'template_f6q6kmo', form.current, 'stL-vc00jNZZapS8P')
             .then((result) => {
                 console.log('Email sent successfully:', result.text);
                 showToast("Your enquiry has been sent successfully!");
+
+                // Reset the form after successful submission
+                form.current.reset();
             })
             .catch((error) => {
                 console.error('Error sending email:', error);

@@ -1,11 +1,18 @@
 import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import config from '../../config';
 const SearchSection = () => {
     const [searchResult, setSearchResults] = useState('');
     const navigate = useNavigate();
 
+    const apiUrl = config?.apiUrl;
+    let fullApiUrl;
+    if (apiUrl) {
+        fullApiUrl = apiUrl + 'search';
+    } else {
+        console.error('Invalid API url');
+    }
     const [searchForm, setSearchForm] = useState({
         lookingFor: '',
         age: '',
@@ -27,7 +34,7 @@ const SearchSection = () => {
 
         e.preventDefault(); // Ensure that the form doesn't refresh the page
         try {
-            const response = await fetch('http://localhost:4000/api/search', {
+            const response = await fetch(fullApiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
