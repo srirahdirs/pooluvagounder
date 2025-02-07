@@ -52,12 +52,12 @@ const Login = () => {
       }
 
       const data = await response.json();
-      if (data.success) {
-        console.log(data, 'data');
+
+      if (data?.token) {
         localStorage.setItem('authToken', data.token);
         setIsLoggedIn(true);  // Update login status
         setUser(data.user);
-        showToast('Login successful');
+        showToast(data.message);
       } else {
         showToast(data.message || 'Invalid credentials', 'error');
       }
