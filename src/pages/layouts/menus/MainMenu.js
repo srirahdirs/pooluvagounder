@@ -44,7 +44,7 @@ const MainMenu = () => {
                                     <li><a href="/allprofiles">Profiles</a></li>
                                     <li><a href="/pricing">Pricing</a></li>
                                     <li><a href="/about">About Us</a></li>
-                                    {isLoggedIn ? (
+                                    {/* {isLoggedIn ? (
                                         <>
                                             <li><a href="/matches">Matches</a></li>
                                         </>
@@ -55,7 +55,7 @@ const MainMenu = () => {
 
                                         </>
                                     )
-                                    }
+                                    } */}
                                     <li><a href="/contact">Contact Us</a></li>
                                 </ul>
                             </div>

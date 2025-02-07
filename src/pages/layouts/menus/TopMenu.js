@@ -12,7 +12,7 @@ const TopMenu = () => {
                         <ul>
                             <li><a href="#!" className="ser-open" aria-label="Search"><i className="fa fa-search" aria-hidden="true"></i></a></li>
                             <li><a href="/about">About</a></li>
-                            <li><a href="faq.html">FAQ</a></li>
+                            {/* <li><a href="faq.html">FAQ</a></li> */}
                             <li><a href="/contact">Contact</a></li>
                         </ul>
                     </div>
@@ -29,9 +29,13 @@ const TopMenu = () => {
                                         <i className="fa fa-sign-out" aria-hidden="true" style={{ color: 'white' }}></i> Logout
                                     </a>
                                 </li>
-                            ) : null}
-
-
+                            ) : (
+                                <li>
+                                    <a href="/login">
+                                        <i className="fa fa-sign-in" aria-hidden="true" style={{ color: 'white' }}></i> Login
+                                    </a>
+                                </li>
+                            )}
                         </ul>
                     </div>
                 </div>

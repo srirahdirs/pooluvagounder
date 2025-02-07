@@ -128,15 +128,8 @@ const UserProfile = () => {
         }
     };
 
-
-
     // State to toggle modal visibility
-
-
-
-
     const onUpload = (e) => {
-
 
         // setUploadedFiles(e.files);  // Update the state with uploaded files
     };
@@ -316,7 +309,7 @@ const UserProfile = () => {
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <a href="/logout">
                                                     <i className="fa fa-sign-out" aria-hidden="true"></i>Log out
                                                 </a>
                                             </li>

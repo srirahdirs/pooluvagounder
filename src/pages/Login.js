@@ -26,7 +26,7 @@ const Login = () => {
   useEffect(() => {
     if (isLoggedIn) {
       setTimeout(() => {
-        navigate('/home');
+        navigate('/edituserprofile');
       }, 3000);
     }
   }, [isLoggedIn, navigate]);
@@ -50,7 +50,6 @@ const Login = () => {
         showToast(errorData.message || 'Login failed', 'error');
         return;
       }
-
       const data = await response.json();
 
       if (data?.token) {
