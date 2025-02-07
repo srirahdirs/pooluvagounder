@@ -56,7 +56,6 @@ const MainMenu = () => {
                                         </>
                                     )
                                     } */}
-
                                     <li><a href="/matches">Matches</a></li>
                                     <li><a href="/contact">Contact Us</a></li>
                                 </ul>
