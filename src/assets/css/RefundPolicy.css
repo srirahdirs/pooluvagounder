@@ -75,6 +75,11 @@ body {
     margin-bottom: 10px;
 }
 
+.content a {
+    color: #555;
+    font-weight: bold;
+}
+
 /* Footer */
 .footer {
     background-color: #008080;

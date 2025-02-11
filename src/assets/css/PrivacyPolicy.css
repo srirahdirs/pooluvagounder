@@ -27,7 +27,7 @@ ul {
     margin-top: 20px;
 }
 
-.contact-info p {
+.contact-info p,a{
     color: #333;
     font-weight: bold;
 }

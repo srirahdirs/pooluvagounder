@@ -165,6 +165,7 @@ const UpdateUserProfile = () => {
                 return;
             }
 
+
             const calculatedAge = calculateAge(value);
             setFormData({ ...formData, dob: value, age: calculatedAge });
 
@@ -585,7 +586,7 @@ const UpdateUserProfile = () => {
                                                 <h1>Edit my profile</h1>
                                             </div>
                                             <div className="form-group">
-                                                <label className="lb">Name:<span style={{ color: 'red' }}>*</span></label>
+                                                <label className="lb">Name:<span>*</span></label>
                                                 <input
                                                     type="text"
                                                     className="form-control"
@@ -596,7 +597,7 @@ const UpdateUserProfile = () => {
                                                 />
                                             </div>
                                             <div className="form-group">
-                                                <label className="lb">Email:<span style={{ color: 'red' }}>*</span></label>
+                                                <label className="lb">Email:<span>*</span></label>
                                                 <input
                                                     type="email"
                                                     className="form-control"
@@ -608,7 +609,7 @@ const UpdateUserProfile = () => {
                                                 />
                                             </div>
                                             <div className="form-group">
-                                                <label className="lb">Phone:<span style={{ color: 'red' }}>*</span></label>
+                                                <label className="lb">Phone:<span>*</span></label>
                                                 <input
                                                     type="number"
                                                     className="form-control"
@@ -629,7 +630,7 @@ const UpdateUserProfile = () => {
                                             </div>
                                             <div className="row">
                                                 <div className="col-md-6 form-group">
-                                                    <label className="lb">Gender:<span style={{ color: 'red' }}>*</span></label>
+                                                    <label className="lb">Gender:<span>*</span></label>
                                                     <select
                                                         className="form-select"
                                                         name="gender"
@@ -659,7 +660,7 @@ const UpdateUserProfile = () => {
                                             </div>
                                             <div className="row">
                                                 <div className="col-md-6 form-group">
-                                                    <label className="lb">State:<span style={{ color: 'red' }}>*</span></label>
+                                                    <label className="lb">State:<span>*</span></label>
                                                     <select
 
                                                         className="form-select"
@@ -678,7 +679,7 @@ const UpdateUserProfile = () => {
                                                 </div>
 
                                                 <div className="col-md-6 form-group">
-                                                    <label className="lb">City:<span style={{ color: 'red' }}>*</span></label>
+                                                    <label className="lb">City:<span>*</span></label>
                                                     <Select
                                                         className='city_dropdown'
                                                         options={cityOptions}
@@ -740,31 +741,75 @@ const UpdateUserProfile = () => {
                                             </div>
                                             <div className="row">
                                                 <div className="col-md-6 form-group">
-                                                    <label className="lb">Height:<span style={{ color: 'red' }}>*</span></label>
-                                                    <input
+                                                    <label className="lb">Height:<span>*</span></label>
+                                                    <select
                                                         type="text"
                                                         className="form-control"
                                                         name="height"
                                                         value={formData.height || ''}
                                                         onChange={handleChange}
-                                                    />
+                                                    >
+                                                        <option value="">Select Height in Feet</option>
+                                                        <option value="5& below">5 & below</option>
+                                                        <option value="5.1">5.1</option>
+                                                        <option value="5.2">5.2</option>
+                                                        <option value="5.3">5.3</option>
+                                                        <option value="5.4">5.4</option>
+                                                        <option value="5.5">5.5</option>
+                                                        <option value="5.6">5.6</option>
+                                                        <option value="5.7">5.7</option>
+                                                        <option value="5.8">5.8</option>
+                                                        <option value="5.9">5.9</option>
+                                                        <option value="5.10">5.10</option>
+                                                        <option value="5.11">5.11</option>
+                                                        <option value="6">6</option>
+                                                        <option value="6.1">6.1</option>
+                                                        <option value="6.2">6.2</option>
+                                                        <option value="6.3">6.3</option>
+                                                        <option value="6.4">6.4</option>
+                                                        <option value="6.5">6.5</option>
+                                                        <option value="6.6">6.6</option>
+                                                        <option value="6.7">6.7</option>
+                                                        <option value="6.8">6.8</option>
+                                                        <option value="6.9">6.9</option>
+                                                        <option value="6.10">6.10</option>
+                                                        <option value="6.11">6.11</option>
+                                                        <option value="7">7 & above</option>
+                                                    </select>
                                                     {heightError && <p className="error-message">{heightError}</p>}
                                                 </div>
                                                 <div className="col-md-6 form-group">
-                                                    <label className="lb">Weight:<span style={{ color: 'red' }}>*</span></label>
-                                                    <input
+                                                    <label className="lb">Weight:<span>*</span></label>
+                                                    <select
                                                         type="text"
                                                         className="form-control"
                                                         name="weight"
                                                         value={formData.weight || ''} // Fallback to an empty string if weight is undefined/null
                                                         onChange={handleChange}
-                                                    />
+                                                    >
+                                                        <option value="">Select Weight in KG</option>
+                                                        <option value="below 40">Below 40</option>
+                                                        <option value="40-45">40-45</option>
+                                                        <option value="45-50">45-50</option>
+                                                        <option value="50-55">50-55</option>
+                                                        <option value="55-60">55-60</option>
+                                                        <option value="60-65">60-65</option>
+                                                        <option value="65-70">65-70</option>
+                                                        <option value="70-75">70-75</option>
+                                                        <option value="75-80">75-80</option>
+                                                        <option value="80-85">80-85</option>
+                                                        <option value="85-90">85-90</option>
+                                                        <option value="90-95">90-95</option>
+                                                        <option value="95-100">95-100</option>
+                                                        <option value="above 100">Above 100</option>
+                                                    </select>
                                                     {weightError && <p className="error-message">{weightError}</p>}
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col-md-6 form-group">
-                                                    <label className="lb">Father's Name:<span style={{ color: 'red' }}>*</span></label>
+                                                    <label className="lb">Father's Name:<span>*</span></label>
+
                                                     <input
                                                         type="text"
                                                         className="form-control"
@@ -775,7 +820,8 @@ const UpdateUserProfile = () => {
                                                     {fathersNameError && <p className="error-message">{fathersNameError}</p>}
                                                 </div>
                                                 <div className="col-md-6 form-group">
-                                                    <label className="lb">Mother's Name:<span style={{ color: 'red' }}>*</span></label>
+                                                    <label className="lb">Mother's Name:<span>*</span></label>
+
                                                     <input
                                                         type="text"
                                                         className="form-control"
@@ -787,7 +833,7 @@ const UpdateUserProfile = () => {
                                                 </div>
                                             </div>
                                             <div className="form-group">
-                                                <label className="lb">Address:<span style={{ color: 'red' }}>*</span></label>
+                                                <label className="lb">Address:<span>*</span></label>
                                                 <textarea
                                                     className="form-control"
                                                     name="address"
@@ -797,7 +843,7 @@ const UpdateUserProfile = () => {
                                                 {addressError && <p className="error-message">{addressError}</p>}
                                             </div>
                                             <div className="form-group">
-                                                <label className="lb">Marital Status:<span style={{ color: 'red' }}>*</span></label>
+                                                <label className="lb">Marital Status:<span>*</span></label>
                                                 <div className="form-group">
                                                     <select
                                                         value={formData.marital_status} // Bind to formData state
@@ -934,7 +980,7 @@ const UpdateUserProfile = () => {
                                             </div>
                                             <div className="row">
                                                 <div className="col-md-6 form-group">
-                                                    <label className="lb">Religion:<span style={{ color: 'red' }}>*</span></label>
+                                                    <label className="lb">Religion:<span>*</span></label>
                                                     <select
                                                         className="form-control"
                                                         name="religion"
@@ -956,7 +1002,7 @@ const UpdateUserProfile = () => {
                                                 </div>
 
                                                 <div className="col-md-6 form-group">
-                                                    <label className="lb">Caste:<span style={{ color: 'red' }}>*</span></label>
+                                                    <label className="lb">Caste:<span>*</span></label>
                                                     <select
                                                         className="form-control"
                                                         name="caste"

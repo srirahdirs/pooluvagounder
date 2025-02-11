@@ -63,7 +63,7 @@ const PrivacyPolicy = () => {
                 <p>If you have any questions or concerns about our Privacy Policy, please contact us at:</p>
 
                 <div className="contact-info">
-                    <p><strong>Email:</strong> support@weddingsoulmates.com</p>
+                    <p><strong>Email:</strong><a href="mailto:support@weddingsoulmates.com"> support@weddingsoulmates.com</a></p>
                     <p><strong>Address:</strong> YoungZen Technologies, No 8a, 8th Cross, Sultanpalya Main Road, RT Nagar, Bangalore 560032, Karnataka, India.</p>
                 </div>
             </div>

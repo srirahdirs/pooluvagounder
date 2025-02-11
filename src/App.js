@@ -20,6 +20,7 @@ import MainMenu from "./pages/layouts/menus/MainMenu";
 import ProfileDetails from "./pages/ProfileDetails";
 import RefundPolicy from "./pages/RefundPolicy";
 import Matches from "./pages/Matches";
+import NotFound from "./pages/NotFound"
 
 function App() {
   return (
@@ -43,7 +44,7 @@ function App() {
             <Route path="/allprofiles" element={<><AllProfiles /><Footer /></>} />
             <Route path="/matches" element={<><Matches /><Footer /></>} />
             <Route path="/profiledetails/:id" element={<><ProfileDetails /><Footer /></>} />
-            <Route path="*" element={<ComingSoon />} />
+            <Route path="*" element={<NotFound />} />
             <Route path="/comingsoon" element={<ComingSoon />} />
             <Route path="/privacypolicy" element={<><PrivacyPolicy /><Footer /></>} />
             <Route path="/termsconditions" element={<><TermsConditions /><Footer /></>} />

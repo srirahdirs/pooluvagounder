@@ -2549,7 +2549,7 @@ table td {}
 .login .lhs .tit h2 b {
     font-weight: 800;
     display: block;
-    font-size: 62px;
+    font-size: 58px;
     font-family: var(--tit-font);
     line-height: 66px;
     margin: 10px 0;
@@ -2767,6 +2767,13 @@ table td {}
     padding: 30px 20px 20px;
     border-radius: 5px;
     position: relative;
+}
+
+.foot-supp a{
+    color: #fff;
+    font-weight: 300;
+    font-size: 20px;
+    font-family: 'Cinzel Decorative';
 }
 
 .wed-hom-footer h4 {
@@ -10924,7 +10931,7 @@ select {
     }
 
     .login .lhs .tit h2 b br {
-        display: none;
+        display: block;
     }
 
     .pg-404 .lhs .tit h2 b {

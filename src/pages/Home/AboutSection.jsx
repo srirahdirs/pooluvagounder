@@ -78,13 +78,13 @@ const AboutSection = () => {
                                             <li >
                                                 <div>
                                                     <i className="fa fa-phone" aria-hidden="true"></i>
-                                                    <h4>Enquiry <em>+91-4223568392</em></h4>
+                                                    <h4>Enquiry <a href="tel:+91-4223568392"><em>+91-4223568392</em></a></h4>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div>
                                                     <i className="fa fa-envelope-o" aria-hidden="true"></i>
-                                                    <h4>Get Support <em>info@weddingsoulmates.com</em></h4>
+                                                    <h4>Get Support <a href="mailto:info@weddingsoulmates.com"><em>info@weddingsoulmates.com</em></a></h4>
                                                 </div>
                                             </li>
                                         </ul>
@@ -100,3 +100,4 @@ const AboutSection = () => {
 };
 
 export default AboutSection;
+

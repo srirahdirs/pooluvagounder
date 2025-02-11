@@ -21,8 +21,8 @@ const RefundPolicy = () => {
                     <h3>4. Contact Us</h3>
                     <p>If you have any questions or need assistance, feel free to contact us:</p>
                     <ul>
-                        <li>Email: <strong>support@weddingsoulmates.com</strong></li>
-                        <li>Phone: <strong>+91-4223568392</strong></li>
+                        <li>Email: <a href="mailto:support@weddingsoulmates.com"><strong>support@weddingsoulmates.com</strong></a></li>
+                        <li>Phone: <a href="tel:+91-4223568392"><strong>+91-4223568392</strong></a></li>
                     </ul>
                 </div>
             </main>
