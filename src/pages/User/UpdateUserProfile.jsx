@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import { Toast } from "primereact/toast";
 import { useToast } from '../../assets/utils/toastUtil';
 import config from '../../config';
+import UserLeftMenu from "./UserLeftMenu";
 const UpdateUserProfile = () => {
 
 
@@ -575,6 +576,9 @@ const UpdateUserProfile = () => {
                 <div className="container">
                     <Toast ref={toast} />
                     <div className="row">
+                        <div className="col-md-4 col-lg-3">
+                            <UserLeftMenu />
+                        </div>
                         <div className="inn">
                             <div className="rhs">
                                 <div className="form-login">

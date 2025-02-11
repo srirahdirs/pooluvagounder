@@ -39,3 +39,98 @@ main {
   align-items: center;
   overflow-y: auto;
 }
+
+/* pricing page css starts  */
+
+.plans-main ul {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+}
+
+.plans-main li {
+  flex: 1;
+  margin: 0 10px;
+  text-align: center;
+}
+
+.pri-box {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 10px;
+  background: #fff;
+  position: relative;
+}
+
+.pri-box-pop {
+  border: 2px solid #ffcc00;
+  background: #fff8e1;
+}
+
+.pop-pln {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffcc00;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.pri-cou {
+  display: block;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.pri-cou del {
+  font-size: 18px;
+  color: #999;
+  margin-right: 10px;
+}
+
+.discount {
+  display: block;
+  font-size: 14px;
+  color: #28a745;
+  font-weight: bold;
+}
+
+.cta {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.cta:hover {
+  background: #0056b3;
+}
+
+ol {
+  text-align: left;
+  list-style: none;
+  padding: 0;
+}
+
+ol li {
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.fa-check {
+  color: #28a745;
+}
+
+.fa-close {
+  color: #dc3545;
+}
+
+/* pricing page css ends  */

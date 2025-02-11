@@ -7,7 +7,6 @@ const SearchResults = () => {
     const { isLoggedIn, user } = useAuth();
     const location = useLocation();
     const searchResults = location.state?.searchResults || [];
-    console.log(searchResults);
     return (
         <>
             <section>
@@ -100,8 +99,9 @@ const SearchResults = () => {
                                                             <div className="links">
                                                                 <span className="cta-chat">Chat now</span>
                                                                 {/* <a href={`https://wa.me/${profile.phone}`}>WhatsApp</a> */}
-                                                                {/* <a href="#!" className="cta cta-sendint" data-bs-toggle="modal" data-bs-target="#sendInter">Send interest</a> */}
+
                                                                 <a href={`/profiledetails/${profile.user_id}`}>More details</a>
+                                                                {/* <a className="desk-menu cta fol cta-chat">Buy Plan to View Profile</a> */}
                                                             </div>
                                                         </div>
                                                         <span className="enq-sav" data-toggle="tooltip" title="Click to save this profile.">

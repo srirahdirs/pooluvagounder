@@ -270,21 +270,21 @@ if ($lis.length > 0) {
         autoplay: true,
         autoplaySpeed: 3000,
         responsive: [{
-                breakpoint: 769,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                    centerMode: false
-                }
-            },
-            {
-                breakpoint: 550,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    centerMode: false
-                }
+            breakpoint: 769,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                centerMode: false
             }
+        },
+        {
+            breakpoint: 550,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                centerMode: false
+            }
+        }
         ]
 
     });
@@ -306,22 +306,22 @@ if ($lis.length > 0) {
         dots: true,
         autoplaySpeed: 3000,
         responsive: [{
-                breakpoint: 992,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                    centerMode: false
-                }
-            },
-            {
-                breakpoint: 550,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    centerMode: false,
-                    arrows: false
-                }
+            breakpoint: 992,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                centerMode: false
             }
+        },
+        {
+            breakpoint: 550,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                centerMode: false,
+                arrows: false
+            }
+        }
         ]
 
     });

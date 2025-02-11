@@ -1,6 +1,31 @@
-import React from 'react'
+import React from 'react';
+import { useAuth } from '../context/AuthContext';
+import { useDispatch, useSelector } from 'react-redux'; // Import useDispatch and useSelector
+import { useNavigate } from 'react-router-dom';
+import LeftMenu from './layouts/menus/LeftMenu';
+import { setSelectedPlanId, setPlanPrice } from '../features/pricingSlice';
 
 const Pricing = () => {
+    const navigate = useNavigate();
+    const { user } = useAuth();
+    const user_id = user?.id ? user.id : 0;
+    const dispatch = useDispatch();
+    const { isModalOpen } = useSelector((state) => state.pricing); // Access isModalOpen from Redux store
+
+    const loginRequired = () => {
+        navigate('/login');
+    };
+    const plans = {
+        1: { name: "Silver", price: "1400", validity: "1 month" },
+        2: { name: "Gold", price: "4999", validity: "6 months" },
+        3: { name: "Platinum", price: "9999", validity: "12 months" }
+    };
+    const handlePlanSelection = (id) => {
+        dispatch(setSelectedPlanId(id));
+        const selectedPlan = plans[id];
+        dispatch(setPlanPrice(selectedPlan?.price)); // Set the selected plan ID in Redux store
+    };
+
     return (
         <>
             <section>
@@ -23,10 +48,19 @@ const Pricing = () => {
                             <ul>
                                 <li>
                                     <div className="pri-box">
-                                        <h2>Free</h2>
+                                        <h2>Silver</h2>
                                         <p>Perfect for exploring our platform with basic features.</p>
-                                        <a href="sign-up.html" className="cta">Get Started</a>
-                                        <span className="pri-cou"><b>&#8377;0</b>/mo</span>
+                                        {user_id ? (
+                                            <a href='#' className="cta desk-menu fol cta-chat" onClick={() => handlePlanSelection(1)}>Get Started</a>
+                                        ) : (
+                                            <a onClick={loginRequired} className="cta">Get Started</a>
+                                        )}
+
+                                        <span className="pri-cou"><b>&#8377;{plans[1]?.price}</b></span>
+                                        <small>(1 month)</small><br />
+                                        <span className="discount"><strike>&#8377; 2000</strike></span>
+                                        <span className="pop-pln">Basic Plan</span>
+
                                         <ol>
                                             <li><i className="fa fa-close close" aria-hidden="true"></i> 5 Premium Profiles view /mo</li>
                                             <li><i className="fa fa-check" aria-hidden="true"></i> Free user profile view</li>
@@ -41,14 +75,21 @@ const Pricing = () => {
                                         <span className="pop-pln">Most Popular Plan</span>
                                         <h2>Gold</h2>
                                         <p>Get the best features with increased profile views and interaction.</p>
-                                        <a href="sign-up.html" className="cta">Get Started</a>
-                                        <span className="pri-cou"><b>&#8377;3490</b>/mo</span>
+                                        {user_id ? (
+                                            <a href='#' className="cta desk-menu fol cta-chat" onClick={() => handlePlanSelection(2,)}>Get Started</a>
+                                        ) : (
+                                            <a onClick={loginRequired} className="cta">Get Started</a>
+                                        )}
+
+                                        <span className="pri-cou"><b>&#8377;{plans[2]?.price}</b></span>
+                                        <small>(6 months)</small><br />
+                                        <span className="discount">40% Off</span>
                                         <ol>
-                                            <li><i className="fa fa-check" aria-hidden="true"></i> 20 Premium Profiles view /mo</li>
+                                            <li><i className="fa fa-check" aria-hidden="true"></i> 50 Premium Profiles view /mo</li>
                                             <li><i className="fa fa-check" aria-hidden="true"></i> Free user profile view</li>
                                             <li><i className="fa fa-check" aria-hidden="true"></i> View contact details</li>
                                             <li><i className="fa fa-check" aria-hidden="true"></i> Send interest</li>
-                                            <li><i className="fa fa-check" aria-hidden="true"></i> Start chat</li>
+                                            <li><i className="fa fa-close close" aria-hidden="true"></i> No chat feature</li>
                                         </ol>
                                     </div>
                                 </li>
@@ -56,10 +97,17 @@ const Pricing = () => {
                                     <div className="pri-box">
                                         <h2>Platinum</h2>
                                         <p>Our top-tier plan with the highest number of profile views and full access to features.</p>
-                                        <a href="sign-up.html" className="cta">Get Started</a>
-                                        <span className="pri-cou"><b>&#8377;5490</b>/mo</span>
+                                        {user_id ? (
+                                            <a href='#' className="cta desk-menu fol cta-chat" onClick={() => handlePlanSelection(3)}>Get Started</a>
+                                        ) : (
+                                            <a onClick={loginRequired} className="cta">Get Started</a>
+                                        )}
+
+                                        <span className="pri-cou"><b>&#8377;{plans[3]?.price}</b></span>
+                                        <small>(12 months)</small><br />
+                                        <span className="discount">40% Off</span>
                                         <ol>
-                                            <li><i className="fa fa-check" aria-hidden="true"></i> 50 Premium Profiles view /mo</li>
+                                            <li><i className="fa fa-check" aria-hidden="true"></i> Unlimited Premium Profiles </li>
                                             <li><i className="fa fa-check" aria-hidden="true"></i> Free user profile view</li>
                                             <li><i className="fa fa-check" aria-hidden="true"></i> View contact details</li>
                                             <li><i className="fa fa-check" aria-hidden="true"></i> Send interest</li>
@@ -71,9 +119,10 @@ const Pricing = () => {
                         </div>
                     </div>
                 </div>
+                {isModalOpen && <LeftMenu />} {/* Render LeftMenu when modal is open */}
             </section>
         </>
-    )
-}
+    );
+};
 
-export default Pricing
+export default Pricing;

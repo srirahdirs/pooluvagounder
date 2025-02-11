@@ -20,39 +20,46 @@ import MainMenu from "./pages/layouts/menus/MainMenu";
 import ProfileDetails from "./pages/ProfileDetails";
 import RefundPolicy from "./pages/RefundPolicy";
 import Matches from "./pages/Matches";
-import NotFound from "./pages/NotFound"
-
+import NotFound from "./pages/NotFound";
+import { Provider } from 'react-redux';  // Import redux provider
+import { store } from './store';  // Import your redux store
+import PaymentStatus from './components/PaymentStatus';
+import UserPlan from "./pages/User/UserPlan";
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        {/* Wrap your app layout */}
-        <MainMenu /> {/* Moved outside of Routes for consistency across all pages */}
-        <div className="App">
-          <Routes>
-            <Route path="/" element={<><Home /><Footer /></>} />
-            <Route path="/home" element={<><Home /><Footer /></>} />
-            <Route path="/login" element={<><Login /><Footer /></>} />
-            <Route path="/register" element={<><Register /><Footer /></>} />
-            <Route path="/pricing" element={<><Pricing /><Footer /></>} />
-            <Route path="/contact" element={<><Contact /><Footer /></>} />
-            <Route path="/about" element={<><About /><Footer /></>} />
-            <Route path="/logout" element={<><Logout /><Footer /></>} />
-            <Route path="/edituserprofile" element={<><UpdateUserProfile /><Footer /></>} />
-            <Route path="/partnerpreferences" element={<><PartnerPreferences /><Footer /></>} />
-            <Route path="/userprofile" element={<><UserProfile /><Footer /></>} />
-            <Route path="/allprofiles" element={<><AllProfiles /><Footer /></>} />
-            <Route path="/matches" element={<><Matches /><Footer /></>} />
-            <Route path="/profiledetails/:id" element={<><ProfileDetails /><Footer /></>} />
-            <Route path="*" element={<NotFound />} />
-            <Route path="/comingsoon" element={<ComingSoon />} />
-            <Route path="/privacypolicy" element={<><PrivacyPolicy /><Footer /></>} />
-            <Route path="/termsconditions" element={<><TermsConditions /><Footer /></>} />
-            <Route path="/refundpolicy" element={<><RefundPolicy /><Footer /></>} />
-          </Routes>
-        </div>
-      </Router>
-    </AuthProvider>
+    <Provider store={store}> {/* Wrap with Provider for Redux */}
+      <AuthProvider> {/* Wrap with AuthProvider for authentication context */}
+        <Router>
+          {/* Wrap your app layout */}
+          <MainMenu /> {/* Moved outside of Routes for consistency across all pages */}
+          <div className="App">
+            <Routes>
+              <Route path="/" element={<><Home /><Footer /></>} />
+              <Route path="/home" element={<><Home /><Footer /></>} />
+              <Route path="/login" element={<><Login /><Footer /></>} />
+              <Route path="/register" element={<><Register /><Footer /></>} />
+              <Route path="/pricing" element={<><Pricing /><Footer /></>} />
+              <Route path="/contact" element={<><Contact /><Footer /></>} />
+              <Route path="/about" element={<><About /><Footer /></>} />
+              <Route path="/logout" element={<><Logout /><Footer /></>} />
+              <Route path="/edituserprofile" element={<><UpdateUserProfile /><Footer /></>} />
+              <Route path="/partnerpreferences" element={<><PartnerPreferences /><Footer /></>} />
+              <Route path="/userprofile" element={<><UserProfile /><Footer /></>} />
+              <Route path="/allprofiles" element={<><AllProfiles /><Footer /></>} />
+              <Route path="/matches" element={<><Matches /><Footer /></>} />
+              <Route path="/profiledetails/:id" element={<><ProfileDetails /><Footer /></>} />
+              <Route path="*" element={<NotFound />} />
+              <Route path="/comingsoon" element={<ComingSoon />} />
+              <Route path="/privacypolicy" element={<><PrivacyPolicy /><Footer /></>} />
+              <Route path="/termsconditions" element={<><TermsConditions /><Footer /></>} />
+              <Route path="/refundpolicy" element={<><RefundPolicy /><Footer /></>} />
+              <Route path="/PaymentStatus" element={<><PaymentStatus /><Footer /></>} />
+              <Route path="/UserPlan" element={<><UserPlan /><Footer /></>} />
+            </Routes>
+          </div>
+        </Router>
+      </AuthProvider>
+    </Provider>
   );
 }
 
