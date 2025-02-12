@@ -5,7 +5,7 @@ const PrivacyPolicy = () => {
     return (
         <div className="privacy-container mb-5">
             <h1>Privacy Policy</h1>
-            <p><strong>Effective Date:</strong> Decemeber 2024</p>
+            <p><strong>Effective Date:</strong> December 2024</p>
             <div className="privacy-content">
                 <p>At <strong>WeddingSoulMates.com</strong>, your privacy is of utmost importance to us. This Privacy Policy explains how we collect, use, and protect your personal information when you visit and use our website. By using our website, you consent to the practices described in this policy.</p>
 
@@ -16,7 +16,7 @@ const PrivacyPolicy = () => {
                     <li><strong>Contact Information:</strong> Email address, phone number, and residential address.</li>
                     <li><strong>Profile Information:</strong> Details about your preferences and partner criteria (age, height, caste, job, etc.).</li>
                     <li><strong>Location Information:</strong> We may collect your location data to match you with relevant profiles.</li>
-                    <li><strong>Payment Information:</strong> If applicable, when subscribing to premium services, we may collect payment details, but we do not store sensitive payment data.</li>
+                    <li><strong>Payment Information:</strong> If applicable, when subscribing to premium services, we may collect payment details. We do not store sensitive payment data. All payments are securely processed by third-party payment providers, and the PAN holder for any applicable financial transactions on this platform is <strong>Sridhar Vellingiri</strong>.</li>
                     <li><strong>Other Information:</strong> Any data you provide through messaging, comments, and interactions on the platform.</li>
                 </ul>
 

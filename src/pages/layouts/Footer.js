@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="container">
         <div className="row foot-supp">
           <h2><span>Free support:</span> &nbsp;&nbsp; <span>Email:</span>
-          <a href="mailto:info@weddingsoulmates.com" >info@weddingsoulmates.com</a></h2>
+            <a href="mailto:info@weddingsoulmates.com" >info@weddingsoulmates.com</a></h2>
         </div>
         <div className="row wed-foot-link wed-foot-link-1">
           <div className="col-md-4">
@@ -27,7 +27,7 @@ const Footer = () => {
               </li>
               <li><a href="/contact">Contact us</a>
               </li>
-              <li><a href="#">Feedback</a>
+              <li><a href="/contact">Feedback</a>
               </li>
               {/* <li><a href="#">FAQs</a>
               </li> */}
