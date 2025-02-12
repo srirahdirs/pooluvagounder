@@ -1,22 +1,26 @@
 import React from 'react'
 import '../../assets/css/Footer.css';
+import config from '../../config';
 
 
 const Footer = () => {
+  const supportEmail = config?.supportEmail;
+  const infoEmail = config?.infoEmail;
   return (
     <section className="wed-hom-footer">
       <div className="container">
         <div className="row foot-supp">
-          <h2><span>Free support:</span> &nbsp;&nbsp; <span>Email:</span>
-            <a href="mailto:info@weddingsoulmates.com" >info@weddingsoulmates.com</a></h2>
+          <h2>
+            <span>Free support:</span> &nbsp;&nbsp; <span>Email:</span>
+            <a href={`mailto:${infoEmail}`}>{infoEmail}</a></h2>
         </div>
         <div className="row wed-foot-link wed-foot-link-1">
           <div className="col-md-4">
             <h4>Get In Touch</h4>
             {/* <p>Address: 3812 Lena Lane City Jackson Mississippi</p> */}
             {/* <p>Phone: <a href="tel:+917904462944">+92 (8800) 68 - 8960</a></p> */}
-            <p>Email: <a href="mailto:info@weddingsoulmates.com" >info@weddingsoulmates.com</a></p>
-            <p>Email: <a href="mailto:support@weddingsoulmates.com">support@weddingsoulmates.com</a></p>
+            <p>Email: <a href={`mailto:${infoEmail}`}>{infoEmail}</a></p>
+            <p>Email: <a href={`mailto:${supportEmail}`}>{supportEmail}</a></p>
           </div>
           <div className="col-md-4">
             <h4>HELP &amp; SUPPORT</h4>

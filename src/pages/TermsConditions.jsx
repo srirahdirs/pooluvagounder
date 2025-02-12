@@ -1,7 +1,9 @@
 import React from 'react';
 import '../assets/css/PrivacyPolicy.css'; // Import the CSS file for styling
+import config from '../config'; // Import the config file to access the support email
 
 const TermsAndConditions = () => {
+    const supportEmail = config?.supportEmail;
     return (
         <div className="privacy-container p-lg-5 p-3 mb-5">
             <h1>Terms and Conditions</h1>
@@ -55,7 +57,7 @@ const TermsAndConditions = () => {
                 <p>If you have any questions about these Terms and Conditions, please contact us at:</p>
 
                 <div className="contact-info">
-                    <p><strong>Email:</strong> <a href="mailto:support@weddingsoulmates.com" className='text-black'>support@weddingsoulmates.com</a></p>
+                    <p><strong>Email:</strong> <a href={`mailto:${supportEmail}`} className='text-black'>{supportEmail}</a></p>
                     <p><strong>Address:</strong> YoungZen Technologies, No 8a, 8th Cross, Sultanpalya Main Road, RT Nagar, Bangalore 560032, Karnataka, India.</p>
                 </div>
             </div>

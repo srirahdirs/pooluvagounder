@@ -1,7 +1,9 @@
 import React from 'react';
 import 'animate.css';
+import config from '../../config';
 
 const AboutSection = () => {
+    const infoEmail = config?.infoEmail;
     const features = [
         {
             imgSrc: `${process.env.PUBLIC_URL}/matrimo/images/icon/prize.png`,
@@ -84,7 +86,7 @@ const AboutSection = () => {
                                             <li>
                                                 <div>
                                                     <i className="fa fa-envelope-o" aria-hidden="true"></i>
-                                                    <h4>Get Support <a href="mailto:info@weddingsoulmates.com"><em>info@weddingsoulmates.com</em></a></h4>
+                                                    <h4>Get Support <a href={`mailto:${infoEmail}`}><em>{infoEmail}</em></a></h4>
                                                 </div>
                                             </li>
                                         </ul>

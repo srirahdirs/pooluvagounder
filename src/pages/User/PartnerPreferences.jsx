@@ -4,6 +4,7 @@ import { Toast } from 'primereact/toast'; // Assuming you're using PrimeReact
 import { useToast } from '../../assets/utils/toastUtil';
 import config from '../../config';
 import { useNavigate, Link } from 'react-router-dom';
+import UserLeftMenu from './UserLeftMenu';
 
 const PartnerPreferences = () => {
 
@@ -245,6 +246,9 @@ const PartnerPreferences = () => {
                 <div className="login pro-edit-update">
                     <div className="container">
                         <div className="row">
+                            <div className="col-md-4 col-lg-3">
+                                <UserLeftMenu />
+                            </div>
                             <div className="inn">
                                 <div className="rhs">
                                     <div className="form-login">

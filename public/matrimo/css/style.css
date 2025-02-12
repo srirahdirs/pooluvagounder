@@ -9259,10 +9259,15 @@ span.mail::before {
     text-align: center;
 }
 
-.db-nav-list ul li a.act {
+.db-nav-list ul li a.active {
     color: #03A9F4;
     background: #e4f1fc;
     background: linear-gradient(to left, #ffffff, #e4f1fc 70%);
+    /* border-left: 0.4rem solid ; */
+}
+
+.db-nav-list ul li a:hover{
+
 }
 
 .db-nav-list ul li a.act i {}

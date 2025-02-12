@@ -1,8 +1,10 @@
 import { React, useEffect } from "react";
 import { useAuth } from '../../context/AuthContext'
 import { useState } from "react";
+import { Link,useLocation } from "react-router-dom";
 
 const UserLeftMenu = () => {
+    const location = useLocation();
     const { user } = useAuth();
     const [profilePicture, setProfilePicture] = useState(null);
     useEffect(() => {
@@ -35,39 +37,39 @@ const UserLeftMenu = () => {
             <div className="db-nav-list">
                 <ul>
                     <li>
-                        <a href="/home">
+                        <Link to="/comingsoon" className={location.pathname === '/comingsoon' ? 'active' : ''}>
                             <i className="fa fa-tachometer" aria-hidden="true"></i>Dashboard
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="/edituserprofile" className="act">
+                        <Link to="/userprofile" className={location.pathname === '/userprofile' ? 'active' : ''}>
                             <i className="fa fa-male" aria-hidden="true"></i>Profile
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="/partnerpreferences">
+                        <Link to="/partnerpreferences" className={location.pathname === '/partnerpreferences' ? 'active' : ''}>
                             <i className="fa fa-handshake-o" aria-hidden="true"></i>Partner Preferences
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="user-chat.html">
+                        <Link to="/comingsoon" className={location.pathname === '/comingsoon' ? 'active' : ''}>
                             <i className="fa fa-commenting-o" aria-hidden="true"></i>Chat list
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="/userplan">
+                        <Link to="/userplan" className={location.pathname === '/userplan' ? 'active' : ''}>
                             <i className="fa fa-money" aria-hidden="true"></i>Plan
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="/edituserprofile">
+                        <Link to="/edituserprofile" className={location.pathname === '/edituserprofile' ? 'active' : ''}>
                             <i className="fa fa-cog" aria-hidden="true"></i>Edit profile
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="/logout">
+                        <Link to="/logout" className={location.pathname === '/logout' ? 'active' : ''}>
                             <i className="fa fa-sign-out" aria-hidden="true"></i>Log out
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </div>

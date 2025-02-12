@@ -3,8 +3,10 @@ import { useForm } from 'react-hook-form';
 import emailjs from 'emailjs-com';
 import { Toast } from 'primereact/toast';
 import { useToast } from '../assets/utils/toastUtil';
+import config from '../config';
 
 const Contact = () => {
+    const youngZenEmail = config?.youngZenEmail;
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { toast, showToast } = useToast();
 
@@ -96,7 +98,7 @@ const Contact = () => {
                                         <h3 style={{ textAlign: 'center' }}>Our Office</h3>
                                         <p>YoungZen Technologies</p>
 
-                                        <span><i className="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:info@youngzen.in"> info@youngzen.in</a></span>
+                                        <span><i className="fa fa-envelope-o" aria-hidden="true"></i><a href={`mailto:${youngZenEmail}`}> {youngZenEmail}</a></span>
                                         <span><i className="fa fa-phone" aria-hidden="true"></i> <a href="tel:+91-4223568392">+91-4223568392</a></span>
                                         <span><i className="fa fa-map-marker" aria-hidden="true"></i> No 8a, 8th Cross, Sultanpalya Main Road, RT Nagar, Bangalore 560032, Karnataka, India.</span>
                                     </div>

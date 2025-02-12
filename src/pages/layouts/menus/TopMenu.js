@@ -1,7 +1,9 @@
 import React from "react";
 import { useAuth } from '../../../context/AuthContext';
+import config from "../../../config";
 
 const TopMenu = () => {
+    const helpEmail = config?.helpEmail;
 
     const { isLoggedIn } = useAuth();
     return (
@@ -19,7 +21,7 @@ const TopMenu = () => {
                     <div className="rhs">
                         <ul>
                             {/* <li><a href="tel:+9704462944"><i className="fa fa-phone" aria-hidden="true"></i>&nbsp;+01 5312 5312</a></li> */}
-                            <li><a href="mailto:info@weddingsoulmates.com"><i className="fa fa-envelope-o" aria-hidden="true"></i>&nbsp; help@weddingsoulmates.com</a></li>
+                            <li><a href={`mailto:${helpEmail}`}><i className="fa fa-envelope-o" aria-hidden="true"></i>&nbsp; {helpEmail}</a></li>
                             <li><a href="#!" aria-label="facebook"><i className="fa fa-facebook" aria-hidden="true"></i></a></li>
                             <li><a href="#!" aria-label="twitter"><i className="fa fa-twitter" aria-hidden="true"></i></a></li>
                             <li><a href="#!" aria-label="whatsapp"><i className="fa fa-whatsapp" aria-hidden="true"></i></a></li>

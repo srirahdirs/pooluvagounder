@@ -48,7 +48,7 @@ const Home = () => {
                                     <h2>Find your perfect Match now</h2>
                                     <p>Discover your ideal partner today. Experience true connection and lasting love. <b>Wedding Soul Mates</b> helps you find the perfect match with ease.</p>
                                     <a href="/register" className="cta-3">Register Now</a>
-                                    <a href="/login" className="cta-4">Help & Support</a>
+                                    <a href="/contact" className="cta-4">Help & Support</a>
                                 </div>
                             </div>
                         </div>

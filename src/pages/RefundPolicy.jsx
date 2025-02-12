@@ -1,7 +1,9 @@
 import React from 'react';
 import '../assets/css/RefundPolicy.css';
+import config from '../config';
 
 const RefundPolicy = () => {
+    const supportEmail = config?.supportEmail;
     return (
         <div className="privacy-container mb-5">
             <main className="content">
@@ -21,7 +23,7 @@ const RefundPolicy = () => {
                     <h3>4. Contact Us</h3>
                     <p>If you have any questions or need assistance, feel free to contact us:</p>
                     <ul>
-                        <li>Email: <a href="mailto:support@weddingsoulmates.com"><strong>support@weddingsoulmates.com</strong></a></li>
+                        <li>Email: <a href={`mailto:${supportEmail}`}><strong>{supportEmail}</strong></a></li>
                         <li>Phone: <a href="tel:+91-4223568392"><strong>+91-4223568392</strong></a></li>
                     </ul>
                 </div>

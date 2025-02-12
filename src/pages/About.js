@@ -1,6 +1,8 @@
 import React from 'react';
+import config from '../config';
 
 const About = () => {
+  const infoEmail = config?.infoEmail
   return (
     <>
       {/* Hero Section */}
@@ -89,7 +91,7 @@ const About = () => {
                       <li>
                         <div>
                           <i className="fa fa-envelope-o" aria-hidden="true"></i>
-                          <h4>Get Support <a href="mailto:info@weddingsoulmates.com" ><em>info@weddingsoulmates.com</em></a></h4>
+                          <h4>Get Support <a href={`mailto:${infoEmail}`} ><em>{infoEmail}</em></a></h4>
                         </div>
                       </li>
 
