@@ -117,7 +117,7 @@ const Registration = () => {
                 setUser(data.user);
                 showToast('Registration successful! Redirecting...');
                 setTimeout(() => {
-                    navigate('/home'); // Redirect to login page after registration
+                    navigate('/edituserprofile'); // Redirect to login page after registration
                 }, 3000);
             } else {
                 showToast(data.message || 'Registration failed', 'error');

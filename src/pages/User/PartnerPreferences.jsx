@@ -30,7 +30,6 @@ const PartnerPreferences = () => {
     //     }, 3000);
     // }
     const dataExists = location.state?.dataExists;
-    console.log(dataExists, 'dataExists');
 
     useEffect(() => {
         if (dataExists) {

@@ -7,8 +7,7 @@ import { useAuth } from '../context/AuthContext';
 const CashfreePayment = ({ planId, planPrice }) => {
     const [loading, setLoading] = useState(false); // State to handle loading state
     const [error, setError] = useState(null); // State to handle errors
-    console.log(planId, 'planId');
-    console.log(planPrice, 'planPrice');
+
     const { user } = useAuth();
     const user_id = user?.id ? user.id : 0;
 

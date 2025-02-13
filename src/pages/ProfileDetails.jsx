@@ -28,8 +28,10 @@ const ProfileDetails = () => {
   const bytes = CryptoJS.AES.decrypt(decodeURIComponent(id), secretKey);
   const userId = bytes.toString(CryptoJS.enc.Utf8);
 
-  console.log(userId, 'Decrypted User ID');
-
+  // console.log(userId, 'Decrypted User ID');
+  // if (!userId) {
+  //   userId = id;
+  // }
   useEffect(() => {
     const fetchData = async () => {
       try {

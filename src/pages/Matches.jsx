@@ -55,7 +55,9 @@ const Matches = () => {
             fetchData();
         }
     }, [isLoggedIn, user, fullApiUrl]);
-
+    const navigateToPricing = () => {
+        navigate('/pricing');
+    }
     return (
         <>
             <section>
@@ -150,7 +152,12 @@ const Matches = () => {
                                                             <span className="enq-sav" data-toggle="tooltip" title="Click to save this profile.">
                                                                 <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                                             </span>
+                                                            <div className="buy-now-container">
+                                                                <p className="subscription-message">Choose a subscription plan to unlock full profiles and connect with your ideal match today</p>
+                                                                <button className="buy-now-btn" onClick={navigateToPricing}>Purchase Plan</button>
+                                                            </div>
                                                         </div>
+
                                                     </li>
                                                 );
                                             })

@@ -5,9 +5,10 @@ import { Link, useLocation } from "react-router-dom";
 
 const UserLeftMenu = () => {
     const location = useLocation();
-    const { user } = useAuth();
+    // const { user } = useAuth();
     const [userProfileEditRequired, setUserProfileEditRequired] = useState(false);
     const [profilePicture, setProfilePicture] = useState(null);
+    const user = localStorage.getItem('user')
     useEffect(() => {
         if (user && user.user_images && user.user_images.length > 0) {
             if (user && user.user_profile_picture) {
@@ -21,7 +22,7 @@ const UserLeftMenu = () => {
         }
     }, [user]);
 
-    console.log(userProfileEditRequired, 'userProfileEditRequired');
+
 
     return (
         <div className="db-nav">
