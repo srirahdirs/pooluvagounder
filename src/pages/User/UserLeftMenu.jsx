@@ -1,11 +1,12 @@
 import { React, useEffect } from "react";
 import { useAuth } from '../../context/AuthContext'
 import { useState } from "react";
-import { Link,useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const UserLeftMenu = () => {
     const location = useLocation();
     const { user } = useAuth();
+    const [userProfileEditRequired, setUserProfileEditRequired] = useState(false);
     const [profilePicture, setProfilePicture] = useState(null);
     useEffect(() => {
         if (user && user.user_images && user.user_images.length > 0) {
@@ -13,7 +14,15 @@ const UserLeftMenu = () => {
                 setProfilePicture(user.user_profile_picture);
             }
         }
+        console.log(user);
+
+        if (user.user_gender === null) {
+            setUserProfileEditRequired(true);
+        }
     }, [user]);
+
+    console.log(userProfileEditRequired, 'userProfileEditRequired');
+
     return (
         <div className="db-nav">
             <div className="db-nav-pro">
@@ -47,7 +56,12 @@ const UserLeftMenu = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/partnerpreferences" className={location.pathname === '/partnerpreferences' ? 'active' : ''}>
+                        <Link to="/edituserprofile" className={location.pathname === '/edituserprofile' ? 'active' : ''}>
+                            <i className="fa fa-cog" aria-hidden="true"></i>Edit profile
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/partnerpreferences" state={{ dataExists: userProfileEditRequired }} className={location.pathname === '/partnerpreferences' ? 'active' : ''}>
                             <i className="fa fa-handshake-o" aria-hidden="true"></i>Partner Preferences
                         </Link>
                     </li>
@@ -61,11 +75,7 @@ const UserLeftMenu = () => {
                             <i className="fa fa-money" aria-hidden="true"></i>Plan
                         </Link>
                     </li>
-                    <li>
-                        <Link to="/edituserprofile" className={location.pathname === '/edituserprofile' ? 'active' : ''}>
-                            <i className="fa fa-cog" aria-hidden="true"></i>Edit profile
-                        </Link>
-                    </li>
+
                     <li>
                         <Link to="/logout" className={location.pathname === '/logout' ? 'active' : ''}>
                             <i className="fa fa-sign-out" aria-hidden="true"></i>Log out

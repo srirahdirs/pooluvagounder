@@ -3,11 +3,11 @@ import Select from 'react-select';
 import { Toast } from 'primereact/toast'; // Assuming you're using PrimeReact
 import { useToast } from '../../assets/utils/toastUtil';
 import config from '../../config';
-import { useNavigate, Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import UserLeftMenu from './UserLeftMenu';
 
 const PartnerPreferences = () => {
-
+    const location = useLocation();
     const { toast, showToast } = useToast();
     const navigate = useNavigate();
     const [user, setUser] = useState(() => {
@@ -23,12 +23,23 @@ const PartnerPreferences = () => {
         console.error('Invalid API url');
     }
 
-    if (user?.gender == null || user?.gender === undefined || user?.gender === '') {
-        showToast('You need to update your profile before updating the partner preferences!');
-        setTimeout(() => {
-            navigate('/edituserprofile');
-        }, 3000);
-    }
+    // if (user?.gender == null || user?.gender === undefined || user?.gender === '') {
+    //     showToast('You need to update your profile before updating the partner preferences!');
+    //     setTimeout(() => {
+    //         navigate('/edituserprofile');
+    //     }, 3000);
+    // }
+    const dataExists = location.state?.dataExists;
+    console.log(dataExists, 'dataExists');
+
+    useEffect(() => {
+        if (dataExists) {
+            showToast('You need to update your profile before updating the partner preferences!');
+            setTimeout(() => {
+                navigate('/edituserprofile');
+            }, 3000);
+        }
+    }, [dataExists, navigate]);
 
 
     const userGender = user?.gender || ''; // Get user's gender

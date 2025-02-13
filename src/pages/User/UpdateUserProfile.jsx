@@ -11,7 +11,7 @@ const UpdateUserProfile = () => {
 
     const [states, setStates] = useState([]);
     const [cities, setCities] = useState([]);
-    const { toast, showToast, clearToast } = useToast();
+    const { toast, showToast } = useToast();
     const [dobError, setDobError] = useState('');
 
     // Get today's date and set minAllowedDate to 18 years back

@@ -18,7 +18,7 @@ const PrivacyPolicy = () => {
                     <li><strong>Contact Information:</strong> Email address, phone number, and residential address.</li>
                     <li><strong>Profile Information:</strong> Details about your preferences and partner criteria (age, height, caste, job, etc.).</li>
                     <li><strong>Location Information:</strong> We may collect your location data to match you with relevant profiles.</li>
-                    <li><strong>Payment Information:</strong> If applicable, when subscribing to premium services, we may collect payment details. We do not store sensitive payment data. All payments are securely processed by third-party payment providers, and the PAN holder for any applicable financial transactions on this platform is <strong>Sridhar Vellingiri</strong>.</li>
+                    <li><strong>Payment Information:</strong> If applicable, when subscribing to premium services, we may collect payment details. We do not store sensitive payment data. All payments are securely processed by third-party payment providers, and the PAN holder for any applicable financial transactions on this platform is <strong>VELLINGIRI SRIDHAR</strong>.</li>
                     <li><strong>Other Information:</strong> Any data you provide through messaging, comments, and interactions on the platform.</li>
                 </ul>
 
