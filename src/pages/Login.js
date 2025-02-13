@@ -27,7 +27,7 @@ const Login = () => {
     if (isLoggedIn) {
       setTimeout(() => {
         navigate('/edituserprofile');
-      }, 3000);
+      }, 1000);
     }
   }, [isLoggedIn, navigate]);
 

@@ -12,8 +12,7 @@ const Contact = () => {
 
     // EmailJS onSubmit handler
     const onSubmit = (data) => {
-        console.log(data, "data");
-        console.log(form, "form");
+
 
         // Format the data in an aligned format
         const formattedMessage = `
