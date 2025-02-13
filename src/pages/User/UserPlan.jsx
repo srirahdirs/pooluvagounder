@@ -1,6 +1,16 @@
 import { React } from "react";
 import UserLeftMenu from "./UserLeftMenu";
+import { useAuth } from "../../context/AuthContext";
+import { Navigate } from 'react-router-dom';
+
 const UserPlan = () => {
+    const { user, setUser } = useAuth();
+
+
+    if (!user) {
+        return <Navigate to="/login" state={{ message: 'Login required' }} replace />;
+    }
+
 
     return (
         <>

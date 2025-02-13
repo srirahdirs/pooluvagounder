@@ -3,17 +3,28 @@ import Select from 'react-select';
 import { Toast } from 'primereact/toast'; // Assuming you're using PrimeReact
 import { useToast } from '../../assets/utils/toastUtil';
 import config from '../../config';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import UserLeftMenu from './UserLeftMenu';
+import { useAuth } from "../../context/AuthContext";
 
 const PartnerPreferences = () => {
     const location = useLocation();
     const { toast, showToast } = useToast();
     const navigate = useNavigate();
-    const [user, setUser] = useState(() => {
-        const savedUser = localStorage.getItem('user');
-        return savedUser ? JSON.parse(savedUser) : {};
-    });
+    const { user, setUser } = useAuth();
+
+    const [genderError, setGenderError] = useState('');
+    const [ageError, setAgeError] = useState('');
+    const [heightError, setHeightError] = useState('');
+    const [weightError, setWeightError] = useState('');
+    const [maritalStatusError, setMaritalStatusError] = useState('');
+    const [religionError, setReligionError] = useState('');
+    const [casteError, setCasteError] = useState('');
+
+    // const [user, setUser] = useState(() => {
+    //     const savedUser = localStorage.getItem('user');
+    //     return savedUser ? JSON.parse(savedUser) : {};
+    // });
 
     const apiUrl = config?.apiUrl;
     let fullApiUrl;
@@ -45,17 +56,17 @@ const PartnerPreferences = () => {
 
     const partnerGender = userGender === 'Male' ? 'Female' : (userGender === 'Female' ? 'Male' : '');
     const [formData, setFormData] = useState({
-        gender: partnerGender || user.partner_preferences?.gender || '',  // Default to empty string if undefined
-        age: user.partner_preferences?.age || '',
-        height: user.partner_preferences?.height || '',
-        weight: user.partner_preferences?.weight || '',
-        marital_status: user.partner_preferences?.marital_status || '',
-        job_type: user.partner_preferences?.job_type || '',
-        monthly_income: user.partner_preferences?.monthly_income || '',
-        religion: user.partner_preferences?.religion || '',
-        caste: user.partner_preferences?.caste || '',
-        sub_caste: user.partner_preferences?.sub_caste || '',
-        dosam: user.partner_preferences?.dosam || ''
+        gender: partnerGender || user?.partner_preferences?.gender || '',  // Default to empty string if undefined
+        age: user?.partner_preferences?.age || '',
+        height: user?.partner_preferences?.height || '',
+        weight: user?.partner_preferences?.weight || '',
+        marital_status: user?.partner_preferences?.marital_status || '',
+        job_type: user?.partner_preferences?.job_type || '',
+        monthly_income: user?.partner_preferences?.monthly_income || '',
+        religion: user?.partner_preferences?.religion || '',
+        caste: user?.partner_preferences?.caste || '',
+        sub_caste: user?.partner_preferences?.sub_caste || '',
+        dosam: user?.partner_preferences?.dosam || ''
     });
 
 
@@ -217,7 +228,7 @@ const PartnerPreferences = () => {
                 if (data.success) {
                     const updatedUser = {
                         ...user, // Spread the existing user details
-                        partner_preferences: data.user.partner_preferences // Update only partner preferences
+                        partner_preferences: data.user?.partner_preferences // Update only partner preferences
                     };
 
                     // Set the updated user details in state and localStorage
@@ -240,14 +251,10 @@ const PartnerPreferences = () => {
         }
     };
 
+    if (!user) {
+        return <Navigate to="/login" state={{ message: 'Login required' }} replace />;
+    }
 
-    const [genderError, setGenderError] = useState('');
-    const [ageError, setAgeError] = useState('');
-    const [heightError, setHeightError] = useState('');
-    const [weightError, setWeightError] = useState('');
-    const [maritalStatusError, setMaritalStatusError] = useState('');
-    const [religionError, setReligionError] = useState('');
-    const [casteError, setCasteError] = useState('');
 
     return (
         <>

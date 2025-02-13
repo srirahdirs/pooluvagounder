@@ -16,16 +16,22 @@ const UpdateUserProfile = () => {
     const [dobError, setDobError] = useState('');
     const { user1, setUser1 } = useAuth();
 
+    const { user, setUser } = useAuth();
+
+    console.log(useAuth, 'user Authentication')
+
     // Get today's date and set minAllowedDate to 18 years back
     const today = new Date();
     const minAllowedDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate())
         .toISOString()
         .split('T')[0];
 
-    const [user, setUser] = useState(() => {
-        const savedUser = localStorage.getItem('user');
-        return savedUser ? JSON.parse(savedUser) : {};
-    });
+    // const [user, setUser] = useState(() => {
+    //     const savedUser = localStorage.getItem('user');
+    //     return savedUser ? JSON.parse(savedUser) : {};
+    // });
+
+    // console.log(user, "hello ")
 
 
 
@@ -572,6 +578,10 @@ const UpdateUserProfile = () => {
     const [maritalStatusError, setMaritalStatusError] = useState('');
     const [religionError, setReligionError] = useState('');
     const [casteError, setCasteError] = useState('');
+
+    if (!user) {
+        return <Navigate to="/login" state={{ message: 'Login required' }} replace />;
+    }
 
 
     if (!user1) {

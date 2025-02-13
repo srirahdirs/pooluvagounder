@@ -17,7 +17,7 @@ const UserLeftMenu = () => {
         }
         console.log(user);
 
-        if (user.user_gender === null) {
+        if (user?.user_gender === null) {
             setUserProfileEditRequired(true);
         }
     }, [user]);

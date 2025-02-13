@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from "../context/AuthContext";
+import { Navigate } from 'react-router-dom';
 
 const ComingSoon = () => {
     // Set the target date for the countdown
     const targetDate = new Date('Feb 28, 2025 23:59:59').getTime(); // Example future date
+
+    const { user, setUser } = useAuth();
 
     // Initialize state for the remaining time
     const [timeLeft, setTimeLeft] = useState({
@@ -38,6 +42,12 @@ const ComingSoon = () => {
         // Cleanup interval on component unmount
         return () => clearInterval(timerInterval);
     }, [targetDate]);
+
+
+    if (!user) {
+        return <Navigate to="/login" state={{ message: 'Login required' }} replace />;
+    }
+
 
     return (
         <>
