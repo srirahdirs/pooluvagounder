@@ -1,7 +1,7 @@
 // config.js
 const config = {
-    // apiUrl: 'https://api.weddingsoulmates.com/api/',
-    apiUrl: 'http://localhost:4000/api/',
+    apiUrl: 'https://api.weddingsoulmates.com/api/',
+    // apiUrl: 'http://localhost:4000/api/',
     cryptoSecretKey: 'jira@123',
     REACT_APP_CASHFREE_MODE: 'sandbox',
     REACT_APP_CASHFREE_APP_ID: 'TEST10472590677fe7ee22e1a051785b09527401',

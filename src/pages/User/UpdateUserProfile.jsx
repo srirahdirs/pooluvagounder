@@ -6,6 +6,7 @@ import { Toast } from "primereact/toast";
 import { useToast } from '../../assets/utils/toastUtil';
 import config from '../../config';
 import UserLeftMenu from "./UserLeftMenu";
+import { Navigate } from "react-router-dom";
 const UpdateUserProfile = () => {
 
 
@@ -13,6 +14,7 @@ const UpdateUserProfile = () => {
     const [cities, setCities] = useState([]);
     const { toast, showToast } = useToast();
     const [dobError, setDobError] = useState('');
+    const { user1, setUser1 } = useAuth();
 
     // Get today's date and set minAllowedDate to 18 years back
     const today = new Date();
@@ -24,6 +26,8 @@ const UpdateUserProfile = () => {
         const savedUser = localStorage.getItem('user');
         return savedUser ? JSON.parse(savedUser) : {};
     });
+
+
 
     function calculateAge(dob) {
         if (!dob) return "";
@@ -569,6 +573,10 @@ const UpdateUserProfile = () => {
     const [religionError, setReligionError] = useState('');
     const [casteError, setCasteError] = useState('');
 
+
+    if (!user1) {
+        return <Navigate to="/login" state={{ message: 'Login required' }} replace />;
+    }
 
     return (
         <section>
