@@ -9,7 +9,6 @@ import UserLeftMenu from "./UserLeftMenu";
 import { Navigate } from "react-router-dom";
 const UpdateUserProfile = () => {
 
-
     const [states, setStates] = useState([]);
     const [cities, setCities] = useState([]);
     const { toast, showToast } = useToast();
@@ -17,6 +16,8 @@ const UpdateUserProfile = () => {
     const { user1, setUser1 } = useAuth();
 
     const { user, setUser } = useAuth();
+
+    console.log(useAuth, 'user Authentication')
 
     console.log(useAuth, 'user Authentication')
 
@@ -32,8 +33,6 @@ const UpdateUserProfile = () => {
     // });
 
     // console.log(user, "hello ")
-
-
 
     function calculateAge(dob) {
         if (!dob) return "";
@@ -580,11 +579,6 @@ const UpdateUserProfile = () => {
     const [casteError, setCasteError] = useState('');
 
     if (!user) {
-        return <Navigate to="/login" state={{ message: 'Login required' }} replace />;
-    }
-
-
-    if (!user1) {
         return <Navigate to="/login" state={{ message: 'Login required' }} replace />;
     }
 
