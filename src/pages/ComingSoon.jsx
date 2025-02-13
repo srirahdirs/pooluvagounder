@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const ComingSoon = () => {
     // Set the target date for the countdown
-    const targetDate = new Date('December 31, 2024 23:59:59').getTime(); // Example future date
+    const targetDate = new Date('Feb 28, 2025 23:59:59').getTime(); // Example future date
 
     // Initialize state for the remaining time
     const [timeLeft, setTimeLeft] = useState({

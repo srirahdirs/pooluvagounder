@@ -46,7 +46,7 @@ const UserLeftMenu = () => {
             <div className="db-nav-list">
                 <ul>
                     <li>
-                        <Link to="/comingsoon" className={location.pathname === '/comingsoon' ? 'active' : ''}>
+                        <Link to="/home" className={location.pathname === '/home' ? 'active' : ''}>
                             <i className="fa fa-tachometer" aria-hidden="true"></i>Dashboard
                         </Link>
                     </li>

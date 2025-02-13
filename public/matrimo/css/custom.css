@@ -509,3 +509,46 @@ h6 {
 .purchase-plan-btn:hover {
     background-color: #0056b3;
 }
+
+
+
+
+/* profile details page css */
+.all-pro-box {
+    position: relative;
+}
+
+.all-pro-box .pro-img,
+.all-pro-box .pro-detail {
+    pointer-events: none;
+    filter: blur(3px);
+    /* Apply blur to the image and detail sections */
+}
+
+.buy-now-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.subscription-message {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 800;
+    /* Slightly bold for emphasis */
+}
+
+.buy-now-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buy-now-btn:hover {
+    background-color: #218838;
+}

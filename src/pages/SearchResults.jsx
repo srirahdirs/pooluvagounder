@@ -1,12 +1,16 @@
 import React from 'react'
 import { useAuth } from "../context/AuthContext";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import SearchProfile from './SearchProfile';
 
 const SearchResults = () => {
     const { isLoggedIn, user } = useAuth();
+    const navigate = useNavigate();
     const location = useLocation();
     const searchResults = location.state?.searchResults || [];
+    const navigateToPricing = () => {
+        navigate('/pricing');
+    }
     return (
         <>
             <section>
@@ -67,9 +71,8 @@ const SearchResults = () => {
                                         {searchResults.length > 0 ? (
                                             searchResults.map((profile, index) => (
                                                 <li key={profile.user_id || index}>
-                                                    <div className="all-pro-box user-avil-onli" data-useravil="avilyes" data-aviltxt="Available online">
+                                                    <div className="all-pro-box user-avil-onli blurred-div" data-useravil="avilyes" data-aviltxt="Available online">
                                                         <div className="pro-img">
-
                                                             {profile.profile_picture ? (
                                                                 <a href={`/profiledetails/${profile.user_id}`}>
                                                                     <img src={profile.profile_picture} alt={profile.name} />
@@ -79,7 +82,6 @@ const SearchResults = () => {
                                                                     <img src={`${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`} alt={profile.name} />
                                                                 </a>
                                                             )}
-
                                                             <div className="pro-ave" title="User currently available">
                                                                 <span className="pro-ave-yes"></span>
                                                             </div>
@@ -98,15 +100,20 @@ const SearchResults = () => {
                                                             </div>
                                                             <div className="links">
                                                                 <span className="cta-chat">Chat now</span>
-                                                                {/* <a href={`https://wa.me/${profile.phone}`}>WhatsApp</a> */}
-
                                                                 <a href={`/profiledetails/${profile.user_id}`}>More details</a>
-                                                                {/* <a className="desk-menu cta fol cta-chat">Buy Plan to View Profile</a> */}
                                                             </div>
                                                         </div>
+
                                                         <span className="enq-sav" data-toggle="tooltip" title="Click to save this profile.">
                                                             <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                                         </span>
+
+                                                        {/* Buy Now button */}
+                                                        <div className="buy-now-container">
+                                                            <p className="subscription-message">Choose a subscription plan to unlock full profiles and connect with your ideal match today</p>
+                                                            <button className="buy-now-btn" onClick={navigateToPricing}>Purchase Plan</button>
+                                                        </div>
+
                                                     </div>
                                                 </li>
                                             ))
@@ -115,6 +122,7 @@ const SearchResults = () => {
                                         )}
                                     </ul>
                                 </div>
+
                             </div>
                         </div>
                     </div>

@@ -143,10 +143,15 @@ const UserProfile = () => {
     };
     const uploadHandler = async (e) => {
         const formData = new FormData();
+        console.log('Files:', e.files); // Log the files being uploaded
+
         e.files.forEach((file) => {
             formData.append('files[]', file);
+            console.log('Appended file:', file.name); // Log each file being appended
         });
+
         formData.append("user_id", user.id);
+        console.log('FormData:', formData); // Log the FormData object
 
         try {
             const uploadPhotosApiUrl = apiUrl + 'uploadPhotos';
@@ -160,9 +165,8 @@ const UserProfile = () => {
                 console.log('Response Data:', responseData);
 
                 if (responseData.user && Array.isArray(responseData.user.user_images)) {
-                    // Ensure user.user_images is an array before mapping
                     const existingImages = (user.user_images || [])
-                        .filter(image => image.image_id !== null && image.file_path !== null)  // Remove null values
+                        .filter(image => image.image_id !== null && image.file_path !== null)
                         .map(image => ({
                             image_id: image.image_id,
                             file_path: image.file_path,
@@ -171,9 +175,8 @@ const UserProfile = () => {
                     console.log('Existing Images:', existingImages);
                     console.log('New Images from response:', responseData.user.user_images);
 
-                    // Merge new images from the response, avoiding duplicates based on image_id
                     const updatedImages = [
-                        ...existingImages, // Keep the existing images
+                        ...existingImages,
                         ...responseData.user.user_images.filter(newImage =>
                             !existingImages.some(existingImage => existingImage.image_id === newImage.image_id)
                         ).map(image => ({
@@ -184,16 +187,12 @@ const UserProfile = () => {
 
                     console.log('Updated Images (no duplicates):', updatedImages);
 
-                    // Update the user object with the new images (including image_id and file_path)
                     const updatedUser = {
                         ...user,
                         user_images: updatedImages,
                     };
 
-                    // Store updated user object in localStorage
                     localStorage.setItem('user', JSON.stringify(updatedUser));
-
-                    // Update the state with the new images
                     setUserImages(updatedImages);
 
                     console.log('User Images after setUserImages:', updatedImages);
@@ -206,20 +205,13 @@ const UserProfile = () => {
                     console.error('User images not found in response');
                 }
             } else {
-                console.error('Error uploading files');
+                const errorResponse = await response.json(); // Parse the error response
+                console.error('Error uploading files:', errorResponse);
             }
-
-
-
-
-
-
-
         } catch (error) {
             console.error('Error uploading files:', error);
         }
     };
-
 
 
     return (
