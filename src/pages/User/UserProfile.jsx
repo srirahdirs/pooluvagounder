@@ -1,86 +1,69 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FileUpload } from 'primereact/fileupload';
 import { Dialog } from 'primereact/dialog';
 import { Toast } from 'primereact/toast';
 import { useToast } from '../../assets/utils/toastUtil';
-import { useAuth } from '../../context/AuthContext'
+import { useAuth } from '../../context/AuthContext';
 import { Navigate } from 'react-router-dom';
 import config from '../../config';
 import UserLeftMenu from './UserLeftMenu';
 
 const UserProfile = () => {
-
     const { user, setUser } = useAuth();
     const { toast, showToast } = useToast();
     const [userImages, setUserImages] = useState([]);
     const [visible, setVisible] = useState(false);
-    const [hoveredImage, setHoveredImage] = useState(null); // Track which image is hovered
+    const [hoveredImage, setHoveredImage] = useState(null);
     const [profilePicture, setProfilePicture] = useState(null);
+    const toastRef = useRef(null);
 
     const apiUrl = config?.apiUrl;
-    let fullApiUrl;
-    if (apiUrl) {
-        fullApiUrl = apiUrl + 'makeProfilePicture';
-    } else {
-        console.error('Invalid API url');
-    }
+    const fullApiUrl = apiUrl ? `${apiUrl}makeProfilePicture` : null;
 
     useEffect(() => {
-        console.log(user);
-        if (user && user.user_images && user.user_images.length > 0) {
-            const validUserImages = user.user_images.filter(image => image.file_path && image.image_id);
-            if (validUserImages.length > 0) {
-                setUserImages(validUserImages);
-            }
-            if (user && user.user_profile_picture) {
-                setProfilePicture(user.user_profile_picture); // Explicitly set profile picture here
+        if (user) {
+
+            const validUserImages = user.user_images?.filter(image => image.file_path && image.id) || [];
+
+            setUserImages(validUserImages);
+            console.log(validUserImages, 'validUserImages');
+            if (user.user_profile_picture && user.user_profile_picture !== '') {
+                setProfilePicture(user.user_profile_picture);
+            } else if (validUserImages.length > 0) {
+                setProfilePicture(validUserImages[0].file_path);
             }
         }
-    }, [user, setUser]);
+    }, [user]);
 
     if (!user) {
         return <Navigate to="/login" state={{ message: 'Login required' }} replace />;
     }
 
+    const handleMouseEnter = (index) => setHoveredImage(index);
+    const handleMouseLeave = () => setHoveredImage(null);
 
-
-    const handleMouseEnter = (index) => {
-        setHoveredImage(index);
-    };
-
-    // Function to handle mouse leave
-    const handleMouseLeave = () => {
-        setHoveredImage(null);
-    };
-
-    // Function to call API and set profile picture
     const handleMakeProfilePicture = async (image) => {
+        if (!fullApiUrl) {
+            console.error('Invalid API URL');
+            return;
+        }
+
         try {
             const response = await fetch(fullApiUrl, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ user_id: user.id, image_id: image.image_id }),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: user.id, image_id: image.id }),
             });
 
             if (response.ok) {
-                const result = await response.json();
                 showToast('Profile picture updated');
-
-                // Set the new profile picture in the UI
                 setProfilePicture(image.file_path);
 
-                // Update the user object in AuthContext with the new profile picture
                 const updatedUser = {
                     ...user,
-                    user_profile_picture: image.file_path, // Update this field with the new profile picture
+                    user_profile_picture: image.file_path,
                 };
-
-                setUser(updatedUser); // Update the user in the AuthContext
-
-                console.log('Profile picture updated:', image.file_path);
-
+                setUser(updatedUser);
             } else {
                 console.error('Failed to update profile picture');
             }
@@ -88,38 +71,47 @@ const UserProfile = () => {
             console.error('Error:', error);
         }
     };
+
     const deletePicture = async (image) => {
+        console.log(image);
+        const deleteApiUrl = apiUrl ? `${apiUrl}deletePicture` : null;
+        if (!deleteApiUrl) {
+            console.error('Invalid API URL');
+            return;
+        }
+
         try {
-            const deleteApiUrl = apiUrl + 'deletePicture';
             const response = await fetch(deleteApiUrl, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ user_id: user.id, image_id: image.image_id }),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: user.id, image_id: image.id }),
             });
 
             if (response.ok) {
                 showToast('Picture deleted');
 
-                // Remove the deleted picture from user_images
-                const updatedImages = user.user_images.filter(img => img.image_id !== image.image_id);
+                const updatedImages = user.user_images.filter(img => img.id !== image.id);
+                let newProfilePicture = null; // Default to null if there are no images left
 
-                // If the deleted image was the profile picture, handle setting a new profile picture
-                let newProfilePicture = user.user_profile_picture;
-                if (image.file_path === user.user_profile_picture) {
-                    newProfilePicture = updatedImages.length > 0 ? updatedImages[0].file_path : null;
+                if (updatedImages.length > 0) {
+                    // If there are still images left, set the first image as the profile picture
+                    if (image.file_path === user.user_profile_picture) {
+                        newProfilePicture = updatedImages[0].file_path;
+                    } else {
+                        // If the deleted image wasn't the profile picture, keep the same profile picture
+                        newProfilePicture = user.user_profile_picture;
+                    }
                 }
 
-                // Update the user object with the new images and profile picture
                 const updatedUser = {
                     ...user,
-                    user_images: updatedImages,             // Update the images array
-                    user_profile_picture: newProfilePicture // Update the profile picture
+                    user_images: updatedImages,
+                    user_profile_picture: newProfilePicture,
                 };
 
-                setUser(updatedUser); // Update the user in the AuthContext
-                setProfilePicture(newProfilePicture); // Update the profile picture in the UI
+                setUser(updatedUser);
+                console.log("newProfilePicture", newProfilePicture);
+                setProfilePicture(newProfilePicture);
 
             } else {
                 console.error('Failed to delete picture');
@@ -129,32 +121,19 @@ const UserProfile = () => {
         }
     };
 
-    // State to toggle modal visibility
-    const onUpload = (e) => {
 
-        // setUploadedFiles(e.files);  // Update the state with uploaded files
-    };
-
-    const showModal = () => {
-        setVisible(true);
-    };
-    const hideModal = () => {
-        setVisible(false);
-    };
     const uploadHandler = async (e) => {
         const formData = new FormData();
-        console.log('Files:', e.files); // Log the files being uploaded
-
-        e.files.forEach((file) => {
-            formData.append('files[]', file);
-            console.log('Appended file:', file.name); // Log each file being appended
-        });
-
-        formData.append("user_id", user.id);
-        console.log('FormData:', formData); // Log the FormData object
+        e.files.forEach((file) => formData.append('files[]', file));
+        formData.append('user_id', user.id);
 
         try {
-            const uploadPhotosApiUrl = apiUrl + 'uploadPhotos';
+            const uploadPhotosApiUrl = apiUrl ? `${apiUrl}uploadPhotos` : null;
+            if (!uploadPhotosApiUrl) {
+                console.error('Invalid API URL');
+                return;
+            }
+
             const response = await fetch(uploadPhotosApiUrl, {
                 method: 'POST',
                 body: formData,
@@ -162,50 +141,46 @@ const UserProfile = () => {
 
             if (response.ok) {
                 const responseData = await response.json();
-                console.log('Response Data:', responseData);
+                console.log(responseData, 'responseData');
 
-                if (responseData.user && Array.isArray(responseData.user.user_images)) {
-                    const existingImages = (user.user_images || [])
-                        .filter(image => image.image_id !== null && image.file_path !== null)
-                        .map(image => ({
-                            image_id: image.image_id,
-                            file_path: image.file_path,
-                        }));
+                if (responseData.user?.user_images) {
+                    const existingImages = user.user_images || [];
 
-                    console.log('Existing Images:', existingImages);
-                    console.log('New Images from response:', responseData.user.user_images);
+                    // Check if the profile picture exists in the new images
+                    const newProfilePicture = responseData.user.user_images.find(image => image.profile_picture === 1);
 
-                    const updatedImages = [
-                        ...existingImages,
-                        ...responseData.user.user_images.filter(newImage =>
-                            !existingImages.some(existingImage => existingImage.image_id === newImage.image_id)
-                        ).map(image => ({
-                            image_id: image.image_id,
-                            file_path: image.file_path,
-                        }))
-                    ];
+                    // Filter out any existing images that are not in the response
+                    const newImages = responseData.user.user_images.filter(
+                        newImage => !existingImages.some(existingImage => existingImage.id === newImage.id)
+                    );
 
-                    console.log('Updated Images (no duplicates):', updatedImages);
+                    // Merge the new images with existing ones
+                    const updatedImages = [...existingImages, ...newImages];
 
+                    // Update the user profile picture if it exists in the response
                     const updatedUser = {
                         ...user,
                         user_images: updatedImages,
+                        user_profile_picture: newProfilePicture ? newProfilePicture.file_path : user.user_profile_picture,  // Update the profile picture
                     };
 
+                    console.log(updatedUser, 'updatedUser');
+
+                    // Save the updated user to localStorage and update state globally
                     localStorage.setItem('user', JSON.stringify(updatedUser));
-                    setUserImages(updatedImages);
+                    setUser(updatedUser);  // Update the user in context
 
-                    console.log('User Images after setUserImages:', updatedImages);
+                    // Set the updated profile picture in local state
+                    setProfilePicture(updatedUser.user_profile_picture);
+
+                    // Show a success message
                     showToast('Photos uploaded successfully');
-
-                    setTimeout(() => {
-                        hideModal();
-                    }, 2000);
+                    setTimeout(hideModal, 1000);
                 } else {
                     console.error('User images not found in response');
                 }
             } else {
-                const errorResponse = await response.json(); // Parse the error response
+                const errorResponse = await response.json();
                 console.error('Error uploading files:', errorResponse);
             }
         } catch (error) {
@@ -213,6 +188,10 @@ const UserProfile = () => {
         }
     };
 
+
+
+    const showModal = () => setVisible(true);
+    const hideModal = () => setVisible(false);
 
     return (
         <>
@@ -229,22 +208,21 @@ const UserProfile = () => {
                     <div className="card">
                         <FileUpload
                             name="image"
-                            url="/upload"  // Not used since we are using customUpload
-                            onUpload={onUpload}  // Callback on file upload completion
-                            accept="image/*"  // Accept only image files
-                            maxFileSize={1000000}  // Optional: limit file size (1MB in this case)
+                            url="/upload" // Not used since we are using customUpload
+                            onUpload={() => { }} // Callback on file upload completion
+                            accept="image/*" // Accept only image files
+                            maxFileSize={10000000} // Increased limit to 10 MB
                             chooseLabel="Select Image"
                             auto
                             customUpload
-                            uploadHandler={uploadHandler}  // Custom handler for file upload
+                            uploadHandler={uploadHandler} // Custom handler for file upload
                             multiple
-                            className="file-upload"  // Add custom className for file upload styling
+                            className="file-upload" // Add custom className for file upload styling
                         />
-
                     </div>
                 </Dialog>
-
             </div>
+
             <section>
                 <div className="db">
                     <div className="container">
@@ -256,7 +234,6 @@ const UserProfile = () => {
                                 <div className="pr-bio-c pr-bio-gal" id="gallery">
                                     <h3>Photo gallery</h3>
                                     <div id="image-gallery">
-
                                         {userImages.length > 0 ? (
                                             userImages.map((image, index) => (
                                                 <div
@@ -277,7 +254,7 @@ const UserProfile = () => {
                                                         <div
                                                             className="img-overlay"
                                                             style={{ opacity: hoveredImage === index ? 1 : 0, cursor: 'pointer' }}
-                                                            onClick={() => deletePicture(image)}  // Add the onClick handler here
+                                                            onClick={() => deletePicture(image)}
                                                         >
                                                             <i className="fa fa-trash" aria-hidden="true"></i>
                                                         </div>
@@ -304,45 +281,33 @@ const UserProfile = () => {
                                                 </div>
                                             ))
                                         ) : (
-
-                                            // Default images if no user images are available
-                                            <>
-                                                <div className="pro-gal-imag dummy_image">
-                                                    <div className="img-wrapper">
-                                                        <a href={`${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`}>
-                                                            <img
-                                                                src={`${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`}
-                                                                className="img-responsive"
-                                                                alt="Default profile 1"
-                                                                loading="lazy"
-                                                            />
-                                                        </a>
-                                                        <div className="img-overlay" style={{ opacity: '0' }}>
-                                                            <i className="fa fa-arrows-alt" aria-hidden="true"></i>
-                                                        </div>
+                                            <div className="pro-gal-imag dummy_image">
+                                                <div className="img-wrapper">
+                                                    <a href={`${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`}>
+                                                        <img
+                                                            src={`${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`}
+                                                            className="img-responsive"
+                                                            alt="Default profile"
+                                                            loading="lazy"
+                                                        />
+                                                    </a>
+                                                    <div className="img-overlay" style={{ opacity: '0' }}>
+                                                        <i className="fa fa-arrows-alt" aria-hidden="true"></i>
                                                     </div>
                                                 </div>
-
-                                            </>
+                                            </div>
                                         )}
                                     </div>
-
                                 </div>
+
                                 <div className="row">
                                     <div className="col-md-12 col-lg-6 col-xl-8 db-sec-com dummy_image">
-
                                         <h2 className="db-tit">Profiles Display Picture</h2>
-
-                                        <div className="db-profile ">
+                                        <div className="db-profile">
                                             <div className="img">
                                                 {profilePicture ? (
-                                                    <img
-                                                        src={`${profilePicture}`}
-                                                        loading="lazy"
-                                                        alt="Profile picture"
-                                                    />
+                                                    <img src={profilePicture} loading="lazy" alt="Profile picture" />
                                                 ) : (
-                                                    // Display default image if no profile picture is available
                                                     <img
                                                         src={`${process.env.PUBLIC_URL}/matrimo/images/icon/users.svg`}
                                                         loading="lazy"
@@ -350,7 +315,6 @@ const UserProfile = () => {
                                                     />
                                                 )}
                                             </div>
-
                                         </div>
 
                                         <div className="edit" style={{ textAlign: 'right', marginTop: '10px' }}>
@@ -364,22 +328,6 @@ const UserProfile = () => {
                                         <h2 className="db-tit">Profiles status</h2>
                                         <div className="db-pro-stat">
                                             <h6>Profile completion</h6>
-                                            {/* <div className="dropdown">
-                                                <button type="button" className="btn btn-outline-secondary" data-bs-toggle="dropdown">
-                                                    <i className="fa fa-ellipsis-h" aria-hidden="true"></i>
-                                                </button>
-                                                <ul className="dropdown-menu">
-                                                    <li>
-                                                        <a className="dropdown-item" href="/edituserprofile">Edit profile</a>
-                                                    </li>
-                                                    <li>
-                                                        <a className="dropdown-item" href="#">View profile</a>
-                                                    </li>
-                                                    <li>
-                                                        <a className="dropdown-item" href="#">Profile visibility settings</a>
-                                                    </li>
-                                                </ul>
-                                            </div> */}
                                             <div className="db-pro-pgog">
                                                 <span>
                                                     <b className="count">0</b>%
@@ -411,20 +359,16 @@ const UserProfile = () => {
                                                     </span>
                                                 </li>
                                             </ul>
-
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div >
-
-            </section >
+                </div>
+            </section>
         </>
-    )
-}
+    );
+};
 
-export default UserProfile
+export default UserProfile;

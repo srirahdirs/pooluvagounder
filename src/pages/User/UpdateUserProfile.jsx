@@ -12,14 +12,20 @@ const UpdateUserProfile = () => {
     const [states, setStates] = useState([]);
     const [cities, setCities] = useState([]);
     const { toast, showToast } = useToast();
+    const [genderError, setGenderError] = useState('');
+    const [stateError, setStateError] = useState('');
+    const [cityError, setCityError] = useState('');
     const [dobError, setDobError] = useState('');
-    const { user1, setUser1 } = useAuth();
-
+    const [ageError, setAgeError] = useState('');
+    const [heightError, setHeightError] = useState('');
+    const [weightError, setWeightError] = useState('');
+    const [fathersNameError, setfathersNameError] = useState('');
+    const [mothersNameError, setmothersNameError] = useState('');
+    const [addressError, setAddressError] = useState('');
+    const [maritalStatusError, setMaritalStatusError] = useState('');
+    const [religionError, setReligionError] = useState('');
+    const [casteError, setCasteError] = useState('');
     const { user, setUser } = useAuth();
-
-    console.log(useAuth, 'user Authentication')
-
-    console.log(useAuth, 'user Authentication')
 
     // Get today's date and set minAllowedDate to 18 years back
     const today = new Date();
@@ -55,55 +61,56 @@ const UpdateUserProfile = () => {
     }
 
 
-    const dob = new Date(user.dob);
+    const dob = new Date(user?.dob);
     if (isNaN(dob.getTime())) {
-        // return res.status(400).json({ message: 'Invalid date format for date of birth' });
     } else {
         const formattedDate = dob.toISOString().split('T')[0]; // Format to YYYY-MM-DD
-        user.dob = formattedDate;
+        if (user) user.dob = formattedDate;  // No need for optional chaining here
     }
 
-    const [formData, setFormData] = useState({
-        name: user.name,
-        email: user.email,
-        about: user.about,
-        phone: user.phone,
-        password: "",
-        gender: user.gender,
-        state: user.state,
-        city: user.city,
-        dob: user.dob,
-        age: user.age,
-        height: user.height,
-        weight: user.weight,
-        fathersName: user.fathersName,
-        mothersName: user.mothersName,
-        address: user.address,
-        marital_status: user.marital_status,
-        job_type: user.job_type,
-        company_name: user.company_name,
-        salary: user.salary,
-        total_experience: user.total_experience,
-        degree: user.degree,
-        school: user.school,
-        college: user.college,
-        whatsapp: user.whatsapp,
-        facebook: user.facebook,
-        instagram: user.instagram,
-        twitter: user.twitter,
-        youtube: user.youtube,
-        linkedin: user.linkedin,
-        willing_to_marry_from_another_caste: user.willing_to_marry_from_another_caste === 1, // Co Make sure it's a boolean
-        religion: user.religion,
-        mother_tongue: user.mother_tongue,
-        caste: user.caste,
-        sub_caste: user.sub_caste,
-        gothram: user.gothram,
-        dosam: user.dosam,
-        star: user.star,
-        raasi: user.raasi,
 
+
+    const [formData, setFormData] = useState({
+        name: user?.name,
+        email: user?.email,
+        about: user?.user_details?.about,  // Get from user_details
+        phone: user?.phone,
+        password: "",
+        gender: user?.user_details?.gender,  // Get from user_details
+        state: user?.user_details?.state,    // Get from user_details
+        city: user?.user_details?.city,      // Get from user_details
+        dob: user?.user_details?.dob,        // Get from user_details
+        age: user?.user_details?.age,        // Get from user_details
+        height: user?.user_details?.height,  // Get from user_details
+        weight: user?.user_details?.weight,  // Get from user_details
+        fathersName: user?.user_details?.fathers_name,   // Get from user_details
+        mothersName: user?.user_details?.mothers_name,   // Get from user_details
+        address: user?.user_details?.address,            // Get from user_details
+        marital_status: user?.user_details?.marital_status,  // Get from user_details
+        job_type: user?.user_details?.job_type,              // Get from user_details
+        company_name: user?.user_details?.company_name,      // Get from user_details
+        salary: user?.user_details?.salary,                  // Get from user_details
+        total_experience: user?.user_details?.total_experience,  // Get from user_details
+        degree: user?.user_details?.degree,  // Get from user_details
+        school: user?.user_details?.school,  // Get from user_details
+        college: user?.user_details?.college,  // Get from user_details
+        whatsapp: user?.user_details?.whatsapp,  // Get from user_details
+        facebook: user?.user_details?.facebook,  // Get from user_details
+        instagram: user?.user_details?.instagram,  // Get from user_details
+        twitter: user?.user_details?.twitter,      // Get from user_details
+        youtube: user?.youtube,         // If this is not in user_details, retain the original mapping
+        linkedin: user?.linkedin,       // If this is not in user_details, retain the original mapping
+        willing_to_marry_from_another_caste: user?.willing_to_marry_from_another_caste === 1, // Convert to boolean
+        religion: user?.user_details?.religion,        // Get from user_details
+        mother_tongue: user?.user_details?.mother_tongue,  // Get from user_details
+        caste: user?.user_details?.caste,              // Get from user_details
+        sub_caste: user?.user_details?.sub_caste,      // Get from user_details
+        gothram: user?.user_details?.gothram,          // Get from user_details
+        dosam: user?.user_details?.dosam,              // Get from user_details
+        star: user?.user_details?.star,                // Get from user_details
+        raasi: user?.user_details?.raasi               // Get from user_details
     });
+
 
     const handleCheckboxChange = (e) => {
         const { name, checked } = e.target;
@@ -564,19 +571,7 @@ const UpdateUserProfile = () => {
 
     };
 
-    const [genderError, setGenderError] = useState('');
-    const [stateError, setStateError] = useState('');
-    const [cityError, setCityError] = useState('');
-    // const [dobError, setDobError] = useState('');
-    const [ageError, setAgeError] = useState('');
-    const [heightError, setHeightError] = useState('');
-    const [weightError, setWeightError] = useState('');
-    const [fathersNameError, setfathersNameError] = useState('');
-    const [mothersNameError, setmothersNameError] = useState('');
-    const [addressError, setAddressError] = useState('');
-    const [maritalStatusError, setMaritalStatusError] = useState('');
-    const [religionError, setReligionError] = useState('');
-    const [casteError, setCasteError] = useState('');
+
 
     if (!user) {
         return <Navigate to="/login" state={{ message: 'Login required' }} replace />;
@@ -732,7 +727,7 @@ const UpdateUserProfile = () => {
                                                         className="form-control"
                                                         name="dob"
                                                         onChange={handleChange}
-                                                        value={formData.dob}
+                                                        value={formData.dob ? new Date(formData.dob).toISOString().split('T')[0] : ''}
                                                         // defaultValue={'24/04/1992'}
                                                         max={minAllowedDate} // Prevent future date selection
                                                     />

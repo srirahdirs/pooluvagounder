@@ -8,12 +8,16 @@ const UserLeftMenu = () => {
     // const { user } = useAuth();
     const [userProfileEditRequired, setUserProfileEditRequired] = useState(false);
     const [profilePicture, setProfilePicture] = useState(null);
-    const user = localStorage.getItem('user')
+    const { user, setUser } = useAuth();
+    console.log(user, 'user.user1');
+    console.log(user.user_profile_picture, 'user.user_profile_picture3');
+    // if (user.user_profile_picture === null) {
+    //     setProfilePicture(null);
+    // }
     useEffect(() => {
-        if (user && user.user_images && user.user_images.length > 0) {
-            if (user && user.user_profile_picture) {
-                setProfilePicture(user.user_profile_picture);
-            }
+        console.log(user.user_profile_picture, 'user.user_profile_picture1');
+        if (user.user_profile_picture && user.user_profile_picture !== '') {
+            setProfilePicture(user.user_profile_picture);
         }
         console.log(user);
 
@@ -27,7 +31,7 @@ const UserLeftMenu = () => {
     return (
         <div className="db-nav">
             <div className="db-nav-pro">
-                {profilePicture ? (
+                {user.user_profile_picture ? (
                     <img
                         src={`${profilePicture}`}
                         loading="lazy"
