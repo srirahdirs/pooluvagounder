@@ -9,17 +9,15 @@ const UserLeftMenu = () => {
     const [userProfileEditRequired, setUserProfileEditRequired] = useState(false);
     const [profilePicture, setProfilePicture] = useState(null);
     const { user, setUser } = useAuth();
-    console.log(user, 'user.user1');
-    console.log(user.user_profile_picture, 'user.user_profile_picture3');
     // if (user.user_profile_picture === null) {
     //     setProfilePicture(null);
     // }
     useEffect(() => {
-        console.log(user.user_profile_picture, 'user.user_profile_picture1');
+
         if (user.user_profile_picture && user.user_profile_picture !== '') {
             setProfilePicture(user.user_profile_picture);
         }
-        console.log(user);
+
 
         if (user?.user_gender === null) {
             setUserProfileEditRequired(true);

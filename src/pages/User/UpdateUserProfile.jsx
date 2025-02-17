@@ -38,7 +38,7 @@ const UpdateUserProfile = () => {
     //     return savedUser ? JSON.parse(savedUser) : {};
     // });
 
-    // console.log(user, "hello ")
+    console.log(user, "hello ")
 
     function calculateAge(dob) {
         if (!dob) return "";
@@ -98,9 +98,9 @@ const UpdateUserProfile = () => {
         facebook: user?.user_details?.facebook,  // Get from user_details
         instagram: user?.user_details?.instagram,  // Get from user_details
         twitter: user?.user_details?.twitter,      // Get from user_details
-        youtube: user?.youtube,         // If this is not in user_details, retain the original mapping
-        linkedin: user?.linkedin,       // If this is not in user_details, retain the original mapping
-        willing_to_marry_from_another_caste: user?.willing_to_marry_from_another_caste === 1, // Convert to boolean
+        youtube: user?.user_details?.youtube,         // If this is not in user_details, instagram the original mapping
+        linkedin: user?.user_details?.linkedin,       // If this is not in user_details, retain the original mapping
+        willing_to_marry_from_another_caste: user?.user_details?.willing_to_marry_from_another_caste === 1, // Convert to boolean
         religion: user?.user_details?.religion,        // Get from user_details
         mother_tongue: user?.user_details?.mother_tongue,  // Get from user_details
         caste: user?.user_details?.caste,              // Get from user_details
@@ -114,13 +114,14 @@ const UpdateUserProfile = () => {
 
     const handleCheckboxChange = (e) => {
         const { name, checked } = e.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: checked, // Update the checkbox value to true or false
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: checked ? 1 : 0 // Ensure the value is set to 1 or 0
         }));
     };
+    console.log("willing_to_marry_from_another_caste:", formData.willing_to_marry_from_another_caste);
     useEffect(() => {
-        console.log(user);
+        console.log(user.user_details.willing_to_marry_from_another_caste);
         const fetchStates = async () => {
             try {
                 const response = await fetch(`https://countriesnow.space/api/v0.1/countries/states`, {
@@ -416,7 +417,7 @@ const UpdateUserProfile = () => {
 
                 const data = await response.json();
                 console.log(data, "data");
-                if (data.success) {
+                if (data?.message) {
                     setUser(data.user);
                     localStorage.setItem('user', JSON.stringify(data.user));
                     showToast('Profile updated successfully!');
@@ -463,7 +464,7 @@ const UpdateUserProfile = () => {
             });
 
             const data = await response.json();
-            if (data.success) {
+            if (data?.message) {
                 setUser(data.user);
                 localStorage.setItem('user', JSON.stringify(data.user));
                 showToast('Profile updated successfully!');
@@ -503,7 +504,7 @@ const UpdateUserProfile = () => {
             });
 
             const data = await response.json();
-            if (data.success) {
+            if (data?.message) {
                 setUser(data.user);
                 localStorage.setItem('user', JSON.stringify(data.user));
                 showToast('Profile updated successfully!');
@@ -558,7 +559,9 @@ const UpdateUserProfile = () => {
             });
 
             const data = await response.json();
-            if (data.success) {
+            console.log(data, 'data');
+
+            if (data?.message) {
                 setUser(data.user);
                 localStorage.setItem('user', JSON.stringify(data.user));
                 showToast('Profile updated successfully!');
@@ -1136,10 +1139,11 @@ const UpdateUserProfile = () => {
                                                     <input
                                                         type="checkbox"
                                                         name="willing_to_marry_from_another_caste"
-                                                        checked={formData.willing_to_marry_from_another_caste}// Will be true or false
+                                                        checked={!!formData.willing_to_marry_from_another_caste} // Convert to boolean
                                                         onChange={handleCheckboxChange}
                                                         style={{ marginRight: '10px' }}
                                                     />
+
 
                                                     <label style={{ margin: 0 }}>
                                                         Willing to marry from another caste
