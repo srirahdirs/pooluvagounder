@@ -168,9 +168,11 @@ const Contact = () => {
                                                 <div className="form-group">
                                                     <label className="lb">Phone:<span>*</span></label>
                                                     <input
-                                                        type="number"
+                                                        type="tel"
                                                         className="form-control"
                                                         placeholder="Enter phone number"
+                                                        minLength={10}
+                                                        maxLength={10}
                                                         {...register("phone", { required: "Phone is required" })}
                                                     />
                                                     {errors.phone && <span>{errors.phone.message}</span>}

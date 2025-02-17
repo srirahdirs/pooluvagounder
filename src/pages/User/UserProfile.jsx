@@ -15,10 +15,44 @@ const UserProfile = () => {
     const [visible, setVisible] = useState(false);
     const [hoveredImage, setHoveredImage] = useState(null);
     const [profilePicture, setProfilePicture] = useState(null);
+    const [profileCompletion, setProfileCompletion] = useState(0);
     const toastRef = useRef(null);
-
     const apiUrl = config?.apiUrl;
     const fullApiUrl = apiUrl ? `${apiUrl}makeProfilePicture` : null;
+
+
+    useEffect(() => {
+        if (user) {
+            calculateProfileCompletion(user);
+        }
+    }, [user]);
+
+    const calculateProfileCompletion = (user) => {
+        let completion = 0;
+
+        if(!(user?.marital_status || user.user_profile_picture || user.partner_preferences || user.relegion)){
+            completion = 0;
+        }
+        
+        if(user.marital_status || user.user_profile_picture || user.partner_preferences || user.relegion){
+            completion = 25;
+        }  
+        
+        if((user.marital_status && user.user_profile_picture) || (user.user_profile_picture && user.partner_preferences) || (user.partner_preferences && user.relegion) || (user.relegion && user.marital_status) || (user.marital_status && user.partner_preferences) || (user.user_profile_picture && user.relegion)){
+            completion = 50;
+        }
+
+        if((user.marital_status && user.user_profile_picture && user.partner_preferences) || (user.user_profile_picture && user.partner_preferences && user.relegion) || (user.partner_preferences && user.relegion && user.marital_status) || (user.relegion && user.marital_status && user.user_profile_picture)){
+            completion = 75;
+        }
+        if(user.marital_status && user.user_profile_picture && user.partner_preferences && user.relegion){
+            completion = 100;
+        }
+       
+        setProfileCompletion(completion)
+    };
+    
+
 
     useEffect(() => {
         if (user) {
@@ -330,7 +364,7 @@ const UserProfile = () => {
                                             <h6>Profile completion</h6>
                                             <div className="db-pro-pgog">
                                                 <span>
-                                                    <b className="count">0</b>%
+                                                    <b className="count">{profileCompletion}</b>%
                                                 </span>
                                             </div>
                                             <ul className="pro-stat-ic">
