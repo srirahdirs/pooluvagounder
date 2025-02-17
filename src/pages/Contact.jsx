@@ -28,7 +28,6 @@ const Contact = () => {
 
         emailjs.sendForm('service_gfc4rcx', 'template_f6q6kmo', form.current, 'stL-vc00jNZZapS8P')
             .then((result) => {
-                console.log('Email sent successfully:', result.text);
                 showToast("Your enquiry has been sent successfully!");
 
                 // Reset the form after successful submission
@@ -99,7 +98,7 @@ const Contact = () => {
 
                                         <span><i className="fa fa-envelope-o" aria-hidden="true"></i><a href={`mailto:${youngZenEmail}`}> {youngZenEmail}</a></span>
                                         <span><i className="fa fa-phone" aria-hidden="true"></i> <a href="tel:+91-4223568392">+91-4223568392</a></span>
-                                        <span><i className="fa fa-map-marker" aria-hidden="true"></i> No 8a, 8th Cross, Sultanpalya Main Road, RT Nagar, Bangalore 560032, Karnataka, India.</span>
+                                        <span><i className="fa fa-map-marker" aria-hidden="true"></i> No 1a Ground floor, Vasantham Nagar, KovaiPudhur, Coimbatore, Tamilnadu, India. 641042.</span>
                                     </div>
                                 </li>
                                 <li>
