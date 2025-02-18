@@ -30,28 +30,28 @@ const UserProfile = () => {
     const calculateProfileCompletion = (user) => {
         let completion = 0;
 
-        if(!(user?.marital_status || user.user_profile_picture || user.partner_preferences || user.relegion)){
+        if (!(user?.user_details.marital_status || user.user_profile_picture || user.partner_preferences || user?.user_details.religion)) {
             completion = 0;
         }
-        
-        if(user.marital_status || user.user_profile_picture || user.partner_preferences || user.relegion){
+
+        if (user?.user_details.marital_status || user.user_profile_picture || user.partner_preferences || user?.user_details.religion) {
             completion = 25;
-        }  
-        
-        if((user.marital_status && user.user_profile_picture) || (user.user_profile_picture && user.partner_preferences) || (user.partner_preferences && user.relegion) || (user.relegion && user.marital_status) || (user.marital_status && user.partner_preferences) || (user.user_profile_picture && user.relegion)){
+        }
+
+        if ((user?.user_details.marital_status && user.user_profile_picture) || (user.user_profile_picture && user.partner_preferences) || (user.partner_preferences && user?.user_details.religion) || (user?.user_details.religion && user?.user_details.marital_status) || (user?.user_details.marital_status && user.partner_preferences) || (user.user_profile_picture && user?.user_details.religion)) {
             completion = 50;
         }
 
-        if((user.marital_status && user.user_profile_picture && user.partner_preferences) || (user.user_profile_picture && user.partner_preferences && user.relegion) || (user.partner_preferences && user.relegion && user.marital_status) || (user.relegion && user.marital_status && user.user_profile_picture)){
+        if ((user?.user_details.marital_status && user.user_profile_picture && user.partner_preferences) || (user.user_profile_picture && user.partner_preferences && user?.user_details.religion) || (user.partner_preferences && user?.user_details.religion && user?.user_details.marital_status) || (user?.user_details.religion && user?.user_details.marital_status && user.user_profile_picture)) {
             completion = 75;
         }
-        if(user.marital_status && user.user_profile_picture && user.partner_preferences && user.relegion){
+        if (user?.user_details.marital_status && user.user_profile_picture && user.partner_preferences && user?.user_details.religion) {
             completion = 100;
         }
-       
+
         setProfileCompletion(completion)
     };
-    
+
 
 
     useEffect(() => {
@@ -232,7 +232,7 @@ const UserProfile = () => {
             <div className="image_upload">
                 <Toast ref={toast} />
                 <Dialog
-                    header="Upload Image"
+                    header="Upload Images"
                     visible={visible}
                     style={{ width: '50vw' }}
                     onHide={hideModal}

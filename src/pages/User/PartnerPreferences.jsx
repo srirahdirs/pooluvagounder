@@ -52,8 +52,9 @@ const PartnerPreferences = () => {
     }, [dataExists, navigate]);
 
 
-    const userGender = user?.gender || ''; // Get user's gender
 
+    const userGender = user?.user_details?.gender || ''; // Get user's gender
+    console.log(userGender, 'userGender');
     const partnerGender = userGender === 'Male' ? 'Female' : (userGender === 'Female' ? 'Male' : '');
     const [formData, setFormData] = useState({
         gender: partnerGender || user?.partner_preferences?.gender || '',  // Default to empty string if undefined
@@ -277,7 +278,7 @@ const PartnerPreferences = () => {
                                                     <h1>Basic Preferences</h1>
                                                 </div>
                                                 <div className="row">
-                                                    <div className="col-md-6 form-group" style={{ display: 'none' }}>
+                                                    <div className="col-md-6 form-group" >
                                                         <label className="lb">Gender: <span style={{ color: 'red' }}>*</span></label>
                                                         <select
                                                             className="form-select"

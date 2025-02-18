@@ -6,7 +6,7 @@ import { useAuth } from '../../../context/AuthContext';
 const MainMenu = () => {
     const { isLoggedIn, user } = useAuth();
     const handleClick = () => {
-        console.log('clicked');
+
         const popBgElement = document.querySelector('.pop-bg');
         if (popBgElement) {
             popBgElement.classList.add('act');
@@ -16,7 +16,7 @@ const MainMenu = () => {
             menu_pop2.classList.add('act');
         }
     };
-
+    console.log(user, 'mainmenuuser ');
 
     return (
         <>
@@ -67,7 +67,7 @@ const MainMenu = () => {
                             {isLoggedIn ? (
                                 <div className="al">
                                     <div className="head-pro">
-                                        {isLoggedIn && user.user_profile_picture ? (
+                                        {isLoggedIn && user?.user_profile_picture ? (
                                             <>
                                                 <img src={`${user.user_profile_picture}`} alt="" loading="lazy" />
 
