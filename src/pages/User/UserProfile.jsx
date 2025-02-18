@@ -30,22 +30,22 @@ const UserProfile = () => {
     const calculateProfileCompletion = (user) => {
         let completion = 0;
 
-        if (!(user?.user_details.marital_status || user.user_profile_picture || user.partner_preferences || user?.user_details.religion)) {
+        if (!(user.user_details.marital_status || user.user_profile_picture || user.partner_preferences.gender || user.user_details.religion)) {
             completion = 0;
         }
 
-        if (user?.user_details.marital_status || user.user_profile_picture || user.partner_preferences || user?.user_details.religion) {
+        if (user.user_details.marital_status || user.user_profile_picture || user.partner_preferences.gender || user.user_details.religion) {
             completion = 25;
         }
 
-        if ((user?.user_details.marital_status && user.user_profile_picture) || (user.user_profile_picture && user.partner_preferences) || (user.partner_preferences && user?.user_details.religion) || (user?.user_details.religion && user?.user_details.marital_status) || (user?.user_details.marital_status && user.partner_preferences) || (user.user_profile_picture && user?.user_details.religion)) {
+        if ((user.user_details.marital_status && user.user_profile_picture) || (user.user_profile_picture && user.partner_preferences.gender) || (user.partner_preferences.gender && user.user_details.religion) || (user.user_details.religion && user.user_details.marital_status) || (user.user_details.marital_status && user.partner_preferences.gender) || (user.user_profile_picture && user.user_details.religion)) {
             completion = 50;
         }
 
-        if ((user?.user_details.marital_status && user.user_profile_picture && user.partner_preferences) || (user.user_profile_picture && user.partner_preferences && user?.user_details.religion) || (user.partner_preferences && user?.user_details.religion && user?.user_details.marital_status) || (user?.user_details.religion && user?.user_details.marital_status && user.user_profile_picture)) {
+        if ((user.user_details.marital_status && user.user_profile_picture && user.partner_preferences.gender) || (user.user_profile_picture && user.partner_preferences.gender && user.user_details.religion) || (user.partner_preferences.gender && user.user_details.religion && user.user_details.marital_status) || (user.user_details.religion && user.user_details.marital_status && user.user_profile_picture)) {
             completion = 75;
         }
-        if (user?.user_details.marital_status && user.user_profile_picture && user.partner_preferences && user?.user_details.religion) {
+        if (user.user_details.marital_status && user.user_profile_picture && user.partner_preferences.gender && user.user_details.religion) {
             completion = 100;
         }
 
