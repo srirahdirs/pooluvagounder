@@ -119,7 +119,7 @@ em {
     position: relative;
 }
 
-.p-dialog-title{
+.p-dialog-title {
     font-weight: 600;
 }
 
@@ -157,7 +157,7 @@ em {
     align-items: center;
     flex-shrink: 0;
     text-align: center;
-    
+
 }
 
 .p-dialog .p-dialog-content:last-of-type {
@@ -574,4 +574,126 @@ h6 {
 
 .no-border {
     border: none !important;
+}
+
+/* Modal styles */
+
+.modal {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent background */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    text-align: center;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    margin: 20px 0;
+    cursor: pointer;
+    color: white;
+    background-color: #0040FF;
+    border-radius: 8px;
+    width: 60%;
+}
+
+.otp-dialog {
+    max-width: 700px;
+}
+
+.modal-content button:hover {
+    transition: all 0.5s ease 0s;
+    background-color: #8D236A;
+}
+
+
+.custom-dialog .modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Horizontally center the content */
+    justify-content: center;
+    /* Vertically center the content */
+    height: 100%;
+    /* Ensure the content takes the full height */
+    text-align: center;
+}
+
+.otp-tit {
+    font-weight: 500;
+    color: black;
+}
+
+.input-container {
+    margin-bottom: 20px;
+    /* Adds space between the input and button */
+}
+
+.otp-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    /* Space between input boxes */
+    margin-bottom: 20px;
+}
+
+.modal-content .otp-input {
+    width: 40px;
+    /* Width of each input box */
+    height: 40px;
+    /* Height of each input box */
+    text-align: center;
+    /* Center the text inside */
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: black;
+}
+
+.modal-content .otp-input:focus {
+    outline: none;
+    border-color: blue;
+    /* Change border color when focused */
+}
+
+.modal-content a:disabled {
+    cursor: not-allowed;
+}
+
+.modal-content a:not(:disabled) {
+    cursor: pointer;
+}
+
+.otp-resend-message {
+    width: 340px;
+    display: inline;
+}
+
+.modal-content .otp-resend-message span {
+    color: gray;
+}
+
+.modal-content .otp-resend-message a {
+    cursor: pointer;
+    text-decoration: none;
 }

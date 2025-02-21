@@ -6,28 +6,29 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h1,
+.privacy-container h1,
 h2 {
     text-align: center;
     color: #333;
 }
 
-p,
+.privacy-container p,
 li {
     line-height: 1.6;
     color: #555;
 }
 
-ul {
+.privacy-container ul {
     list-style-type: disc;
     margin-left: 20px;
 }
 
-.contact-info {
+.privacy-container .contact-info {
     margin-top: 20px;
 }
 
-.contact-info p,a{
+.privacy-container .contact-info p,
+a {
     color: #333;
     font-weight: bold;
 }

@@ -1,19 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useAuth } from "../context/AuthContext";
 import { useLocation, useNavigate } from 'react-router-dom';
 import SearchProfile from './SearchProfile';
-
+import config from '../config';
+import CryptoJS from 'crypto-js';
+import { useEffect } from 'react';
 const SearchResults = () => {
-    const { isLoggedIn, user } = useAuth();
+    const { isLoggedIn, user, fetchUserFromToken } = useAuth();
+    const [isUserPurchased, setUserPurchased] = useState(0);
     const navigate = useNavigate();
     const location = useLocation();
     const searchResults = location.state?.searchResults || [];
     const navigateToPricing = () => {
         navigate('/pricing');
     }
-    const displayImage = (image) => {
-        return user.is_premium ? image.file_path : image.blurred_file_path;
-    };
+    const isPaidUser = user?.premium_user;
+    console.log(isPaidUser, 'sss');
+
+    // const updatePayment = () => {
+    //     setUserPurchased(1);
+    // }
+
+    const secretKey = config?.cryptoSecretKey;
+    // useEffect(() => {
+    //     console.log("xcv", isLoggedIn);
+    //     if (isLoggedIn && isUserPurchased) {
+    //         const token = localStorage.getItem("authToken");
+    //         if (token) {
+    //             fetchUserFromToken(token); // Fetch user data from token if logged in but no user data is available
+    // setUserPurchased(0);
+    //         }
+    //     }
+    // }, [isLoggedIn, user, isUserPurchased]);
     return (
         <>
             <section>
@@ -73,9 +91,11 @@ const SearchResults = () => {
                                     <ul>
                                         {searchResults.length > 0 ? (
                                             searchResults.map((profile, index) => {
+
+                                                const encryptedUserId = CryptoJS.AES.encrypt(profile.user_id.toString(), secretKey).toString();
                                                 // Replace with actual logic to check if the user is paid
-                                                const isPaidUser = /* Replace with logic to check if user is paid */ false;
-                                                const profileLink = `/profiledetails/${profile.user_id}`;
+
+                                                const profileLink = `/profiledetails/${encodeURIComponent(encryptedUserId)}`;
                                                 const profilePicture = profile.profile_picture || `${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`;
 
                                                 // Helper function to handle profile link click
@@ -89,7 +109,7 @@ const SearchResults = () => {
                                                     <li key={profile.user_id || index}>
                                                         <div className={`all-pro-box user-avil-onli ${!isPaidUser ? 'blurred-div' : ''}`} data-useravil="avilyes" data-aviltxt="Available online">
                                                             <div className="pro-img">
-                                                                <a href={isPaidUser ? profileLink : '#'} onClick={handleProfileClick}>
+                                                                <a href={isPaidUser ? profileLink : profileLink} onClick={handleProfileClick}>
                                                                     <img src={profilePicture} alt={profile.name} />
                                                                 </a>
                                                                 <div className="pro-ave" title="User currently available">
@@ -130,15 +150,16 @@ const SearchResults = () => {
                                                                 <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                                             </span>
 
-                                                            {/* Purchase Plan Button */}
-                                                            <div className="buy-now-container">
-                                                                <p className="subscription-message">
-                                                                    Choose a subscription plan to unlock full profiles and connect with your ideal match today
-                                                                </p>
-                                                                <button className="buy-now-btn" onClick={navigateToPricing}>
-                                                                    Purchase Plan
-                                                                </button>
-                                                            </div>
+                                                            {!isPaidUser ? (
+                                                                <div className="buy-now-container">
+                                                                    <p className="subscription-message">
+                                                                        Choose a subscription plan to unlock full profiles and connect with your ideal match today
+                                                                    </p>
+                                                                    <button className="buy-now-btn" onClick={navigateToPricing}>
+                                                                        Purchase Plan
+                                                                    </button>
+                                                                </div>
+                                                            ) : ''}
                                                         </div>
                                                     </li>
                                                 );

@@ -35,7 +35,7 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true);  // Show preloader
+    // setLoading(true);  // Show preloader
     try {
       const response = await fetch(fullApiUrl, {
         method: 'POST',
@@ -51,7 +51,7 @@ const Login = () => {
       if (!response.ok) {
         const errorData = await response.json();
         showToast(errorData.message || 'Login failed', 'error');
-        setLoading(false); // Hide preloader on error
+        // setLoading(false); // Hide preloader on error
         return;
       }
       const data = await response.json();
@@ -67,7 +67,7 @@ const Login = () => {
     } catch (error) {
       showToast('Something went wrong, please try again.');
     } finally {
-      setLoading(false);  // Hide preloader after the login process finishes
+      // setLoading(false);  // Hide preloader after the login process finishes
     }
   };
 

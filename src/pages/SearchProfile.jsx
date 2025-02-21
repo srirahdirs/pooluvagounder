@@ -17,7 +17,7 @@ const SearchProfile = ({ user }) => {
     city: ''
   });
 
-  
+
 
   useEffect(() => {
     const fetchStates = async () => {
@@ -107,16 +107,16 @@ const SearchProfile = ({ user }) => {
       religionRef.current.focus(); // Focus on the religion select input
       return false;
     }
-    if (searchForm.caste === '') {
-      showToast("Caste Required", 'error');
-      casteRef.current.focus(); // Focus on the caste select input
-      return false;
-    }
-    if (searchForm.city === '') {
-      showToast("Location Required", 'error');
-      cityRef.current.focus(); // Focus on the city select input
-      return false;
-    }
+    // if (searchForm.caste === '') {
+    //   showToast("Caste Required", 'error');
+    //   casteRef.current.focus(); // Focus on the caste select input
+    //   return false;
+    // }
+    // if (searchForm.city === '') {
+    //   showToast("Location Required", 'error');
+    //   cityRef.current.focus(); // Focus on the city select input
+    //   return false;
+    // }
     return true;
   };
 
@@ -124,12 +124,14 @@ const SearchProfile = ({ user }) => {
     e.preventDefault();
     if (!validateForm()) return; // Validate the form before submitting
     try {
+      const token = localStorage.getItem('authToken');
       const response = await fetch(fullApiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          token: token,
           gender: searchForm.gender,
           age: searchForm.age,
           religion: searchForm.religion,
@@ -144,7 +146,11 @@ const SearchProfile = ({ user }) => {
         setSearchResults(result.data);  // Assuming you have a setSearchResults function in context or state
         navigate('/allprofiles', { state: { searchResults: result.data } });
       } else {
-        console.error('Failed');
+        if (response.status === 401) {
+          showToast("Authentication token is required", 'error');
+        } else {
+          showToast("Please try again!", 'error');
+        }
       }
     } catch (error) {
       console.error('Error:', error);
@@ -222,7 +228,6 @@ const SearchProfile = ({ user }) => {
           <div className="form-group">
             <select
               className="form-select"
-              required
               name="caste"
               ref={casteRef}  // Attach the ref to caste input
               value={searchForm.caste}
@@ -276,7 +281,6 @@ const SearchProfile = ({ user }) => {
           <div className="form-group">
             <select
               className="form-select"
-              required
               name="state"
               value={formData.state}
               onChange={fetchCities}
@@ -296,7 +300,6 @@ const SearchProfile = ({ user }) => {
           <div className="form-group">
             <select
               className="form-select"
-              required
               name="city"
               ref={cityRef}  // Attach the ref to city input
               value={searchForm.city}
@@ -316,7 +319,7 @@ const SearchProfile = ({ user }) => {
           <div className="send-query">
             <h5>What are you looking for?</h5>
             <p>We will help you to arrange the best match for you.</p>
-            <a href="#!" data-bs-toggle="modal" data-bs-target="#expfrm">Send your queries</a>
+            <a href="/contact" >Send your queries</a>
           </div>
         </div>
 

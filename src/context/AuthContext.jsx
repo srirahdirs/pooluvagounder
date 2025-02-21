@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-
+import config from '../config';
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
@@ -31,11 +31,51 @@ export const AuthProvider = ({ children }) => {
     }
   }, [isLoggedIn]);
 
+
+  const apiUrl = config?.apiUrl;
+  let fullApiUrl;
+  if (apiUrl) {
+    fullApiUrl = apiUrl + 'getLoggedInUserProfile';
+  } else {
+    console.error('Invalid API url');
+  }
+  const fetchUserFromToken = async (token) => {
+    try {
+      const response = await fetch(fullApiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          token: token,
+        }),
+      });
+
+      if (response.ok) {
+        const userData = await response.json();
+        setUser(userData); // Update user state with fetched data
+        setIsLoggedIn(true);
+      } else {
+        setUser(null);
+        setIsLoggedIn(false);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+
+  };
+
+
+
+
+
+
   const value = {
     user,
     setUser,
     isLoggedIn,
     setIsLoggedIn,
+    fetchUserFromToken,
   };
 
   return (
