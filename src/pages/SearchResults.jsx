@@ -11,6 +11,9 @@ const SearchResults = () => {
     const navigateToPricing = () => {
         navigate('/pricing');
     }
+    const displayImage = (image) => {
+        return user.is_premium ? image.file_path : image.blurred_file_path;
+    };
     return (
         <>
             <section>
@@ -69,59 +72,85 @@ const SearchResults = () => {
                                 <div className="all-list-sh">
                                     <ul>
                                         {searchResults.length > 0 ? (
-                                            searchResults.map((profile, index) => (
-                                                <li key={profile.user_id || index}>
-                                                    <div className="all-pro-box user-avil-onli blurred-div" data-useravil="avilyes" data-aviltxt="Available online">
-                                                        <div className="pro-img">
-                                                            {profile.profile_picture ? (
-                                                                <a href={`/profiledetails/${profile.user_id}`}>
-                                                                    <img src={profile.profile_picture} alt={profile.name} />
+                                            searchResults.map((profile, index) => {
+                                                // Replace with actual logic to check if the user is paid
+                                                const isPaidUser = /* Replace with logic to check if user is paid */ false;
+                                                const profileLink = `/profiledetails/${profile.user_id}`;
+                                                const profilePicture = profile.profile_picture || `${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`;
+
+                                                // Helper function to handle profile link click
+                                                const handleProfileClick = (e) => {
+                                                    if (!isPaidUser) {
+                                                        e.preventDefault();
+                                                    }
+                                                };
+
+                                                return (
+                                                    <li key={profile.user_id || index}>
+                                                        <div className={`all-pro-box user-avil-onli ${!isPaidUser ? 'blurred-div' : ''}`} data-useravil="avilyes" data-aviltxt="Available online">
+                                                            <div className="pro-img">
+                                                                <a href={isPaidUser ? profileLink : '#'} onClick={handleProfileClick}>
+                                                                    <img src={profilePicture} alt={profile.name} />
                                                                 </a>
-                                                            ) : (
-                                                                <a href={`/profiledetails/${profile.user_id}`}>
-                                                                    <img src={`${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`} alt={profile.name} />
-                                                                </a>
-                                                            )}
-                                                            <div className="pro-ave" title="User currently available">
-                                                                <span className="pro-ave-yes"></span>
+                                                                <div className="pro-ave" title="User currently available">
+                                                                    <span className="pro-ave-yes"></span>
+                                                                </div>
+                                                                <div className="pro-avl-status">
+                                                                    <h5>Available</h5>
+                                                                </div>
                                                             </div>
-                                                            <div className="pro-avl-status">
-                                                                <h5>Available</h5>
+
+                                                            <div className="pro-detail">
+                                                                <h4>
+                                                                    <a href={isPaidUser ? profileLink : '#'} onClick={handleProfileClick}>
+                                                                        {profile.name}
+                                                                    </a>
+                                                                </h4>
+                                                                <div className="pro-bio">
+                                                                    <span>{profile.degree || 'N/A'}</span>
+                                                                    <span>{profile.job_type || 'N/A'}</span>
+                                                                    <span>{profile.age} Years old</span>
+                                                                    <span>Height: {profile.height || 'N/A'}</span>
+                                                                </div>
+                                                                <div className="links">
+                                                                    {isPaidUser ? (
+                                                                        <span className="cta-chat">Chat now</span>
+                                                                    ) : (
+                                                                        <span className="cta-chat blurred-action" onClick={navigateToPricing}>
+                                                                            Unlock chat
+                                                                        </span>
+                                                                    )}
+                                                                    <a href={isPaidUser ? profileLink : '#'} onClick={handleProfileClick}>
+                                                                        More details
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+
+                                                            <span className="enq-sav" data-toggle="tooltip" title="Click to save this profile.">
+                                                                <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                                            </span>
+
+                                                            {/* Purchase Plan Button */}
+                                                            <div className="buy-now-container">
+                                                                <p className="subscription-message">
+                                                                    Choose a subscription plan to unlock full profiles and connect with your ideal match today
+                                                                </p>
+                                                                <button className="buy-now-btn" onClick={navigateToPricing}>
+                                                                    Purchase Plan
+                                                                </button>
                                                             </div>
                                                         </div>
-
-                                                        <div className="pro-detail">
-                                                            <h4><a href={`/profiledetails/${profile.user_id}`}>{profile.name}</a></h4>
-                                                            <div className="pro-bio">
-                                                                <span>{profile.degree || 'N/A'}</span>
-                                                                <span>{profile.job_type || 'N/A'}</span>
-                                                                <span>{profile.age} Years old</span>
-                                                                <span>Height: {profile.height || 'N/A'} </span>
-                                                            </div>
-                                                            <div className="links">
-                                                                <span className="cta-chat">Chat now</span>
-                                                                <a href={`/profiledetails/${profile.user_id}`}>More details</a>
-                                                            </div>
-                                                        </div>
-
-                                                        <span className="enq-sav" data-toggle="tooltip" title="Click to save this profile.">
-                                                            <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                                                        </span>
-
-                                                        {/* Buy Now button */}
-                                                        <div className="buy-now-container">
-                                                            <p className="subscription-message">Choose a subscription plan to unlock full profiles and connect with your ideal match today</p>
-                                                            <button className="buy-now-btn" onClick={navigateToPricing}>Purchase Plan</button>
-                                                        </div>
-
-                                                    </div>
-                                                </li>
-                                            ))
+                                                    </li>
+                                                );
+                                            })
                                         ) : (
                                             <p>No profiles found</p>
                                         )}
                                     </ul>
+
                                 </div>
+
+
 
                             </div>
                         </div>

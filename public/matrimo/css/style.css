@@ -96,7 +96,7 @@ body {
     --mtop: 75px;
     --cta-dark: #000000;
     --cta-pink1: #607d8b;
-    --cta-pink1h: #a16304;
+    --cta-pink1h: #b5345e;
     --tit-font:
         "Playfair Display", serif;
 }
@@ -1602,7 +1602,7 @@ i.fa-instagram:hover {
 .ban-search ul li input[type="submit"] {
     background: var(--cta-pink1);
     color: rgb(255, 255, 255);
-    border: 0px solid rgb(255, 167, 120);
+    border: 0px solid #b5345e;
     padding: 8px 25px;
     text-align: center;
     font-size: 18px;
@@ -2769,7 +2769,7 @@ table td {}
     position: relative;
 }
 
-.foot-supp a{
+.foot-supp a {
     color: #fff;
     font-weight: 300;
     font-size: 20px;
@@ -9266,9 +9266,7 @@ span.mail::before {
     /* border-left: 0.4rem solid ; */
 }
 
-.db-nav-list ul li a:hover{
-
-}
+.db-nav-list ul li a:hover {}
 
 .db-nav-list ul li a.act i {}
 

@@ -4,6 +4,7 @@ import { useToast } from '../assets/utils/toastUtil';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';  // Import the correct AuthContext
 import config from '../../src/config';
+
 const Login = () => {
   const { toast, showToast } = useToast();
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [loading, setLoading] = useState(false); // Added loading state
 
   const { setUser, isLoggedIn, setIsLoggedIn } = useAuth();
 
@@ -19,10 +21,10 @@ const Login = () => {
   let fullApiUrl;
   if (apiUrl) {
     fullApiUrl = apiUrl + 'login';
-
   } else {
     console.error('Invalid API url');
   }
+
   useEffect(() => {
     if (isLoggedIn) {
       setTimeout(() => {
@@ -33,6 +35,7 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);  // Show preloader
     try {
       const response = await fetch(fullApiUrl, {
         method: 'POST',
@@ -48,6 +51,7 @@ const Login = () => {
       if (!response.ok) {
         const errorData = await response.json();
         showToast(errorData.message || 'Login failed', 'error');
+        setLoading(false); // Hide preloader on error
         return;
       }
       const data = await response.json();
@@ -62,6 +66,8 @@ const Login = () => {
       }
     } catch (error) {
       showToast('Something went wrong, please try again.');
+    } finally {
+      setLoading(false);  // Hide preloader after the login process finishes
     }
   };
 
@@ -87,6 +93,15 @@ const Login = () => {
   return (
     <>
       <Toast ref={toast} />
+      {loading && (
+        <div id="preloader">
+          <div className="plod">
+            <span className="lod1"><img src="%PUBLIC_URL%/matrimo/images/loder/1.png" alt="" loading="lazy" /></span>
+            <span className="lod2"><img src="%PUBLIC_URL%/matrimo/images/loder/2.png" alt="" loading="lazy" /></span>
+            <span className="lod3"><img src="%PUBLIC_URL%/matrimo/images/loder/3.png" alt="" loading="lazy" /></span>
+          </div>
+        </div>
+      )}
       <section>
         <div className="login">
           <div className="container">
@@ -107,7 +122,6 @@ const Login = () => {
                       <h4>Get Started for Free</h4>
                       <h1>Signin <em className="em_register">Wedding Soul Mates</em> Matrimony</h1>
                       <p>Not a member yet? <a href="/register">Create an account now</a></p>
-
                     </div>
                     <div className="form-login">
                       <form onSubmit={handleLogin}>

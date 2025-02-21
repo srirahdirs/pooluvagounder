@@ -69,7 +69,7 @@ const MainMenu = () => {
                                     <div className="head-pro">
                                         {isLoggedIn && user?.user_profile_picture ? (
                                             <>
-                                                <img src={`${user.user_profile_picture}`} alt="" loading="lazy" />
+                                                <img src={`${user?.user_profile_picture}`} alt="" loading="lazy" />
 
                                             </>
                                         ) : (

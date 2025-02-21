@@ -520,15 +520,11 @@ h6 {
 
 .all-pro-box .pro-img,
 .all-pro-box .pro-detail {
-    pointer-events: none;
-    filter: blur(3px);
+    /* pointer-events: none;
+    filter: blur(3px); */
     /* Apply blur to the image and detail sections */
 }
 
-.buy-now-container {
-    text-align: center;
-    margin-top: 20px;
-}
 
 .subscription-message {
     font-size: 16px;
@@ -538,17 +534,38 @@ h6 {
     /* Slightly bold for emphasis */
 }
 
+.blurred-div .pro-img,
+.blurred-div .pro-detail,
+.blurred-div .links,
+.blurred-div .enq-sav {
+    pointer-events: none;
+    filter: blur(3px);
+}
+
+.blurred-action {
+    color: gray;
+    cursor: not-allowed;
+}
+
+.buy-now-container {
+    margin-top: 10px;
+    text-align: center;
+}
+
 .buy-now-btn {
-    background-color: #28a745;
+    background-color: #ff5722;
     color: white;
-    padding: 12px 30px;
-    font-size: 18px;
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-size: 14px;
 }
 
 .buy-now-btn:hover {
-    background-color: #218838;
+    background-color: #e64a19;
+}
+
+.no-border {
+    border: none !important;
 }

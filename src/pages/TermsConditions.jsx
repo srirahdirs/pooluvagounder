@@ -7,11 +7,11 @@ const TermsAndConditions = () => {
     return (
         <div className="privacy-container p-lg-5 p-3 mb-5">
             <h1>Terms and Conditions</h1>
-            <p><strong>Effective Date:</strong> Decemeber 2024</p>
+            <p><strong>Effective Date:</strong> December 2024</p>
 
             <div className="terms-content">
                 <h2 className='text-start'>1. Introduction</h2>
-                <p>Welcome to <strong>WeddingSoulMates.com</strong>. By using our website, you agree to the following terms and conditions. Please read these terms carefully. If you do not agree with any part of these terms, you should not use our website.</p>
+                <p>Welcome to <strong>WeddingSoulMates.com</strong>, operated by <strong>YoungZen Technologies</strong>. By using our website, you agree to the following terms and conditions. Please read these terms carefully. If you do not agree with any part of these terms, you should not use our website.</p>
 
                 <h2 className='text-start'>2. Eligibility</h2>
                 <p>To use our services, you must be at least 18 years of age and legally capable of entering into a binding contract. By registering with us, you warrant that you meet these eligibility requirements.</p>
@@ -24,10 +24,10 @@ const TermsAndConditions = () => {
                 </ul>
 
                 <h2 className='text-start'>4. Use of the Website</h2>
-                <p>Our website is intended for personal use only. You may not use the site for any commercial purposes without our prior written consent. Unauthorized use of the site may result in termination of your account.</p>
+                <p>Our website is intended for personal use only. You may not use the site for any commercial purposes without the prior written consent of <strong>YoungZen Technologies</strong>. Unauthorized use of the site may result in termination of your account.</p>
 
                 <h2 className='text-start'>5. Content Ownership</h2>
-                <p>All content, including text, images, and graphics, provided on the website is the property of <strong>WeddingSoulMates.com</strong>. You are granted a limited, non-exclusive, and revocable license to view and use the content for personal purposes only.</p>
+                <p>All content, including text, images, and graphics, provided on the website is the property of <strong>YoungZen Technologies</strong>. You are granted a limited, non-exclusive, and revocable license to view and use the content for personal purposes only.</p>
 
                 <h2 className='text-start'>6. Prohibited Conduct</h2>
                 <p>While using the site, you agree not to engage in any of the following activities:</p>
@@ -45,7 +45,7 @@ const TermsAndConditions = () => {
                 <p>Your use of the website is also governed by our Privacy Policy. Please review our Privacy Policy for more information on how we collect and use your data.</p>
 
                 <h2 className='text-start'>9. Limitation of Liability</h2>
-                <p><strong>WeddingSoulMates.com</strong> will not be liable for any direct, indirect, incidental, or consequential damages arising from your use of the website or any content provided on the website.</p>
+                <p><strong>YoungZen Technologies</strong> will not be liable for any direct, indirect, incidental, or consequential damages arising from your use of the website or any content provided on the website.</p>
 
                 <h2 className='text-start'>10. Changes to the Terms</h2>
                 <p>We may update these Terms and Conditions from time to time. Any changes will be posted on this page, and the "Effective Date" at the top of the page will be updated accordingly.</p>
@@ -58,7 +58,7 @@ const TermsAndConditions = () => {
 
                 <div className="contact-info">
                     <p><strong>Email:</strong> <a href={`mailto:${supportEmail}`} className='text-black'>{supportEmail}</a></p>
-                    <p><strong>Address:</strong> YoungZen Technologies, No 8a, 8th Cross, Sultanpalya Main Road, RT Nagar, Bangalore 560032, Karnataka, India.</p>
+                    <p><strong>Address:</strong> YoungZen Technologies, No 1a, Ground Floor Vasantham Nagar, KovaiPudhur, Coimbatore, Tamilnadu 560032, India.</p>
                 </div>
             </div>
         </div>

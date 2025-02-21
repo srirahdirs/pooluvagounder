@@ -2,7 +2,7 @@ import React from 'react';
 import config from '../config';
 
 const About = () => {
-  const infoEmail = config?.infoEmail
+  const infoEmail = config?.infoEmail;
   return (
     <>
       {/* Hero Section */}
@@ -96,6 +96,17 @@ const About = () => {
                       </li>
 
                     </ul>
+                    <div className="ab-wel-tit-1 no-border">
+                      <div>
+                        <br />
+                        <h5>Our Address:</h5>
+                        <p><h4><em><strong><center>YoungZen Technologies</center></strong></em></h4></p>
+                        <p> No 1a, Ground Floor<br />Vasantham Nagar,KovaiPudhur, <br />
+                          Coimbatore,Tamilnadu 560032, India.</p>
+                      </div>
+
+                    </div>
+
                   </div>
                 </div>
               </div>
