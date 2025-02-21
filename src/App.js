@@ -25,6 +25,8 @@ import { Provider } from 'react-redux';  // Import redux provider
 import { store } from './store';  // Import your redux store
 import PaymentStatus from './components/PaymentStatus';
 import UserPlan from "./pages/User/UserPlan";
+import VerifyOtp from "./pages/verifyOtp";
+
 function App() {
   return (
     <Provider store={store}> {/* Wrap with Provider for Redux */}
@@ -55,6 +57,7 @@ function App() {
               <Route path="/refundpolicy" element={<><RefundPolicy /><Footer /></>} />
               <Route path="/PaymentStatus" element={<><PaymentStatus /><Footer /></>} />
               <Route path="/UserPlan" element={<><UserPlan /><Footer /></>} />
+              <Route path="/verifyotp" element={<><VerifyOtp /><Footer /></>} />
             </Routes>
           </div>
         </Router>

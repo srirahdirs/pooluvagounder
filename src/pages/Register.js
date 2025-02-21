@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Toast } from 'primereact/toast';
 import { useAuth } from '../context/AuthContext';
 import config from '../config';
+import axios from 'axios';
 
 const Registration = () => {
     const { toast, showToast } = useToast();
@@ -30,6 +31,20 @@ const Registration = () => {
     const [phoneError, setPhoneError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [confirmPasswordError, setConfirmPasswordError] = useState('');
+
+
+    //   error message if otp not send
+//   const [errorMessage, setErrorMessage] = useState('');
+//   const [otpSent, setOtpSent] = useState(false); // Flag to check if OTP has been sent
+  
+
+
+  // Handle Send OTP
+  const handleSendOtp = async () => {
+    console.log('send otp to:' , email);
+   
+  };
+
 
     // Check for session token on mount
     useEffect(() => {
@@ -92,6 +107,7 @@ const Registration = () => {
 
     const handleRegister = async (e) => {
         e.preventDefault();
+        
 
         // Final check before submission
         if (nameError || emailError || phoneError || passwordError || confirmPasswordError) {
@@ -116,8 +132,11 @@ const Registration = () => {
                 setIsLoggedIn(true);  // Update login status
                 setUser(data.user);
                 showToast('Registration successful! Redirecting...');
+                sessionStorage.setItem('email', email); // Store email in session storage
                 setTimeout(() => {
-                    navigate('/edituserprofile'); // Redirect to login page after registration
+                    // navigate('/edituserprofile'); // Redirect to login page after registration
+                    navigate('/verifyotp'); // Redirect to verify otp page after registration
+                    handleSendOtp();
                 }, 3000);
             } else {
                 showToast(data.message || 'Registration failed', 'error');
@@ -177,14 +196,16 @@ const Registration = () => {
                                                         name="email"
                                                         value={email}
                                                         onChange={(e) => validateEmail(e.target.value)}
+                                                        // onChange={(e) => setEmail(e.target.value)}
                                                         required
                                                     />
                                                     {emailError && <p className="error-message">{emailError}</p>}
+                                                    {/* <button onClick={handleClick}>Verify Email</button> */}
                                                 </div>
                                                 <div className="form-group">
                                                     <label className="lb" htmlFor="phone">Phone:</label>
                                                     <input
-                                                        type="number"
+                                                        type="tel"
                                                         className="form-control"
                                                         id="phone"
                                                         placeholder="Enter phone number"
@@ -238,6 +259,8 @@ const Registration = () => {
                     </div>
                 </div>
             </section>
+           
+           
         </>
     );
 };

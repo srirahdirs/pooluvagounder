@@ -1,15 +1,65 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../assets/utils/toastUtil';
 import { Toast } from 'primereact/toast';
 import { useRef } from 'react';
 import config from '../config';
 
-const SearchProfile = () => {
+const SearchProfile = ({ user }) => {
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
   const [searchResult, setSearchResults] = useState('');
   const navigate = useNavigate();
   const { toast, showToast } = useToast();
+
+  const [formData, setFormData] = useState({
+    state: '',
+    city: ''
+  });
+
+  
+
+  useEffect(() => {
+    const fetchStates = async () => {
+      try {
+        const response = await fetch(`https://countriesnow.space/api/v0.1/countries/states`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ country: 'India' }),
+        });
+
+        const result = await response.json();
+        setStates(result.data.states || []); // Assume states are inside `data.states`
+      } catch (error) {
+        console.error('Error fetching states:', error);
+      }
+    };
+
+    fetchStates();
+  }, []);
+
+  const fetchCities = async (e) => {
+    const selectedState = e.target.value;
+    if (selectedState) {
+      setFormData({
+        ...formData,
+        state: selectedState // this will set formData.state to the selected value
+      });
+      try {
+        const response = await fetch(`https://countriesnow.space/api/v0.1/countries/state/cities`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ country: 'India', state: selectedState }),
+        });
+
+        const result = await response.json();
+        setCities(result.data || []); // Assuming cities are in result.data
+      } catch (error) {
+        console.error('Error fetching cities:', error);
+      }
+    }
+  };
+
 
   const apiUrl = config?.apiUrl;
   let fullApiUrl;
@@ -22,6 +72,7 @@ const SearchProfile = () => {
     gender: '',
     age: '',
     religion: '',
+    caste: '',
     city: ''
   });
 
@@ -37,6 +88,7 @@ const SearchProfile = () => {
   const genderRef = useRef(null);
   const ageRef = useRef(null);
   const religionRef = useRef(null);
+  const casteRef = useRef(null);
   const cityRef = useRef(null);
 
   const validateForm = () => {
@@ -55,6 +107,11 @@ const SearchProfile = () => {
       religionRef.current.focus(); // Focus on the religion select input
       return false;
     }
+    if (searchForm.caste === '') {
+      showToast("Caste Required", 'error');
+      casteRef.current.focus(); // Focus on the caste select input
+      return false;
+    }
     if (searchForm.city === '') {
       showToast("Location Required", 'error');
       cityRef.current.focus(); // Focus on the city select input
@@ -62,6 +119,7 @@ const SearchProfile = () => {
     }
     return true;
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return; // Validate the form before submitting
@@ -75,6 +133,8 @@ const SearchProfile = () => {
           gender: searchForm.gender,
           age: searchForm.age,
           religion: searchForm.religion,
+          caste: searchForm.caste,
+          state: formData.state,
           city: searchForm.city
         }),
       });
@@ -93,7 +153,6 @@ const SearchProfile = () => {
 
   return (
     <>
-
       <div className="col-md-3 fil-mob-view">
         <Toast ref={toast} />
         <span className="filter-clo">+</span>
@@ -131,8 +190,8 @@ const SearchProfile = () => {
               <option value="31 to 40">31 to 40</option>
               <option value="41 to 50">41 to 50</option>
               <option value="51 to 60">51 to 60</option>
-              <option value="61 to 70">61 to 70</option>
-              <option value="71 to 80">71 to 80</option>
+              <option value="61 to 70">60 & above</option>
+              {/* <option value="71 to 80">71 to 80</option> */}
             </select>
           </div>
         </div>
@@ -159,7 +218,81 @@ const SearchProfile = () => {
         </div>
 
         <div className="filt-com lhs-cate">
-          <h4><i className="fa fa-map-marker" aria-hidden="true"></i>Location</h4>
+          <h4><i className="fa fa-bell-o" aria-hidden="true"></i>Select Caste</h4>
+          <div className="form-group">
+            <select
+              className="form-select"
+              required
+              name="caste"
+              ref={casteRef}  // Attach the ref to caste input
+              value={searchForm.caste}
+              onChange={handleInputChange}
+            >
+              <option value="">Select Caste</option>
+              <option value="Adi Dravidar">Adi Dravidar</option>
+              <option value="Agarwal">Agarwal</option>
+              <option value="Arya Vysya">Arya Vysya</option>
+              <option value="Bania">Bania</option>
+              <option value="Brahmin">Brahmin</option>
+              <option value="Chettiar">Chettiar</option>
+              <option value="Choudhary">Choudhary</option>
+              <option value="Devanga">Devanga</option>
+              <option value="Ezhava">Ezhava</option>
+              <option value="Gounder">Gounder</option>
+              <option value="Gujar">Gujar</option>
+              <option value="Gupta">Gupta</option>
+              <option value="Iyer">Iyer</option>
+              <option value="Iyengar">Iyengar</option>
+              <option value="Jain">Jain</option>
+              <option value="Jat">Jat</option>
+              <option value="Kamma">Kamma</option>
+              <option value="Kayastha">Kayastha</option>
+              <option value="Koli">Koli</option>
+              <option value="Kshatriya">Kshatriya</option>
+              <option value="Kuruba">Kuruba</option>
+              <option value="Lingayat">Lingayat</option>
+              <option value="Maratha">Maratha</option>
+              <option value="Mudaliar">Mudaliar</option>
+              <option value="Nadar">Nadar</option>
+              <option value="Naidu">Naidu</option>
+              <option value="Nair">Nair</option>
+              <option value="Patel">Patel</option>
+              <option value="Pillai">Pillai</option>
+              <option value="Rajput">Rajput</option>
+              <option value="Reddy">Reddy</option>
+              <option value="SC">SC (Scheduled Caste)</option>
+              <option value="ST">ST (Scheduled Tribe)</option>
+              <option value="Thevar">Thevar</option>
+              <option value="Vanniyar">Vanniyar</option>
+              <option value="Vishwakarma">Vishwakarma</option>
+              <option value="Yadav">Yadav</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="filt-com lhs-cate">
+          <h4><i className="fa fa-map-marker" aria-hidden="true"></i>State</h4>
+          <div className="form-group">
+            <select
+              className="form-select"
+              required
+              name="state"
+              value={formData.state}
+              onChange={fetchCities}
+            >
+              <option value="">Select a State</option>
+              {states.map((state) => (
+                <option key={state.state_code} value={state.name}>
+                  {state.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div className="filt-com lhs-cate">
+          <h4><i className="fa fa-map-marker" aria-hidden="true"></i>City</h4>
           <div className="form-group">
             <select
               className="form-select"
@@ -169,8 +302,12 @@ const SearchProfile = () => {
               value={searchForm.city}
               onChange={handleInputChange}
             >
-              <option value="">Location</option>
-              <option value="Any">Any location</option>
+              <option value="">Select a City</option>
+              {cities.map((city) => (
+                <option key={city} value={city}>
+                  {city}
+                </option>
+              ))}
             </select>
           </div>
         </div>

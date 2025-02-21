@@ -1,10 +1,64 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import config from '../../config';
+import { useRef } from 'react';
+
+
 const SearchSection = () => {
+    const [states, setStates] = useState([]);
+    const [cities, setCities] = useState([]);
     const [searchResult, setSearchResults] = useState('');
     const navigate = useNavigate();
+
+      const [formData, setFormData] = useState({
+        
+        state: '',
+        city: ''
+      });
+
+      
+    
+      useEffect(() => {
+        const fetchStates = async () => {
+          try {
+            const response = await fetch(`https://countriesnow.space/api/v0.1/countries/states`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ country: 'India' }),
+            });
+    
+            const result = await response.json();
+            setStates(result.data.states || []); // Assume states are inside `data.states`
+          } catch (error) {
+            console.error('Error fetching states:', error);
+          }
+        };
+    
+        fetchStates();
+      }, []);
+    
+      const fetchCities = async (e) => {
+        const selectedState = e.target.value;
+        if (selectedState) {
+          setFormData({
+            ...formData,
+            state: selectedState // this will set formData.state to the selected value
+          });
+          try {
+            const response = await fetch(`https://countriesnow.space/api/v0.1/countries/state/cities`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ country: 'India', state: selectedState }),
+            });
+    
+            const result = await response.json();
+            setCities(result.data || []); // Assuming cities are in result.data
+          } catch (error) {
+            console.error('Error fetching cities:', error);
+          }
+        }
+      };
 
     const apiUrl = config?.apiUrl;
     let fullApiUrl;
@@ -14,9 +68,10 @@ const SearchSection = () => {
         console.error('Invalid API url');
     }
     const [searchForm, setSearchForm] = useState({
-        lookingFor: '',
+        gender: '',
         age: '',
         religion: '',
+        state: '',
         city: ''
     });
 
@@ -29,17 +84,28 @@ const SearchSection = () => {
         });
     };
 
+      const cityRef = useRef(null);
+    
+
     // Submit handler (if you want to process the form submission)
     const handleSubmit = async (e) => {
 
         e.preventDefault(); // Ensure that the form doesn't refresh the page
+        console.log('Form Data:', searchForm);  // Log the form data
+        
         try {
             const response = await fetch(fullApiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ gender: searchForm.gender, age: searchForm.age, religion: searchForm.religion, city: searchForm.city }),
+                body: JSON.stringify({
+                    gender: searchForm.gender,
+                    age: searchForm.age, 
+                    religion: searchForm.religion, 
+                    state: searchForm.state, 
+                    city: searchForm.city
+                }),
             });
 
             if (response.ok) {
@@ -51,7 +117,7 @@ const SearchSection = () => {
             }
         } catch (error) {
             console.error('Error:', error);
-        }
+        }  
     };
     return (
         <>
@@ -107,8 +173,7 @@ const SearchSection = () => {
                                                             <option value="31 to 40">31 to 40</option>
                                                             <option value="41 to 50">41 to 50</option>
                                                             <option value="51 to 60">51 to 60</option>
-                                                            <option value="61 to 70">61 to 70</option>
-                                                            <option value="71 to 80">71 to 80</option>
+                                                            <option value="61 to 70">60 & above</option>
                                                         </select>
                                                     </div>
                                                 </li>
@@ -135,6 +200,26 @@ const SearchSection = () => {
                                                     </div>
                                                 </li>
 
+                                                <li className="sr-state">
+                                                    <div className="form-group">
+                                                        <label>State</label>
+                                                        <select
+                                                            className="form-select"
+                                                            required
+                                                            name="state"
+                                                            value={formData.state}
+                                                            onChange={fetchCities}
+                                                        >
+                                                            <option value="">Select a State</option>
+                                                                {states.map((state) => (
+                                                                  <option key={state.state_code} value={state.name}>
+                                                                    {state.name}
+                                                                  </option>
+                                                                ))}
+                                                        </select>
+                                                    </div>
+                                                </li>
+
                                                 <li className="sr-cit">
                                                     <div className="form-group">
                                                         <label>City</label>
@@ -142,13 +227,16 @@ const SearchSection = () => {
                                                             className="form-select"
                                                             required
                                                             name="city"
+                                                            ref={cityRef}  // Attach the ref to city input
                                                             value={searchForm.city}
-                                                            onChange={(e) => {
-                                                                handleInputChange(e);
-                                                            }}
+                                                            onChange={handleInputChange}
                                                         >
-                                                            <option value="">Location</option>
-                                                            <option value="Any">Any location</option>
+                                                            <option value="">Select a City</option>
+                                                                {cities.map((city) => (
+                                                                  <option key={city} value={city}>
+                                                                    {city}
+                                                                  </option>
+                                                                ))}
                                                         </select>
                                                     </div>
                                                 </li>
@@ -172,3 +260,5 @@ const SearchSection = () => {
 }
 
 export default SearchSection
+
+//search section.jsx

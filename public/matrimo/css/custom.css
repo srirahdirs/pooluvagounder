@@ -119,6 +119,10 @@ em {
     position: relative;
 }
 
+.p-dialog-title{
+    font-weight: 600;
+}
+
 .p-dialog .p-dialog-content:last-of-type {
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
@@ -152,6 +156,8 @@ em {
     display: flex;
     align-items: center;
     flex-shrink: 0;
+    text-align: center;
+    
 }
 
 .p-dialog .p-dialog-content:last-of-type {
