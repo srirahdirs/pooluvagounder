@@ -22,7 +22,8 @@ const Matches = () => {
     } else {
         console.error('Invalid API URL');
     }
-
+    const isPaidUser = user?.premium_user;
+    console.log(isPaidUser, 'sss');
     const secretKey = config?.cryptoSecretKey;
     useEffect(() => {
         if (isLoggedIn && user) {
@@ -83,7 +84,6 @@ const Matches = () => {
                                     <div className="short-lhs">
                                         Showing <b>{searchResults.length}</b> profiles
                                     </div>
-
                                     <div className="short-rhs">
                                         <ul>
                                             <li>Sort by:</li>
@@ -114,20 +114,27 @@ const Matches = () => {
                                     <ul>
                                         {searchResults.length > 0 ? (
                                             searchResults.map((profile, index) => {
+
                                                 const encryptedUserId = CryptoJS.AES.encrypt(profile.user_id.toString(), secretKey).toString();
+                                                // Replace with actual logic to check if the user is paid
+
+                                                const profileLink = `/profiledetails/${encodeURIComponent(encryptedUserId)}`;
+                                                const profilePicture = profile.profile_picture || `${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`;
+
+                                                // Helper function to handle profile link click
+                                                const handleProfileClick = (e) => {
+                                                    if (!isPaidUser) {
+                                                        e.preventDefault();
+                                                    }
+                                                };
+
                                                 return (
                                                     <li key={profile.user_id || index}>
-                                                        <div className="all-pro-box user-avil-onli" data-useravil="avilyes" data-aviltxt="Available online">
+                                                        <div className={`all-pro-box user-avil-onli ${!isPaidUser ? 'blurred-div' : ''}`} data-useravil="avilyes" data-aviltxt="Available online">
                                                             <div className="pro-img">
-                                                                {profile.profile_picture ? (
-                                                                    <a href={`/profiledetails/${encodeURIComponent(encryptedUserId)}`}>
-                                                                        <img src={profile.profile_picture} alt={profile.name} />
-                                                                    </a>
-                                                                ) : (
-                                                                    <a href={`/profiledetails/${encodeURIComponent(encryptedUserId)}`}>
-                                                                        <img src={`${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`} alt={profile.name} />
-                                                                    </a>
-                                                                )}
+                                                                <a href={isPaidUser ? profileLink : '#'} onClick={handleProfileClick}>
+                                                                    <img src={profilePicture} alt={profile.name} />
+                                                                </a>
                                                                 <div className="pro-ave" title="User currently available">
                                                                     <span className="pro-ave-yes"></span>
                                                                 </div>
@@ -137,36 +144,58 @@ const Matches = () => {
                                                             </div>
 
                                                             <div className="pro-detail">
-                                                                <h4><a href={`/profiledetails/${encodeURIComponent(encryptedUserId)}`}>{profile.name}</a></h4>
+                                                                <h4>
+                                                                    <a href={isPaidUser ? profileLink : '#'} onClick={handleProfileClick}>
+                                                                        {profile.name}
+                                                                    </a>
+                                                                </h4>
                                                                 <div className="pro-bio">
                                                                     <span>{profile.degree || 'N/A'}</span>
                                                                     <span>{profile.job_type || 'N/A'}</span>
                                                                     <span>{profile.age} Years old</span>
-                                                                    <span>Height: {profile.height || 'N/A'} </span>
+                                                                    <span>Height: {profile.height || 'N/A'}</span>
                                                                 </div>
                                                                 <div className="links">
-                                                                    <span className="cta-chat">Chat now</span>
-                                                                    <a href={`/profiledetails/${encodeURIComponent(encryptedUserId)}`}>More details</a>
+                                                                    {isPaidUser ? (
+                                                                        <span className="cta-chat">Chat now</span>
+                                                                    ) : (
+                                                                        <span className="cta-chat blurred-action" onClick={navigateToPricing}>
+                                                                            Unlock chat
+                                                                        </span>
+                                                                    )}
+                                                                    <a href={isPaidUser ? profileLink : '#'} onClick={handleProfileClick}>
+                                                                        More details
+                                                                    </a>
                                                                 </div>
                                                             </div>
+
                                                             <span className="enq-sav" data-toggle="tooltip" title="Click to save this profile.">
                                                                 <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                                             </span>
-                                                            <div className="buy-now-container">
-                                                                <p className="subscription-message">Choose a subscription plan to unlock full profiles and connect with your ideal match today</p>
-                                                                <button className="buy-now-btn" onClick={navigateToPricing}>Purchase Plan</button>
-                                                            </div>
-                                                        </div>
 
+                                                            {!isPaidUser ? (
+                                                                <div className="buy-now-container">
+                                                                    <p className="subscription-message">
+                                                                        Choose a subscription plan to unlock full profiles and connect with your ideal match today
+                                                                    </p>
+                                                                    <button className="buy-now-btn" onClick={navigateToPricing}>
+                                                                        Purchase Plan
+                                                                    </button>
+                                                                </div>
+                                                            ) : ''}
+                                                        </div>
                                                     </li>
                                                 );
                                             })
                                         ) : (
-                                            <p style={{ textAlign: 'center' }}>No matches found! <br /> <br /> <a href="/partnerpreferences" className="btn btn-primary">Update your partner's preferences</a></p>
+                                            <p>No profiles found</p>
                                         )}
                                     </ul>
 
                                 </div>
+
+
+
                             </div>
                         </div>
                     </div>

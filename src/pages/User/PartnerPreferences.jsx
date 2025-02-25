@@ -93,20 +93,20 @@ const PartnerPreferences = () => {
                 setAgeError('');
             }
         }
-        if (name === 'weight') {
-            if (value.trim() === '') {
-                setWeightError('Weight is required');
-            } else {
-                setWeightError('');
-            }
-        }
-        if (name === 'height') {
-            if (value.trim() === '') {
-                setHeightError('Hight is required');
-            } else {
-                setHeightError('');
-            }
-        }
+        // if (name === 'weight') {
+        //     if (value.trim() === '') {
+        //         setWeightError('Weight is required');
+        //     } else {
+        //         setWeightError('');
+        //     }
+        // }
+        // if (name === 'height') {
+        //     if (value.trim() === '') {
+        //         setHeightError('Hight is required');
+        //     } else {
+        //         setHeightError('');
+        //     }
+        // }
 
         // if (name === 'marital_status') {
 
@@ -157,27 +157,27 @@ const PartnerPreferences = () => {
         }
 
         // Validate weight
-        if (!fieldValues.weight || fieldValues.weight.trim() === '') {
-            setWeightError('Weight is required');
-            isValid = false;
-        } else {
-            setWeightError('');
-        }
+        // if (!fieldValues.weight || fieldValues.weight.trim() === '') {
+        //     setWeightError('Weight is required');
+        //     isValid = false;
+        // } else {
+        //     setWeightError('');
+        // }
 
-        // Validate height
-        if (!fieldValues.height || fieldValues.height.trim() === '') {
-            setHeightError('Height is required');
-            isValid = false;
-        } else {
-            setHeightError('');
-        }
+        // // Validate height
+        // if (!fieldValues.height || fieldValues.height.trim() === '') {
+        //     setHeightError('Height is required');
+        //     isValid = false;
+        // } else {
+        //     setHeightError('');
+        // }
 
-        if (!fieldValues.marital_status || fieldValues.marital_status.trim() === '') {
-            setMaritalStatusError('Marital Status is required');
-            isValid = false;
-        } else {
-            setMaritalStatusError('');
-        }
+        // if (!fieldValues.marital_status || fieldValues.marital_status.trim() === '') {
+        //     setMaritalStatusError('Marital Status is required');
+        //     isValid = false;
+        // } else {
+        //     setMaritalStatusError('');
+        // }
         if (!fieldValues.religion || fieldValues.religion === '') {
             setReligionError('Religion is required');
             isValid = false;

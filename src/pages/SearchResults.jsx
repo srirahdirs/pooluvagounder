@@ -109,7 +109,7 @@ const SearchResults = () => {
                                                     <li key={profile.user_id || index}>
                                                         <div className={`all-pro-box user-avil-onli ${!isPaidUser ? 'blurred-div' : ''}`} data-useravil="avilyes" data-aviltxt="Available online">
                                                             <div className="pro-img">
-                                                                <a href={isPaidUser ? profileLink : profileLink} onClick={handleProfileClick}>
+                                                                <a href={isPaidUser ? profileLink : '#'} onClick={handleProfileClick}>
                                                                     <img src={profilePicture} alt={profile.name} />
                                                                 </a>
                                                                 <div className="pro-ave" title="User currently available">
