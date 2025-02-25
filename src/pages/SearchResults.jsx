@@ -40,7 +40,7 @@ const SearchResults = () => {
                         <div className="row">
                             <h1>Find Your Forever with Wedding Soul Mates</h1>
                             {isLoggedIn
-                                ? (<a href="#" className='disabled-link'>Start Searching for Your Soulmate, {user.name}!<i className="fa fa-handshake-o" aria-hidden="true"></i></a>)
+                                ? (<a href="#" className='disabled-link'>Start Searching for Your Soulmate, {user?.name}!<i className="fa fa-handshake-o" aria-hidden="true"></i></a>)
                                 : (<a href="/register">Join now for Free <i className="fa fa-handshake-o" aria-hidden="true"></i></a>)
                             }
                         </div>

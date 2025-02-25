@@ -4,7 +4,6 @@ import config from '../../config';
 
 
 const Footer = () => {
-  const supportEmail = config?.supportEmail;
   const infoEmail = config?.infoEmail;
   return (
     <section className="wed-hom-footer">
@@ -20,7 +19,6 @@ const Footer = () => {
             {/* <p>Address: 3812 Lena Lane City Jackson Mississippi</p> */}
             {/* <p>Phone: <a href="tel:+917904462944">+92 (8800) 68 - 8960</a></p> */}
             <p>Email: <a href={`mailto:${infoEmail}`}>{infoEmail}</a></p>
-            {/* <p>Email: <a href={`mailto:${supportEmail}`}>{supportEmail}</a></p> */}
           </div>
           <div className="col-md-4">
             <h4>HELP &amp; SUPPORT</h4>

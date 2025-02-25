@@ -14,6 +14,8 @@ const Login = () => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [loading, setLoading] = useState(false); // Added loading state
+  const [otpSent, setOtpSent] = useState(false); // New state to manage OTP sending
+  const [otp, setOtp] = useState(''); // State to store the OTP input
 
   const { setUser, isLoggedIn, setIsLoggedIn } = useAuth();
 

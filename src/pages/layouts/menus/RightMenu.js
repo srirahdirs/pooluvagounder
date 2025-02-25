@@ -3,6 +3,8 @@ import { useAuth } from "../../../context/AuthContext";
 
 const RightMenu = () => {
     const { isLoggedIn, user } = useAuth();
+    console.log(user, 'user');
+
     return (
         <>
             <div className="menu-pop menu-pop2">
@@ -11,14 +13,14 @@ const RightMenu = () => {
                     <div className="menu-pop-help">
                         <h4>Your Details</h4>
                         <div className="user-pro">
-                            {isLoggedIn && user.user_profile_picture ? (
-                                <img src={`${user.user_profile_picture}`} alt="" loading="lazy" />
+                            {isLoggedIn && user?.user_profile_picture ? (
+                                <img src={`${user?.user_profile_picture}`} alt="" loading="lazy" />
                             ) : (<img src={`${process.env.PUBLIC_URL}/matrimo/images/user_dummy.png`} alt="" loading="lazy" />)
                             }
                         </div>
                         <div className="user-bio">
-                            <h5>{isLoggedIn ? user.name : ''}</h5>
-                            <span>{isLoggedIn && user.email ? user.email : ''}</span> <br />
+                            <h5>{isLoggedIn ? user?.name : ''}</h5>
+                            <span>{isLoggedIn && user?.email ? user.email : ''}</span> <br />
                             <a href="/userprofile" className="btn btn-primary btn-sm">View Profile</a>
                         </div>
                     </div>
@@ -41,16 +43,17 @@ const RightMenu = () => {
                     <div className="menu-pop-help">
                         <h4>Your Details</h4>
                         <div className="user-pro">
-                            {isLoggedIn && user.user_profile_picture ? (
-                                <img src={`${user.user_profile_picture}`} alt="" loading="lazy" />
+                            {isLoggedIn && user?.user_profile_picture ? (
+                                <img src={`${user?.user_profile_picture}`} alt="" loading="lazy" />
                             ) : (<img src={`${process.env.PUBLIC_URL}/matrimo/images/user_dummy.png`} alt="" loading="lazy" />)
                             }
                         </div>
                         <div className="user-bio">
-                            <h5>{isLoggedIn ? user.name : ''}</h5>
-                            <span>{isLoggedIn && user.email ? user.email : ''}</span> <br />
+                            <h5>{isLoggedIn && user?.name ? user.name : ''}</h5>
+                            <span>{isLoggedIn && user?.email ? user.email : ''}</span> <br />
                             <a href="/userprofile" className="btn btn-primary btn-sm">View Profile</a>
                         </div>
+
                     </div>
                     <div className="menu-pop-soci">
                         <ul>

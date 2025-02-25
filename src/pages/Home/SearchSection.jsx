@@ -1,9 +1,6 @@
-import React from 'react'
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import config from '../../config';
-import { useRef } from 'react';
-
 
 const SearchSection = () => {
     const [states, setStates] = useState([]);
@@ -11,62 +8,11 @@ const SearchSection = () => {
     const [searchResult, setSearchResults] = useState('');
     const navigate = useNavigate();
 
-      const [formData, setFormData] = useState({
-        
+    const [formData, setFormData] = useState({
         state: '',
         city: ''
-      });
+    });
 
-      
-    
-      useEffect(() => {
-        const fetchStates = async () => {
-          try {
-            const response = await fetch(`https://countriesnow.space/api/v0.1/countries/states`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ country: 'India' }),
-            });
-    
-            const result = await response.json();
-            setStates(result.data.states || []); // Assume states are inside `data.states`
-          } catch (error) {
-            console.error('Error fetching states:', error);
-          }
-        };
-    
-        fetchStates();
-      }, []);
-    
-      const fetchCities = async (e) => {
-        const selectedState = e.target.value;
-        if (selectedState) {
-          setFormData({
-            ...formData,
-            state: selectedState // this will set formData.state to the selected value
-          });
-          try {
-            const response = await fetch(`https://countriesnow.space/api/v0.1/countries/state/cities`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ country: 'India', state: selectedState }),
-            });
-    
-            const result = await response.json();
-            setCities(result.data || []); // Assuming cities are in result.data
-          } catch (error) {
-            console.error('Error fetching cities:', error);
-          }
-        }
-      };
-
-    const apiUrl = config?.apiUrl;
-    let fullApiUrl;
-    if (apiUrl) {
-        fullApiUrl = apiUrl + 'search';
-    } else {
-        console.error('Invalid API url');
-    }
     const [searchForm, setSearchForm] = useState({
         gender: '',
         age: '',
@@ -75,24 +21,86 @@ const SearchSection = () => {
         city: ''
     });
 
+    const cityRef = useRef(null);
+    const stateRef = useRef(null);
+
+    useEffect(() => {
+        const fetchStates = async () => {
+            try {
+                const response = await fetch(`https://countriesnow.space/api/v0.1/countries/states`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ country: 'India' }),
+                });
+
+                const result = await response.json();
+                setStates(result.data.states || []); // Assume states are inside `data.states`
+            } catch (error) {
+                console.error('Error fetching states:', error);
+            }
+        };
+
+        fetchStates();
+    }, []);
+
+    const fetchCities = async (e) => {
+        const selectedState = e.target.value;
+        handleInputChange(e); // Update the form state
+        // Reset city when state is cleared or changed
+        setFormData({
+            ...formData,
+            state: selectedState,
+            city: '' // Reset city
+        });
+        console.log(formData, 'formData');
+        console.log(selectedState, 'selectedState');
+
+        setSearchForm({
+            ...searchForm,
+            state: selectedState,
+            city: '' // Reset city in search form as well
+        });
+
+        if (!selectedState) {
+            setCities([]); // Clear the cities list when no state is selected
+            return;
+        }
+
+        try {
+            const response = await fetch(`https://countriesnow.space/api/v0.1/countries/state/cities`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ country: 'India', state: selectedState }),
+            });
+
+            const result = await response.json();
+            setCities(result.data || []); // Assuming cities are in result.data
+        } catch (error) {
+            console.error('Error fetching cities:', error);
+        }
+    };
+
+    const apiUrl = config?.apiUrl;
+    let fullApiUrl;
+    if (apiUrl) {
+        fullApiUrl = apiUrl + 'search';
+    } else {
+        console.error('Invalid API url');
+    }
+
     // Handle form change
     const handleInputChange = (e) => {
-        console.log('Input Changed:', e.target.name, e.target.value);  // Log the name and value of the input
+        console.log('Input Changed:', e.target.name, e.target.value); // Log the name and value of the input
         setSearchForm({
             ...searchForm,
             [e.target.name]: e.target.value, // Update the specific field
         });
     };
 
-      const cityRef = useRef(null);
-    
-
-    // Submit handler (if you want to process the form submission)
+    // Submit handler
     const handleSubmit = async (e) => {
-
         e.preventDefault(); // Ensure that the form doesn't refresh the page
-        console.log('Form Data:', searchForm);  // Log the form data
-        
+        const selectedSt = searchForm.state;
         try {
             const response = await fetch(fullApiUrl, {
                 method: 'POST',
@@ -101,24 +109,25 @@ const SearchSection = () => {
                 },
                 body: JSON.stringify({
                     gender: searchForm.gender,
-                    age: searchForm.age, 
-                    religion: searchForm.religion, 
-                    state: searchForm.state, 
+                    age: searchForm.age,
+                    religion: searchForm.religion,
+                    state: selectedSt,
                     city: searchForm.city
                 }),
             });
 
             if (response.ok) {
                 const result = await response.json();
-                setSearchResults(result.data);  // Assuming you have a setSearchResults function in context or state
+                setSearchResults(result.data); // Assuming you have a setSearchResults function in context or state
                 navigate('/allprofiles', { state: { searchResults: result.data } });
             } else {
                 console.error('Failed');
             }
         } catch (error) {
             console.error('Error:', error);
-        }  
+        }
     };
+
     return (
         <>
             <section>
@@ -128,7 +137,7 @@ const SearchSection = () => {
                             <div className="row">
                                 <div className="hom-ban">
                                     <div className="ban-tit">
-                                        <span><i className="no1"> <em style={{ fontFamily: 'Cinzel Decorative', fontStyle: 'cursive' }}>Wedding Soul Mates</em></i> <br />Matrimony</span>
+                                        <span><i className="no1"><em style={{ fontFamily: 'Cinzel Decorative', fontStyle: 'cursive' }}>Wedding Soul Mates</em></i><br />Matrimony</span>
                                         <h1>Find your<br /><b>Right Match</b> here</h1>
                                         <p>The leading choice for finding lifelong partners.</p>
                                     </div>
@@ -145,9 +154,7 @@ const SearchSection = () => {
                                                             required
                                                             name="gender"
                                                             value={searchForm.gender}
-                                                            onChange={(e) => {
-                                                                handleInputChange(e);
-                                                            }}
+                                                            onChange={handleInputChange}
                                                         >
                                                             <option value="">Select your Gender</option>
                                                             <option value="Male">Male</option>
@@ -164,9 +171,7 @@ const SearchSection = () => {
                                                             required
                                                             name="age"
                                                             value={searchForm.age}
-                                                            onChange={(e) => {
-                                                                handleInputChange(e);
-                                                            }}
+                                                            onChange={handleInputChange}
                                                         >
                                                             <option value="">Select Age Range</option>
                                                             <option value="18 to 30">18 to 30</option>
@@ -186,16 +191,15 @@ const SearchSection = () => {
                                                             required
                                                             name="religion"
                                                             value={searchForm.religion}
-                                                            onChange={(e) => {
-                                                                handleInputChange(e);
-                                                            }}
+                                                            onChange={handleInputChange}
                                                         >
                                                             <option value="">Religion</option>
                                                             <option value="Any">Any</option>
                                                             <option value="Hindu">Hindu</option>
                                                             <option value="Muslim">Muslim</option>
-                                                            <option value="Jain">Jain</option>
                                                             <option value="Christian">Christian</option>
+                                                            <option value="Jain">Jain</option>
+                                                            <option value="Other">Other</option>
                                                         </select>
                                                     </div>
                                                 </li>
@@ -205,17 +209,17 @@ const SearchSection = () => {
                                                         <label>State</label>
                                                         <select
                                                             className="form-select"
-                                                            required
                                                             name="state"
+                                                            ref={stateRef}
                                                             value={formData.state}
                                                             onChange={fetchCities}
                                                         >
                                                             <option value="">Select a State</option>
-                                                                {states.map((state) => (
-                                                                  <option key={state.state_code} value={state.name}>
+                                                            {states.map((state) => (
+                                                                <option key={state.state_code} value={state.name}>
                                                                     {state.name}
-                                                                  </option>
-                                                                ))}
+                                                                </option>
+                                                            ))}
                                                         </select>
                                                     </div>
                                                 </li>
@@ -225,18 +229,17 @@ const SearchSection = () => {
                                                         <label>City</label>
                                                         <select
                                                             className="form-select"
-                                                            required
                                                             name="city"
                                                             ref={cityRef}  // Attach the ref to city input
                                                             value={searchForm.city}
                                                             onChange={handleInputChange}
                                                         >
                                                             <option value="">Select a City</option>
-                                                                {cities.map((city) => (
-                                                                  <option key={city} value={city}>
+                                                            {cities.map((city) => (
+                                                                <option key={city} value={city}>
                                                                     {city}
-                                                                  </option>
-                                                                ))}
+                                                                </option>
+                                                            ))}
                                                         </select>
                                                     </div>
                                                 </li>
@@ -254,11 +257,9 @@ const SearchSection = () => {
                         </div>
                     </div>
                 </div>
-            </section >
+            </section>
         </>
-    )
-}
+    );
+};
 
-export default SearchSection
-
-//search section.jsx
+export default SearchSection;

@@ -2,15 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useToast } from '../assets/utils/toastUtil';
 import { useNavigate, Link } from 'react-router-dom';
 import { Toast } from 'primereact/toast';
-import { useAuth } from '../context/AuthContext';
 import config from '../config';
-import axios from 'axios';
-
+import { jwtDecode } from 'jwt-decode';
+import '../assets/css/Registration.css';
 const Registration = () => {
     const { toast, showToast } = useToast();
     const navigate = useNavigate();
-
-    const { setUser, setIsLoggedIn } = useAuth();
 
     const apiUrl = config?.apiUrl;
     let fullApiUrl;
@@ -19,11 +16,13 @@ const Registration = () => {
     } else {
         console.error('Invalid API url');
     }
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [loading, setLoading] = useState(false); // Loading state
 
     // Validation error states
     const [nameError, setNameError] = useState('');
@@ -31,20 +30,6 @@ const Registration = () => {
     const [phoneError, setPhoneError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [confirmPasswordError, setConfirmPasswordError] = useState('');
-
-
-    //   error message if otp not send
-//   const [errorMessage, setErrorMessage] = useState('');
-//   const [otpSent, setOtpSent] = useState(false); // Flag to check if OTP has been sent
-  
-
-
-  // Handle Send OTP
-  const handleSendOtp = async () => {
-    console.log('send otp to:' , email);
-   
-  };
-
 
     // Check for session token on mount
     useEffect(() => {
@@ -79,13 +64,18 @@ const Registration = () => {
     };
 
     const validatePhone = (value) => {
+        const phoneNumber = value.replace(/\D/g, ""); // Remove non-numeric characters.
+
         setPhone(value);
-        if (value.length !== 10) {
-            setPhoneError('Phone number must be 10 digits');
+
+        if (phoneNumber.length !== 10) {
+            setPhoneError("Phone number must be 10 digits.");
         } else {
-            setPhoneError('');
+            setPhoneError("");
         }
     };
+
+
 
     const validatePassword = (value) => {
         setPassword(value);
@@ -107,7 +97,6 @@ const Registration = () => {
 
     const handleRegister = async (e) => {
         e.preventDefault();
-        
 
         // Final check before submission
         if (nameError || emailError || phoneError || passwordError || confirmPasswordError) {
@@ -115,6 +104,8 @@ const Registration = () => {
             return;
         }
 
+        setLoading(true); // Start loading
+        console.log('Sending registration request...');
 
         try {
             const response = await fetch(fullApiUrl, {
@@ -125,24 +116,40 @@ const Registration = () => {
                 body: JSON.stringify({ name, email, phone, password }),
             });
 
-            const data = await response.json();
-            if (data.success) {
+            console.log('Received response from backend');
 
-                localStorage.setItem('authToken', data.token);
-                setIsLoggedIn(true);  // Update login status
-                setUser(data.user);
-                showToast('Registration successful! Redirecting...');
-                sessionStorage.setItem('email', email); // Store email in session storage
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Backend Error:', errorData);
+                showToast(errorData.message || 'Registration failed', 'error');
+                return;
+            }
+
+            const data = await response.json();
+
+            if (data.success) {
+                showToast('Registration successful.');
+
+                // Decode the OTP token
+                const decoded = jwtDecode(data.otpToken);
+
+                sessionStorage.setItem('authToken', data.token);
+                sessionStorage.setItem('user', JSON.stringify(data.user)); // Stringify user object
+                sessionStorage.setItem('email', email);
+                sessionStorage.setItem('decodedOTP', JSON.stringify(decoded)); // Store decoded OTP
+
+                // Redirect after a short delay
                 setTimeout(() => {
-                    // navigate('/edituserprofile'); // Redirect to login page after registration
-                    navigate('/verifyotp'); // Redirect to verify otp page after registration
-                    handleSendOtp();
-                }, 3000);
+                    navigate('/Verifyotp');
+                }, 1000);
             } else {
                 showToast(data.message || 'Registration failed', 'error');
             }
         } catch (error) {
+            console.error('Error during registration:', error);
             showToast('Something went wrong, please try again.', 'error');
+        } finally {
+            setLoading(false); // Stop loading
         }
     };
 
@@ -196,11 +203,9 @@ const Registration = () => {
                                                         name="email"
                                                         value={email}
                                                         onChange={(e) => validateEmail(e.target.value)}
-                                                        // onChange={(e) => setEmail(e.target.value)}
                                                         required
                                                     />
                                                     {emailError && <p className="error-message">{emailError}</p>}
-                                                    {/* <button onClick={handleClick}>Verify Email</button> */}
                                                 </div>
                                                 <div className="form-group">
                                                     <label className="lb" htmlFor="phone">Phone:</label>
@@ -245,11 +250,34 @@ const Registration = () => {
                                                 </div>
                                                 <div className="form-group form-check">
                                                     <label className="form-check-label">
-                                                        <input className="form-check-input" type="checkbox" name="agree" required />{' '}
-                                                        Creating an account means you're okay with our <a href="/termsconditions" target='_blank' rel="noopener">Terms of Service</a>, Privacy Policy, and our default Notification Settings.
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            name="agree"
+                                                            required
+                                                            onInvalid={(e) => e.target.setCustomValidity("You must agree to the terms of service before creating an account.")}
+                                                            onInput={(e) => e.target.setCustomValidity("")} // Reset the custom message on input
+                                                        />{' '}
+                                                        Creating an account means you're okay with our
+                                                        <a href="/termsconditions" target='_blank' rel="noopener"> Terms of Service</a>,
+                                                        Privacy Policy, and our default Notification Settings.
                                                     </label>
                                                 </div>
-                                                <button type="submit" className="btn btn-primary">Create Account</button>
+                                                <button
+                                                    type="submit"
+                                                    className="btn btn-primary"
+                                                    disabled={loading} // Disable the button when loading
+                                                >
+                                                    {loading ? (
+                                                        <div className="loader">
+                                                            <span className="dot">.</span>
+                                                            <span className="dot">.</span>
+                                                            <span className="dot">.</span>
+                                                        </div>
+                                                    ) : (
+                                                        'Create Account'
+                                                    )}
+                                                </button>
                                             </form>
                                         </div>
                                     </div>
@@ -259,8 +287,6 @@ const Registration = () => {
                     </div>
                 </div>
             </section>
-           
-           
         </>
     );
 };

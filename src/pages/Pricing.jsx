@@ -64,7 +64,7 @@ const Pricing = () => {
                                         <ol>
                                             <li><i className="fa fa-close close" aria-hidden="true"></i> 5 Premium Profiles view /mo</li>
                                             <li><i className="fa fa-check" aria-hidden="true"></i> Free user profile view</li>
-                                            <li><i className="fa fa-close close" aria-hidden="true"></i> No contact details view</li>
+                                            <li><i className="fa fa-check" aria-hidden="true"></i> contact details view</li>
                                             <li><i className="fa fa-close close" aria-hidden="true"></i> Can't send interest</li>
                                             <li><i className="fa fa-close close" aria-hidden="true"></i> No chat feature</li>
                                         </ol>

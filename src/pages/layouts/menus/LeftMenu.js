@@ -1,6 +1,6 @@
 import React from "react";
-import CashfreePayment from "../../../components/CashfreePayment";
 import { useSelector } from "react-redux";
+import CCAvenuePayment from "../../../components/CCAvenuePayment";
 const LeftMenu = () => {
     const planId = useSelector((state) => state.pricing.selectedPlanId);
     const plans = {
@@ -22,10 +22,10 @@ const LeftMenu = () => {
                 {/* Display selected plan details */}
                 {selectedPlan ? (
                     <div className="bg-white rounded-lg shadow-lg p-4 mb-4 text-center">
-                        <span className="mb-8"> Plan Details</span>
+                        <span className="mb-8" style={{ color: 'black' }}> Plan Details </span>
                         <h3 className="text-xl font-bold mb-2"> {selectedPlan.name} Plan</h3>
-                        <p className="text-gray-700 mb-1"><strong>Price:</strong> {selectedPlan.price}</p>
-                        <p className="text-gray-700 mb-1"><strong>Validity:</strong> {selectedPlan.validity}</p>
+                        <p className="text-gray-700 mb-1"><strong style={{ color: 'black' }}>Price:</strong> &#8377;{selectedPlan.price}</p>
+                        <p className="text-gray-700 mb-1"><strong style={{ color: 'black' }}> Validity:</strong> {selectedPlan.validity}</p>
                     </div>
                 ) : (
                     <p className="text-center text-lg text-gray-600 mb-4">No plan selected.</p>
@@ -34,7 +34,7 @@ const LeftMenu = () => {
                 <div className="menu-pop-help">
                     <div className="user-bio">
                         <button className="btn btn-primary btn-sm">
-                            <CashfreePayment planId={planId} planPrice={planPrice} />
+                            <CCAvenuePayment planPrice={planPrice} />
                         </button>
                     </div>
                 </div>
@@ -51,7 +51,7 @@ const LeftMenu = () => {
                     </ul>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

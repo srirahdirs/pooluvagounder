@@ -16,7 +16,6 @@ const MainMenu = () => {
             menu_pop2.classList.add('act');
         }
     };
-    console.log(user, 'mainmenuuser ');
 
     return (
         <>

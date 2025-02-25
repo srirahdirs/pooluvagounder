@@ -38,7 +38,7 @@ const UpdateUserProfile = () => {
     //     return savedUser ? JSON.parse(savedUser) : {};
     // });
 
-    console.log(user, "hello ")
+    // console.log(user, "hello ")
 
     function calculateAge(dob) {
         if (!dob) return "";
@@ -119,9 +119,7 @@ const UpdateUserProfile = () => {
             [name]: checked ? 1 : 0 // Ensure the value is set to 1 or 0
         }));
     };
-    console.log("willing_to_marry_from_another_caste:", formData.willing_to_marry_from_another_caste);
     useEffect(() => {
-        console.log(user.user_details.willing_to_marry_from_another_caste);
         const fetchStates = async () => {
             try {
                 const response = await fetch(`https://countriesnow.space/api/v0.1/countries/states`, {
@@ -546,7 +544,7 @@ const UpdateUserProfile = () => {
             dosam: formData.dosam,
             star: formData.star,
             raasi: formData.raasi,
-            willing_to_marry_from_another_caste: formData.willing_to_marry_from_another_caste,
+            willing_to_marry_from_another_caste: formData?.willing_to_marry_from_another_caste,
         };
 
         try {
@@ -684,7 +682,7 @@ const UpdateUserProfile = () => {
                                                     >
                                                         <option value="">Select a State</option>
                                                         {states.map((state) => (
-                                                            <option key={state.state_code} value={state.state_code}>
+                                                            <option key={state.state_code} value={state.name}>
                                                                 {state.name}
                                                             </option>
                                                         ))}

@@ -40,31 +40,54 @@ const SearchProfile = ({ user }) => {
 
   const fetchCities = async (e) => {
     const selectedState = e.target.value;
-    if (selectedState) {
-      setFormData({
-        ...formData,
-        state: selectedState // this will set formData.state to the selected value
-      });
-      try {
-        const response = await fetch(`https://countriesnow.space/api/v0.1/countries/state/cities`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ country: 'India', state: selectedState }),
-        });
+    console.log('Selected State:', selectedState);
+    // Update the form state
+    setFormData({
+      ...formData,
+      state: selectedState,
+      city: ""  // Reset the city value when state changes
+    });
 
-        const result = await response.json();
-        setCities(result.data || []); // Assuming cities are in result.data
-      } catch (error) {
-        console.error('Error fetching cities:', error);
+    // If no state is selected, reset the cities list and return early
+    if (!selectedState) {
+      console.log('Selected State:', cityRef);
+
+      // Reset city value in searchForm
+      setSearchForm((prevState) => ({
+        ...prevState,
+        city: ""  // Clear city value in searchForm
+      }));
+
+      // Clear cityRef value
+      if (cityRef.current) {
+        cityRef.current.value = "";  // Reset the ref value for the city
       }
+
+      setCities([]);  // Clear the cities list when no state is selected
+      return;
+    }
+
+    try {
+      // Fetch cities only when a valid state is selected
+      const response = await fetch(`https://countriesnow.space/api/v0.1/countries/state/cities`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ country: 'India', state: selectedState }),
+      });
+
+      const result = await response.json();
+      setCities(result.data || []);  // Set cities based on the API response
+    } catch (error) {
+      console.error('Error fetching cities:', error);
     }
   };
+
 
 
   const apiUrl = config?.apiUrl;
   let fullApiUrl;
   if (apiUrl) {
-    fullApiUrl = apiUrl + 'search';
+    fullApiUrl = apiUrl + 'loggedInSearch';
   } else {
     console.error('Invalid API url');
   }
@@ -302,8 +325,9 @@ const SearchProfile = ({ user }) => {
               className="form-select"
               name="city"
               ref={cityRef}  // Attach the ref to city input
-              value={searchForm.city}
+              value={searchForm.city}  // city value should be bound to searchForm.city
               onChange={handleInputChange}
+              disabled={cities.length === 0}  // Disable the city dropdown if no cities are available
             >
               <option value="">Select a City</option>
               {cities.map((city) => (
@@ -314,6 +338,7 @@ const SearchProfile = ({ user }) => {
             </select>
           </div>
         </div>
+
 
         <div className="filt-com filt-send-query">
           <div className="send-query">

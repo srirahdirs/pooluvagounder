@@ -108,14 +108,14 @@ const PartnerPreferences = () => {
             }
         }
 
-        if (name === 'marital_status') {
+        // if (name === 'marital_status') {
 
-            if (value.trim() === '') {
-                setMaritalStatusError('Marital Status is required');
-            } else {
-                setMaritalStatusError('');
-            }
-        }
+        //     if (value.trim() === '') {
+        //         setMaritalStatusError('Marital Status is required');
+        //     } else {
+        //         setMaritalStatusError('');
+        //     }
+        // }
         if (name === 'caste') {
             console.log(name, 'caste');
             console.log(value, 'marital_scastetatus value');
@@ -311,7 +311,7 @@ const PartnerPreferences = () => {
                                                             >
                                                                 <option value="">Select Age Range</option>
                                                                 <option value="no_preference">No Preference</option>
-                                                                <option value="20 to 25">20 to 25</option>
+                                                                <option value="18 to 25">18 to 25</option>
                                                                 <option value="25 to 30">25 to 30</option>
                                                                 <option value="30 to 35">30 to 35</option>
                                                                 <option value="35 to 40">35 to 40</option>

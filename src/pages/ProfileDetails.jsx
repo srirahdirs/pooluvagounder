@@ -49,9 +49,9 @@ const ProfileDetails = () => {
         if (response.ok) {
           const getuserdetails = await response.json();
           setUser(getuserdetails.user);
-          setUserDetails(getuserdetails.user.user_details);
+          setUserDetails(getuserdetails.user?.user_details);
           setUserImages(getuserdetails.user.user_images);
-          setUserProfilePicture(getuserdetails.user.user_profile_picture);
+          setUserProfilePicture(getuserdetails.user?.user_profile_picture);
         } else {
           if (response.status === 401) {
             setHasAccess(false);
@@ -118,7 +118,7 @@ const ProfileDetails = () => {
                       src={userProfilePicture || `${process.env.PUBLIC_URL}/matrimo/images/${image}`}
                       loading="lazy"
                       className="pro"
-                      alt={user.name}
+                      alt={user?.name}
                     />
                   </div>
                   <div className="s3">
@@ -130,12 +130,18 @@ const ProfileDetails = () => {
               <div className="profi-pg profi-bio">
                 <div className="lhs">
                   <div className="pro-pg-intro">
-                    <h1>{user.name}</h1>
+                    <h1>{user?.name}</h1>
                     <div className="pro-info-status">
-                      <span className="stat-1"><b>0</b> viewers</span>
+                      {/* <span className="stat-1"><b>0</b> viewers</span> */}
                       <span className="stat-2"><b>Available</b></span>
                     </div>
                     <ul>
+                      <li>
+                        <div>
+                          <img src={`${process.env.PUBLIC_URL}/matrimo/images/icon/pro-city.png`} loading="lazy" alt="City Icon" />
+                          <span>State: <strong style={{ color: 'inherit' }}>{userDetails.state || "Not specified"}</strong></span>
+                        </div>
+                      </li>
                       <li>
                         <div>
                           <img src={`${process.env.PUBLIC_URL}/matrimo/images/icon/pro-city.png`} loading="lazy" alt="City Icon" />
@@ -148,12 +154,12 @@ const ProfileDetails = () => {
                           <span>Age: <strong style={{ color: 'inherit' }}>{userDetails.age || "Not specified"}</strong></span>
                         </div>
                       </li>
-                      <li>
+                      {/* <li>
                         <div>
                           <img src={`${process.env.PUBLIC_URL}/matrimo/images/icon/height_icon_transparent.png`} loading="lazy" alt="Height Icon" />
                           <span>Height: <strong style={{ color: 'inherit' }}>{userDetails.height || "Not specified"}</strong></span>
                         </div>
-                      </li>
+                      </li> */}
                       <li>
                         <div>
                           <img src={`${process.env.PUBLIC_URL}/matrimo/images/icon/job.png`} loading="lazy" alt="Job Icon" />
@@ -222,7 +228,7 @@ const ProfileDetails = () => {
                   <div className="pr-bio-c pr-bio-info">
                     <h3>Personal information</h3>
                     <ul>
-                      <li><b>Name:</b> {user.name || "Not specified"}</li>
+                      <li><b>Name:</b> {user?.name || "Not specified"}</li>
                       <li><b>Father's name:</b> {userDetails.fathers_name || "Not specified"}</li>
                       <li><b>Mother's name:</b> {userDetails.mothers_name || "Not specified"}</li>
                       <li><b>Age:</b> {userDetails.age || "Not specified"}</li>
@@ -265,7 +271,7 @@ const ProfileDetails = () => {
                       <li>
                         <span>
                           Willing to marry from another caste:{" "}
-                          <b>{userDetails.willing_to_marry_from_another_caste === 1 ? "Yes" : "No"}</b>
+                          <b>{userDetails?.willing_to_marry_from_another_caste === 1 ? "Yes" : "No"}</b>
                         </span>
 
                       </li>
