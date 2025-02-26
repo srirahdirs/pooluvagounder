@@ -29,43 +29,46 @@ import VerifyOtp from "./pages/VerifyOtp";
 import PaymentResponse from '../src/components/PaymentResponse';
 import PaymentCancel from '../src/components/PaymentCancel';
 import UserHoroscope from '../src/pages/User/UserHoroscope';
+import { HelmetProvider } from "react-helmet-async";
 function App() {
   return (
     <Provider store={store}> {/* Wrap with Provider for Redux */}
       <AuthProvider> {/* Wrap with AuthProvider for authentication context */}
-        <Router>
-          {/* Wrap your app layout */}
-          <MainMenu /> {/* Moved outside of Routes for consistency across all pages */}
-          <div className="App">
-            <Routes>
-              <Route path="/" element={<><Home /><Footer /></>} />
-              <Route path="/home" element={<><Home /><Footer /></>} />
-              <Route path="/login" element={<><Login /><Footer /></>} />
-              <Route path="/register" element={<><Register /><Footer /></>} />
-              <Route path="/pricing" element={<><Pricing /><Footer /></>} />
-              <Route path="/contact" element={<><Contact /><Footer /></>} />
-              <Route path="/about" element={<><About /><Footer /></>} />
-              <Route path="/logout" element={<><Logout /><Footer /></>} />
-              <Route path="/edituserprofile" element={<><UpdateUserProfile /><Footer /></>} />
-              <Route path="/partnerpreferences" element={<><PartnerPreferences /><Footer /></>} />
-              <Route path="/userprofile" element={<><UserProfile /><Footer /></>} />
-              <Route path="/allprofiles" element={<><AllProfiles /><Footer /></>} />
-              <Route path="/matches" element={<><Matches /><Footer /></>} />
-              <Route path="/profiledetails/:id" element={<><ProfileDetails /><Footer /></>} />
-              <Route path="*" element={<NotFound />} />
-              <Route path="/comingsoon" element={<ComingSoon />} />
-              <Route path="/privacypolicy" element={<><PrivacyPolicy /><Footer /></>} />
-              <Route path="/termsconditions" element={<><TermsConditions /><Footer /></>} />
-              <Route path="/refundpolicy" element={<><RefundPolicy /><Footer /></>} />
-              <Route path="/PaymentStatus" element={<><PaymentStatus /><Footer /></>} />
-              <Route path="/UserPlan" element={<><UserPlan /><Footer /></>} />
-              <Route path="/VerifyOtp" element={<><VerifyOtp /><Footer /></>} />
-              <Route path="/payment-response" element={<PaymentResponse />} />
-              <Route path="/payment-cancel" element={<PaymentCancel />} />
-              <Route path="/userhoroscope" element={<UserHoroscope />} />
-            </Routes>
-          </div>
-        </Router>
+        <HelmetProvider>
+          <Router>
+            {/* Wrap your app layout */}
+            <MainMenu /> {/* Moved outside of Routes for consistency across all pages */}
+            <div className="App">
+              <Routes>
+                <Route path="/" element={<><Home /><Footer /></>} />
+                <Route path="/home" element={<><Home /><Footer /></>} />
+                <Route path="/login" element={<><Login /><Footer /></>} />
+                <Route path="/register" element={<><Register /><Footer /></>} />
+                <Route path="/pricing" element={<><Pricing /><Footer /></>} />
+                <Route path="/contact" element={<><Contact /><Footer /></>} />
+                <Route path="/about" element={<><About /><Footer /></>} />
+                <Route path="/logout" element={<><Logout /><Footer /></>} />
+                <Route path="/edituserprofile" element={<><UpdateUserProfile /><Footer /></>} />
+                <Route path="/partnerpreferences" element={<><PartnerPreferences /><Footer /></>} />
+                <Route path="/userprofile" element={<><UserProfile /><Footer /></>} />
+                <Route path="/allprofiles" element={<><AllProfiles /><Footer /></>} />
+                <Route path="/matches" element={<><Matches /><Footer /></>} />
+                <Route path="/profiledetails/:id" element={<><ProfileDetails /><Footer /></>} />
+                <Route path="*" element={<NotFound />} />
+                <Route path="/comingsoon" element={<ComingSoon />} />
+                <Route path="/privacypolicy" element={<><PrivacyPolicy /><Footer /></>} />
+                <Route path="/termsconditions" element={<><TermsConditions /><Footer /></>} />
+                <Route path="/refundpolicy" element={<><RefundPolicy /><Footer /></>} />
+                <Route path="/paymentstatus" element={<><PaymentStatus /><Footer /></>} />
+                <Route path="/userplan" element={<><UserPlan /><Footer /></>} />
+                <Route path="/verifyotp" element={<><VerifyOtp /><Footer /></>} />
+                <Route path="/payment-response" element={<PaymentResponse />} />
+                <Route path="/payment-cancel" element={<PaymentCancel />} />
+                <Route path="/userhoroscope" element={<UserHoroscope />} />
+              </Routes>
+            </div>
+          </Router>
+        </HelmetProvider>
       </AuthProvider>
     </Provider>
   );

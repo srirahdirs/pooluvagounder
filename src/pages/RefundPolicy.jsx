@@ -1,11 +1,34 @@
 import React from 'react';
 import '../assets/css/RefundPolicy.css';
 import config from '../config';
+import SEO from '../components/SEO'; // Adjust the import path based on where the SEO component is located
 
 const RefundPolicy = () => {
     const supportEmail = config?.supportEmail;
+
+    // Schema for refund policy
+    const refundPolicySchema = {
+        "@context": "https://schema.org",
+        "@type": "RefundPolicy",
+        "name": "WeddingSoulMates Refund Policy",
+        "description": "Review the refund policy for WeddingSoulMates. We do not offer refunds on any subscription or service purchased.",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WeddingSoulMates",
+            "url": "https://weddingsoulmates.com",
+        },
+        "termsOfService": "https://weddingsoulmates.com/terms-of-service"
+    };
+
     return (
         <div className="privacy-container mb-5">
+            {/* Adding SEO component with Schema */}
+            <SEO
+                title="Refund Policy - WeddingSoulMates"
+                description="Review the refund policy for WeddingSoulMates. Please note that we do not offer any refunds on subscription services."
+                schema={refundPolicySchema} // Passing the schema to SEO component
+            />
+
             <main className="content">
                 <div className="container">
                     <h2>Refund Policy</h2>

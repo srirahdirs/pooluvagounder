@@ -16,7 +16,7 @@ const LeftMenu = () => {
         <div className="menu-pop menu-pop1">
             <span className="menu-pop-clo"><i className="fa fa-times" aria-hidden="true"></i></span>
             <div className="inn">
-                <img src={`${process.env.PUBLIC_URL}/matrimo/images/weddingsoulmates_matrimony.png`} alt="" loading="lazy" className="logo-brand-only" />
+                <img src={`${process.env.PUBLIC_URL}/matrimo/images/weddingsoulmates_matrimony.png`} alt="WeddingSoulMates LOGO" loading="lazy" className="logo-brand-only" />
                 <p><strong>Wedding Soul Mates </strong> is rapidly becoming one of the leading Tamil matchmaking services.</p>
 
                 {/* Display selected plan details */}

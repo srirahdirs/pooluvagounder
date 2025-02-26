@@ -1,10 +1,31 @@
 import React from 'react';
 import config from '../config';
-
+import SEO from '../components/SEO';
 const About = () => {
   const infoEmail = config?.infoEmail;
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "url": process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000',
+    "logo": process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com/images/logo.jpg' : 'http://localhost:3000/images/logo.jpg',
+    "name": "WeddingSoulMates",
+    "description": "Learn more about WeddingSoulMates and our commitment to helping people find their perfect life partners.",
+    "sameAs": [
+      "https://www.facebook.com/WeddingSoulMates",
+      "https://www.instagram.com/WeddingSoulMates"
+    ]
+  };
   return (
     <>
+      <SEO
+        title="About Us - WeddingSoulMates"
+        description="Learn more about WeddingSoulMates and our commitment to helping people find their perfect life partners."
+        image={`${process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000'}/images/about-us.jpg`}
+        url={`${process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000'}/about-us`}
+        canonical={`${process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000'}/about`}
+        schema={schemaData}
+      />
+
       {/* Hero Section */}
       <section>
         <div className="str">

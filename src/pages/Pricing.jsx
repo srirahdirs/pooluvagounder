@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'; // Import useDispatch an
 import { useNavigate } from 'react-router-dom';
 import LeftMenu from './layouts/menus/LeftMenu';
 import { setSelectedPlanId, setPlanPrice } from '../features/pricingSlice';
+import SEO from '../components/SEO'; // Import SEO component
 
 const Pricing = () => {
     const navigate = useNavigate();
@@ -26,8 +27,80 @@ const Pricing = () => {
         dispatch(setPlanPrice(selectedPlan?.price)); // Set the selected plan ID in Redux store
     };
 
+    // JSON-LD schema for pricing plans
+    const pricingSchema = {
+        "@context": "https://schema.org",
+        "@type": "OfferCatalog",
+        "name": "WeddingSoulMates Subscription Plans",
+        "description": "Choose from our flexible subscription plans and get started with WeddingSoulMates.",
+        "itemListElement": [
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "Silver Plan",
+                    "description": "1 month subscription with basic features",
+                    "offers": {
+                        "@type": "Offer",
+                        "priceCurrency": "INR",
+                        "price": "1400",
+                        "validFor": "P1M",
+                        "eligibleQuantity": {
+                            "@type": "QuantitativeValue",
+                            "value": 1
+                        }
+                    }
+                }
+            },
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "Gold Plan",
+                    "description": "6 months subscription with extended features",
+                    "offers": {
+                        "@type": "Offer",
+                        "priceCurrency": "INR",
+                        "price": "4999",
+                        "validFor": "P6M",
+                        "eligibleQuantity": {
+                            "@type": "QuantitativeValue",
+                            "value": 1
+                        }
+                    }
+                }
+            },
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "Platinum Plan",
+                    "description": "12 months subscription with premium features",
+                    "offers": {
+                        "@type": "Offer",
+                        "priceCurrency": "INR",
+                        "price": "9999",
+                        "validFor": "P12M",
+                        "eligibleQuantity": {
+                            "@type": "QuantitativeValue",
+                            "value": 1
+                        }
+                    }
+                }
+            }
+        ]
+    };
+
     return (
         <>
+            {/* Add SEO metadata */}
+            <SEO
+                title="WeddingSoulMates - Pricing Plans"
+                description="Choose from our flexible subscription plans and get started with WeddingSoulMates. Explore Silver, Gold, and Platinum plans with unique benefits."
+                keywords="WeddingSoulMates, pricing, subscription plans, matchmaking, premium features, Silver plan, Gold plan, Platinum plan"
+                schema={pricingSchema} // Pass schema data to SEO component
+            />
+
             <section>
                 <div className="plans-ban">
                     <div className="container">
