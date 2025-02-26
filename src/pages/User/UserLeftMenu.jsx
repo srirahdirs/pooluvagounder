@@ -67,6 +67,13 @@ const UserLeftMenu = () => {
                         </Link>
                     </li>
                     <li>
+                        <Link to="/userhoroscope" className={location.pathname === '/userhoroscope' ? 'active' : ''}>
+                            {/* <i className="fa fa-star" aria-hidden="true"></i> */}
+                            <i className="fa fa-bullseye" aria-hidden="true"></i>
+                            Horoscope
+                        </Link>
+                    </li>
+                    <li>
                         <Link to="/comingsoon" className={location.pathname === '/comingsoon' ? 'active' : ''}>
                             <i className="fa fa-commenting-o" aria-hidden="true"></i>Chat list
                         </Link>

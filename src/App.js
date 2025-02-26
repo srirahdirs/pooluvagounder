@@ -28,6 +28,7 @@ import UserPlan from "./pages/User/UserPlan";
 import VerifyOtp from "./pages/VerifyOtp";
 import PaymentResponse from '../src/components/PaymentResponse';
 import PaymentCancel from '../src/components/PaymentCancel';
+import UserHoroscope from '../src/pages/User/UserHoroscope';
 function App() {
   return (
     <Provider store={store}> {/* Wrap with Provider for Redux */}
@@ -61,6 +62,7 @@ function App() {
               <Route path="/VerifyOtp" element={<><VerifyOtp /><Footer /></>} />
               <Route path="/payment-response" element={<PaymentResponse />} />
               <Route path="/payment-cancel" element={<PaymentCancel />} />
+              <Route path="/userhoroscope" element={<UserHoroscope />} />
             </Routes>
           </div>
         </Router>
