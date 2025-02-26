@@ -158,7 +158,25 @@ const UserProfile = () => {
 
     const uploadHandler = async (e) => {
         const formData = new FormData();
-        e.files.forEach((file) => formData.append('files[]', file));
+        const maxPhotos = 6;
+        const maxFileSize = 10000000; // 10 MB limit per image
+        const userImages = user?.user_images || [];
+
+        // Check if the total number of files (existing + new) exceeds the limit
+        if (e.files.length + userImages.length > maxPhotos) {
+            showToast(`You can only upload a total of ${maxPhotos} photos.`, 'error');
+            return;
+        }
+
+        // Validate file size
+        for (let file of e.files) {
+            if (file.size > maxFileSize) {
+                showToast(`File size must be less than 10 MB. File "${file.name}" is too large.`, 'error');
+                return;
+            }
+            formData.append('files[]', file);
+        }
+
         formData.append('user_id', user.id);
 
         try {
@@ -195,14 +213,14 @@ const UserProfile = () => {
                     const updatedUser = {
                         ...user,
                         user_images: updatedImages,
-                        user_profile_picture: newProfilePicture ? newProfilePicture.file_path : user.user_profile_picture,  // Update the profile picture
+                        user_profile_picture: newProfilePicture ? newProfilePicture.file_path : user.user_profile_picture, // Update the profile picture
                     };
 
                     console.log(updatedUser, 'updatedUser');
 
                     // Save the updated user to localStorage and update state globally
                     localStorage.setItem('user', JSON.stringify(updatedUser));
-                    setUser(updatedUser);  // Update the user in context
+                    setUser(updatedUser); // Update the user in context
 
                     // Set the updated profile picture in local state
                     setProfilePicture(updatedUser.user_profile_picture);
@@ -221,6 +239,7 @@ const UserProfile = () => {
             console.error('Error uploading files:', error);
         }
     };
+
 
 
 
