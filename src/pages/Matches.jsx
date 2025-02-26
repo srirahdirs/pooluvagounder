@@ -22,8 +22,28 @@ const Matches = () => {
     } else {
         console.error('Invalid API URL');
     }
+
+
+        const [currentPage, setCurrentPage] = useState(1);
+        const [resultsPerPage] = useState(4); // Display 4 profiles per page
+    
+        // Calculate index of the first and last result on the current page
+        const indexOfLastProfile = currentPage * resultsPerPage;
+        const indexOfFirstProfile = indexOfLastProfile - resultsPerPage;
+        const currentProfiles = searchResults.slice(indexOfFirstProfile, indexOfLastProfile);
+    
+        // Calculate the total number of pages
+        const totalPages = Math.ceil(searchResults.length / resultsPerPage);
+    
+        // Handle page change
+        const handlePageChange = (pageNumber) => {
+            setCurrentPage(pageNumber);
+        };
+
+
     const isPaidUser = user?.premium_user;
     console.log(isPaidUser, 'sss');
+
     const secretKey = config?.cryptoSecretKey;
     useEffect(() => {
         if (isLoggedIn && user) {
@@ -82,7 +102,7 @@ const Matches = () => {
                             <div className="col-md-9">
                                 <div className="short-all">
                                     <div className="short-lhs">
-                                        Showing <b>{searchResults.length}</b> profiles
+                                        Showing <b>{currentProfiles.length}</b> profiles
                                     </div>
                                     <div className="short-rhs">
                                         <ul>
@@ -112,8 +132,9 @@ const Matches = () => {
 
                                 <div className="all-list-sh">
                                     <ul>
-                                        {searchResults.length > 0 ? (
-                                            searchResults.map((profile, index) => {
+
+                                        {currentProfiles.length > 0 ? (
+                                            currentProfiles.map((profile, index) => {
 
                                                 const encryptedUserId = CryptoJS.AES.encrypt(profile.user_id.toString(), secretKey).toString();
                                                 // Replace with actual logic to check if the user is paid
@@ -196,6 +217,22 @@ const Matches = () => {
 
 
 
+                            </div>
+                            {/* Pagination */}
+                            <div className="pagination-container">
+                                <button
+                                    onClick={() => handlePageChange(currentPage - 1)}
+                                    disabled={currentPage === 1 || searchResults.length === 0}
+                                >
+                                    Previous
+                                </button>
+                                <span>Page {currentPage} of {totalPages}</span>
+                                <button
+                                    onClick={() => handlePageChange(currentPage + 1)}
+                                    disabled={currentPage === totalPages || searchResults.length === 0}
+                                >
+                                    Next
+                                </button>
                             </div>
                         </div>
                     </div>

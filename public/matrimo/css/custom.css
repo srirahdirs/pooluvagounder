@@ -400,6 +400,10 @@ h6 {
     color: #333;
 }
 
+.p-dialog-header-close-icon {
+    color: #c82333;
+}
+
 /* File upload button */
 .p-fileupload-buttonbar .p-button {
     background-color: #007bff;
@@ -696,4 +700,27 @@ h6 {
 .modal-content .otp-resend-message a {
     cursor: pointer;
     text-decoration: none;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0; 
+}
+
+.pagination-container button {
+    padding: 8px 16px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.pagination-container button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.pagination-container span {
+    font-size: 16px;
+    margin: 0 10px;
 }

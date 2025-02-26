@@ -1,37 +1,41 @@
-import React, { useState } from 'react'
+
+import React, { useState, useEffect } from 'react';
 import { useAuth } from "../context/AuthContext";
 import { useLocation, useNavigate } from 'react-router-dom';
 import SearchProfile from './SearchProfile';
 import config from '../config';
 import CryptoJS from 'crypto-js';
-import { useEffect } from 'react';
+
 const SearchResults = () => {
-    const { isLoggedIn, user, fetchUserFromToken } = useAuth();
-    const [isUserPurchased, setUserPurchased] = useState(0);
+    const { isLoggedIn, user } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const searchResults = location.state?.searchResults || [];
-    const navigateToPricing = () => {
-        navigate('/pricing');
-    }
-    const isPaidUser = user?.premium_user;
-    console.log(isPaidUser, 'sss');
+    
+    const [currentPage, setCurrentPage] = useState(1);
+    const [resultsPerPage] = useState(4); // Display 4 profiles per page
 
-    // const updatePayment = () => {
-    //     setUserPurchased(1);
-    // }
+    // Calculate index of the first and last result on the current page
+    const indexOfLastProfile = currentPage * resultsPerPage;
+    const indexOfFirstProfile = indexOfLastProfile - resultsPerPage;
+    const currentProfiles = searchResults.slice(indexOfFirstProfile, indexOfLastProfile);
+
+    // Calculate the total number of pages
+    const totalPages = Math.ceil(searchResults.length / resultsPerPage);
+
+    // Handle page change
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
 
     const secretKey = config?.cryptoSecretKey;
-    // useEffect(() => {
-    //     console.log("xcv", isLoggedIn);
-    //     if (isLoggedIn && isUserPurchased) {
-    //         const token = localStorage.getItem("authToken");
-    //         if (token) {
-    //             fetchUserFromToken(token); // Fetch user data from token if logged in but no user data is available
-    // setUserPurchased(0);
-    //         }
-    //     }
-    // }, [isLoggedIn, user, isUserPurchased]);
+    const isPaidUser = user?.premium_user;
+
+    // Navigate to pricing page
+    const navigateToPricing = () => {
+        navigate('/pricing');
+    };
+
     return (
         <>
             <section>
@@ -59,7 +63,7 @@ const SearchResults = () => {
                             <div className="col-md-9">
                                 <div className="short-all">
                                     <div className="short-lhs">
-                                        Showing <b>{searchResults.length}</b> profiles
+                                        Showing <b>{currentProfiles.length}</b> profiles
                                     </div>
                                     <div className="short-rhs">
                                         <ul>
@@ -89,16 +93,13 @@ const SearchResults = () => {
 
                                 <div className="all-list-sh">
                                     <ul>
-                                        {searchResults.length > 0 ? (
-                                            searchResults.map((profile, index) => {
-
+                                        {currentProfiles.length > 0 ? (
+                                            currentProfiles.map((profile, index) => {
                                                 const encryptedUserId = CryptoJS.AES.encrypt(profile.user_id.toString(), secretKey).toString();
-                                                // Replace with actual logic to check if the user is paid
-
                                                 const profileLink = `/profiledetails/${encodeURIComponent(encryptedUserId)}`;
                                                 const profilePicture = profile.profile_picture || `${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`;
 
-                                                // Helper function to handle profile link click
+                                                // Handle profile link click
                                                 const handleProfileClick = (e) => {
                                                     if (!isPaidUser) {
                                                         e.preventDefault();
@@ -158,7 +159,7 @@ const SearchResults = () => {
                                                                     <button className="buy-now-btn" onClick={navigateToPricing}>
                                                                         Purchase Plan
                                                                     </button>
-                                                                </div>
+                                                                </div>  
                                                             ) : ''}
                                                         </div>
                                                     </li>
@@ -168,11 +169,23 @@ const SearchResults = () => {
                                             <p>No profiles found</p>
                                         )}
                                     </ul>
-
-                                </div>
-
-
-
+                                </div>  
+                            </div>
+                            {/* Pagination */}
+                            <div className="pagination-container">
+                                <button
+                                    onClick={() => handlePageChange(currentPage - 1)}
+                                    disabled={currentPage === 1 || searchResults.length === 0}
+                                >
+                                    Previous
+                                </button>
+                                <span>Page {currentPage} of {totalPages}</span>
+                                <button
+                                    onClick={() => handlePageChange(currentPage + 1)}
+                                    disabled={currentPage === totalPages || searchResults.length === 0}
+                                >
+                                    Next
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -183,3 +196,4 @@ const SearchResults = () => {
 };
 
 export default SearchResults;
+
