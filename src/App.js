@@ -26,6 +26,8 @@ import { store } from './store';  // Import your redux store
 import PaymentStatus from './components/PaymentStatus';
 import UserPlan from "./pages/User/UserPlan";
 import VerifyOtp from "./pages/VerifyOtp";
+import PaymentResponse from '../src/components/PaymentResponse';
+import PaymentCancel from '../src/components/PaymentCancel';
 function App() {
   return (
     <Provider store={store}> {/* Wrap with Provider for Redux */}
@@ -57,6 +59,8 @@ function App() {
               <Route path="/PaymentStatus" element={<><PaymentStatus /><Footer /></>} />
               <Route path="/UserPlan" element={<><UserPlan /><Footer /></>} />
               <Route path="/VerifyOtp" element={<><VerifyOtp /><Footer /></>} />
+              <Route path="/payment-response" element={<PaymentResponse />} />
+              <Route path="/payment-cancel" element={<PaymentCancel />} />
             </Routes>
           </div>
         </Router>

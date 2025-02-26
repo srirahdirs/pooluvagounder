@@ -34,7 +34,7 @@ const LeftMenu = () => {
                 <div className="menu-pop-help">
                     <div className="user-bio">
                         <button className="btn btn-primary btn-sm">
-                            <CCAvenuePayment planPrice={planPrice} />
+                            <CCAvenuePayment amount={planPrice} />
                         </button>
                     </div>
                 </div>

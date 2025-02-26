@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from "../context/AuthContext";
 import config from '../config';
 import { useNavigate } from 'react-router-dom';
-import CryptoJS from 'crypto-js';
+
 const Matches = () => {
     const { isLoggedIn, user } = useAuth();
     const [searchResults, setSearchResults] = useState([]);
@@ -23,28 +23,25 @@ const Matches = () => {
         console.error('Invalid API URL');
     }
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [resultsPerPage] = useState(4); // Display 4 profiles per page
 
-        const [currentPage, setCurrentPage] = useState(1);
-        const [resultsPerPage] = useState(4); // Display 4 profiles per page
-    
-        // Calculate index of the first and last result on the current page
-        const indexOfLastProfile = currentPage * resultsPerPage;
-        const indexOfFirstProfile = indexOfLastProfile - resultsPerPage;
-        const currentProfiles = searchResults.slice(indexOfFirstProfile, indexOfLastProfile);
-    
-        // Calculate the total number of pages
-        const totalPages = Math.ceil(searchResults.length / resultsPerPage);
-    
-        // Handle page change
-        const handlePageChange = (pageNumber) => {
-            setCurrentPage(pageNumber);
-        };
+    // Calculate index of the first and last result on the current page
+    const indexOfLastProfile = currentPage * resultsPerPage;
+    const indexOfFirstProfile = indexOfLastProfile - resultsPerPage;
+    const currentProfiles = searchResults.slice(indexOfFirstProfile, indexOfLastProfile);
 
+    // Calculate the total number of pages
+    const totalPages = Math.ceil(searchResults.length / resultsPerPage);
+
+    // Handle page change
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
 
     const isPaidUser = user?.premium_user;
     console.log(isPaidUser, 'sss');
 
-    const secretKey = config?.cryptoSecretKey;
     useEffect(() => {
         if (isLoggedIn && user) {
             const fetchData = async () => {
@@ -76,9 +73,11 @@ const Matches = () => {
             fetchData();
         }
     }, [isLoggedIn, user, fullApiUrl]);
+
     const navigateToPricing = () => {
         navigate('/pricing');
     }
+
     return (
         <>
             <section>
@@ -132,14 +131,11 @@ const Matches = () => {
 
                                 <div className="all-list-sh">
                                     <ul>
-
                                         {currentProfiles.length > 0 ? (
                                             currentProfiles.map((profile, index) => {
-
-                                                const encryptedUserId = CryptoJS.AES.encrypt(profile.user_id.toString(), secretKey).toString();
-                                                // Replace with actual logic to check if the user is paid
-
-                                                const profileLink = `/profiledetails/${encodeURIComponent(encryptedUserId)}`;
+                                                // Base64 encode the user_id
+                                                const encodedUserId = btoa(profile.user_id.toString());
+                                                const profileLink = `/profiledetails/${encodeURIComponent(encodedUserId)}`;
                                                 const profilePicture = profile.profile_picture || `${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`;
 
                                                 // Helper function to handle profile link click
@@ -212,11 +208,7 @@ const Matches = () => {
                                             <p>No profiles found</p>
                                         )}
                                     </ul>
-
                                 </div>
-
-
-
                             </div>
                             {/* Pagination */}
                             <div className="pagination-container">

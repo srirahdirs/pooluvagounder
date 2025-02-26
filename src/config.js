@@ -1,7 +1,7 @@
-// config.js
+
+console.log('API URL:', process.env.REACT_APP_API_URL);
 const config = {
-    apiUrl: 'https://api.weddingsoulmates.com/api/',
-    // apiUrl: 'http://localhost:4000/api/',
+    apiUrl: process.env.REACT_APP_API_URL,  // Assign apiUrl to the environment variable
     cryptoSecretKey: 'jira@123',
     REACT_APP_CASHFREE_MODE: 'sandbox',
     REACT_APP_CASHFREE_APP_ID: 'TEST10472590677fe7ee22e1a051785b09527401',

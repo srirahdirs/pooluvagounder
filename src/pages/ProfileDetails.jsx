@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import config from '../config';
-import CryptoJS from 'crypto-js';
 import { useToast } from '../assets/utils/toastUtil';
 import { Toast } from 'primereact/toast';
 
@@ -23,16 +22,14 @@ const ProfileDetails = () => {
   } else {
     console.error('Invalid API URL');
   }
-
-  const secretKey = config?.cryptoSecretKey;
   const { id } = useParams();  // This will give you the encrypted user ID
 
   if (!id) {
     console.error("Encrypted user ID is undefined!");
   }
 
-  const bytes = CryptoJS.AES.decrypt(decodeURIComponent(id), secretKey);
-  const userId = bytes.toString(CryptoJS.enc.Utf8);
+
+  const userId = atob(id);
   console.log(userId, 'userId')
   useEffect(() => {
     const fetchData = async () => {

@@ -102,18 +102,28 @@ const SearchSection = () => {
         e.preventDefault(); // Ensure that the form doesn't refresh the page
         const selectedSt = searchForm.state;
         try {
+            const token = localStorage.getItem('authToken');
+
+            // Prepare the body with or without the token
+            const requestBody = {
+                gender: searchForm.gender,
+                age: searchForm.age,
+                religion: searchForm.religion,
+                state: selectedSt,
+                city: searchForm.city
+            };
+
+            // If the token exists, include it in the request body
+            if (token) {
+                requestBody.token = token;
+            }
+
             const response = await fetch(fullApiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    gender: searchForm.gender,
-                    age: searchForm.age,
-                    religion: searchForm.religion,
-                    state: selectedSt,
-                    city: searchForm.city
-                }),
+                body: JSON.stringify(requestBody),
             });
 
             if (response.ok) {
@@ -127,6 +137,7 @@ const SearchSection = () => {
             console.error('Error:', error);
         }
     };
+
 
     return (
         <>

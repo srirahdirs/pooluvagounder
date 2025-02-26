@@ -1,52 +1,61 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const CCAvenuePayment = (amount) => {
+const App = () => {
+    const [paymentData, setPaymentData] = useState(null);
     const [orderId, setOrderId] = useState(`ORD${Math.floor(Math.random() * 100000)}`);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
 
     const handlePayment = async () => {
-        // Send payment request to backend to get encrypted data and access code
-        const res = await axios.post('http://localhost:4000/payment', { orderId, amount });
-        console.log(res, 'ress');
+        try {
+            const response = await axios.post('https://api.weddingsoulmates.com/getPaymentData', {
+                merchant_id: '4125332',
+                order_id: `ORD${Math.floor(Math.random() * 100000)}`,
+                currency: 'INR',
+                amount: '10.00',
+                redirect_url: 'https://weddingsoulmates.com/payment-response',
+                cancel_url: 'https://weddingsoulmates.com/payment-cancel',
+                language: 'EN'
+            });
 
-        // Open CCAvenue payment page using a form
-        const { encryptedData, accessCode } = res.data;
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = 'https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction';
-        form.target = '_self';
+            const { encryptedData, access_code } = response.data;
 
-        // Append required fields
-        const accessCodeInput = document.createElement('input');
-        accessCodeInput.name = 'access_code';
-        accessCodeInput.value = accessCode;
-        form.appendChild(accessCodeInput);
+            // Submit the form to CCAvenue
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction';
 
-        const encRequestInput = document.createElement('input');
-        encRequestInput.name = 'encRequest';
-        encRequestInput.value = encryptedData;
-        form.appendChild(encRequestInput);
+            const encryptedDataInput = document.createElement('input');
+            encryptedDataInput.type = 'hidden';
+            encryptedDataInput.name = 'encRequest';
+            encryptedDataInput.value = encryptedData;
+            form.appendChild(encryptedDataInput);
 
-        const merchantIdInput = document.createElement('input');
-        merchantIdInput.name = 'merchant_id';
-        merchantIdInput.value = '4125332';
-        form.appendChild(merchantIdInput);
+            const accessCodeInput = document.createElement('input');
+            accessCodeInput.type = 'hidden';
+            accessCodeInput.name = 'access_code';
+            accessCodeInput.value = access_code;
+            form.appendChild(accessCodeInput);
 
-        // Append form to body and submit
-        document.body.appendChild(form);
-        form.submit();
+            document.body.appendChild(form);
+            form.submit();
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
+
 
     return (
         <div>
-            <h2>Pay with CCAvenue</h2>
-            <input
-                type="text"
-                value={amount}
-            />
-            <button onClick={handlePayment}>Pay Now</button>
+            <h1>CCAvenue Payment Integration</h1>
+            <button onClick={handlePayment} disabled={loading}>
+                {loading ? 'Processing...' : 'Pay Now'}
+            </button>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
     );
 };
 
-export default CCAvenuePayment;
+export default App; 

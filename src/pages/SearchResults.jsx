@@ -11,7 +11,7 @@ const SearchResults = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const searchResults = location.state?.searchResults || [];
-    
+
     const [currentPage, setCurrentPage] = useState(1);
     const [resultsPerPage] = useState(4); // Display 4 profiles per page
 
@@ -95,10 +95,9 @@ const SearchResults = () => {
                                     <ul>
                                         {currentProfiles.length > 0 ? (
                                             currentProfiles.map((profile, index) => {
-                                                const encryptedUserId = CryptoJS.AES.encrypt(profile.user_id.toString(), secretKey).toString();
-                                                const profileLink = `/profiledetails/${encodeURIComponent(encryptedUserId)}`;
+                                                const encodedUserId = btoa(profile.user_id.toString());
+                                                const profileLink = `/profiledetails/${encodeURIComponent(encodedUserId)}`;
                                                 const profilePicture = profile.profile_picture || `${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`;
-
                                                 // Handle profile link click
                                                 const handleProfileClick = (e) => {
                                                     if (!isPaidUser) {
@@ -159,7 +158,7 @@ const SearchResults = () => {
                                                                     <button className="buy-now-btn" onClick={navigateToPricing}>
                                                                         Purchase Plan
                                                                     </button>
-                                                                </div>  
+                                                                </div>
                                                             ) : ''}
                                                         </div>
                                                     </li>
@@ -169,7 +168,7 @@ const SearchResults = () => {
                                             <p>No profiles found</p>
                                         )}
                                     </ul>
-                                </div>  
+                                </div>
                             </div>
                             {/* Pagination */}
                             <div className="pagination-container">
