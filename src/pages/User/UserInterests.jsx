@@ -44,6 +44,8 @@ const UserInterests = () => {
     } else {
         console.error('Invalid API URL');
     }
+
+
     return (
         <>
             <section>
