@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from "../context/AuthContext";
 import { Navigate } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 const ComingSoon = () => {
     // Set the target date for the countdown
-    const targetDate = new Date('Feb 28, 2025 23:59:59').getTime(); // Example future date
+    const targetDate = new Date('Mar 15, 2025 23:59:59').getTime(); // Example future date
 
     const { user, setUser } = useAuth();
 
@@ -48,7 +48,25 @@ const ComingSoon = () => {
         return <Navigate to="/login" state={{ message: 'Login required' }} replace />;
     }
 
-
+    const styles = {
+        container: {
+            textAlign: 'center',
+            padding: '50px',
+        },
+        header: {
+            fontSize: '100px',
+            color: '#ff6f61',
+        },
+        message: {
+            fontSize: '20px',
+            marginBottom: '20px',
+        },
+        link: {
+            fontSize: '18px',
+            color: '#007BFF',
+            textDecoration: 'none',
+        },
+    };
     return (
         <>
             <section>
@@ -90,9 +108,11 @@ const ComingSoon = () => {
                                         </div>
                                     </div>
                                 </div>
+                                <Link to="/" style={styles.link}>Go Home</Link>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </section>
         </>

@@ -7,7 +7,7 @@ function NotFound() {
     <div style={styles.container}>
       <h1 style={styles.header}>404</h1>
       <p style={styles.message}>Oops! The page you're looking for does not exist.</p>
-      <Link to="/" style={styles.link}>Go to Home</Link>
+      <Link to="/" style={styles.link}>Go Home</Link>
     </div>
   );
 }

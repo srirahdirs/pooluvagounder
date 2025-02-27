@@ -46,11 +46,7 @@ const UserLeftMenu = () => {
             </div>
             <div className="db-nav-list">
                 <ul>
-                    <li>
-                        <Link to="/home" className={location.pathname === '/home' ? 'active' : ''}>
-                            <i className="fa fa-tachometer" aria-hidden="true"></i>Dashboard
-                        </Link>
-                    </li>
+
                     <li>
                         <Link to="/userprofile" className={location.pathname === '/userprofile' ? 'active' : ''}>
                             <i className="fa fa-male" aria-hidden="true"></i>Profile
@@ -67,6 +63,11 @@ const UserLeftMenu = () => {
                         </Link>
                     </li>
                     <li>
+                        <Link to="/home" className={location.pathname === '/home' ? 'active' : ''}>
+                            <i className="fa fa-tachometer" aria-hidden="true"></i>Interests
+                        </Link>
+                    </li>
+                    <li>
                         <Link to="/userhoroscope" className={location.pathname === '/userhoroscope' ? 'active' : ''}>
                             {/* <i className="fa fa-star" aria-hidden="true"></i> */}
                             <i className="fa fa-bullseye" aria-hidden="true"></i>
@@ -76,6 +77,12 @@ const UserLeftMenu = () => {
                     <li>
                         <Link to="/comingsoon" className={location.pathname === '/comingsoon' ? 'active' : ''}>
                             <i className="fa fa-commenting-o" aria-hidden="true"></i>Chat list
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/premiumuserbenefits" className={location.pathname === '/premiumuserbenefits' ? 'active' : ''}>
+                            <i className="fa fa-diamond" aria-hidden="true"></i>
+                            Premium User Benefits
                         </Link>
                     </li>
                     <li>
