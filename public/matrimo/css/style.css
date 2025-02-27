@@ -734,6 +734,7 @@ img {
     line-height: 40px;
     padding: 15px 3px;
     text-transform: uppercase;
+    color: #000;
 }
 
 .smenu-open {
