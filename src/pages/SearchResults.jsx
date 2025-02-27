@@ -158,7 +158,7 @@ const SearchResults = () => {
                                                                     <button className="buy-now-btn" onClick={navigateToPricing}>
                                                                         Purchase Plan
                                                                     </button>
-                                                                </div>
+                                                                </div>  
                                                             ) : ''}
                                                         </div>
                                                     </li>
