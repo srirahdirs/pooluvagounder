@@ -7,13 +7,13 @@
 }
 
 .privacy-container h1,
-h2 {
+.privacy-container h2 {
     text-align: center;
     color: #333;
 }
 
 .privacy-container p,
-li {
+.privacy-container li {
     line-height: 1.6;
     color: #555;
 }
@@ -28,7 +28,7 @@ li {
 }
 
 .privacy-container .contact-info p,
-a {
+.privacy-container a {
     color: #333;
     font-weight: bold;
 }

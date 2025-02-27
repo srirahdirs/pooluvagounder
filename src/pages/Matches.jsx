@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from "../context/AuthContext";
 import config from '../config';
 import { useNavigate } from 'react-router-dom';
-
+import { Toast } from 'primereact/toast';
+import { useToast } from '../../src/assets/utils/toastUtil';
 const Matches = () => {
     const { isLoggedIn, user } = useAuth();
     const [searchResults, setSearchResults] = useState([]);
     const navigate = useNavigate();
-
-    // Redirect to login if not logged in
+    const { toast, showToast } = useToast();
+    const [sentInterests, setSentInterests] = useState([]);
     useEffect(() => {
         if (!isLoggedIn) {
             navigate('/login');
@@ -23,28 +24,41 @@ const Matches = () => {
         console.error('Invalid API URL');
     }
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [resultsPerPage] = useState(4); // Display 4 profiles per page
 
-        const [currentPage, setCurrentPage] = useState(1);
-        const [resultsPerPage] = useState(4); // Display 4 profiles per page
-    
-        // Calculate index of the first and last result on the current page
-        const indexOfLastProfile = currentPage * resultsPerPage;
-        const indexOfFirstProfile = indexOfLastProfile - resultsPerPage;
-        const currentProfiles = searchResults.slice(indexOfFirstProfile, indexOfLastProfile);
-    
-        // Calculate the total number of pages
-        const totalPages = Math.ceil(searchResults.length / resultsPerPage);
-    
-        // Handle page change
-        const handlePageChange = (pageNumber) => {
-            setCurrentPage(pageNumber);
-        };
+    // Calculate index of the first and last result on the current page
+    const indexOfLastProfile = currentPage * resultsPerPage;
+    const indexOfFirstProfile = indexOfLastProfile - resultsPerPage;
+    const currentProfiles = searchResults.slice(indexOfFirstProfile, indexOfLastProfile);
 
+    // Calculate the total number of pages
+    const totalPages = Math.ceil(searchResults.length / resultsPerPage);
+
+    // Handle page change
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
 
     const isPaidUser = user?.premium_user;
-    console.log(isPaidUser, 'sss');
+    const fetchSentInterests = async () => {
+        if (apiUrl) {
+            const fullApiUrl = `${apiUrl}getSentInterests/${user.id}`;
+            try {
+                const response = await fetch(fullApiUrl);
+                const data = await response.json();
+                if (response.ok) {
+                    setSentInterests(data); // Set the sent interests
+                } else {
+                    console.error('Failed to fetch sent interests');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    };
 
-    const secretKey = config?.cryptoSecretKey;
+
     useEffect(() => {
         if (isLoggedIn && user) {
             const fetchData = async () => {
@@ -80,10 +94,41 @@ const Matches = () => {
     const navigateToPricing = () => {
         navigate('/pricing');
     }
-
+    useEffect(() => {
+        fetchSentInterests(); // Fetch sent interests on component mount
+    }, []);
+    const sendInterest = async (partner_id) => {
+        if (apiUrl) {
+            fullApiUrl = apiUrl + 'sendInterest';
+        } else {
+            console.error('Invalid API URL');
+        }
+        try {
+            const response = await fetch(fullApiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user_id: user.id,
+                    partner_id: partner_id,
+                    status: 'Requested'
+                }),
+            });
+            if (response.ok) {
+                showToast('Interest sent successfully');
+                fetchSentInterests(); // Update the sent interests list
+            } else if (response.status === 409) {
+                showToast('Interest already sent');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
     return (
         <>
             <section>
+                <Toast ref={toast} />
                 <div className="all-pro-head">
                     <div className="container">
                         <div className="row">
@@ -104,20 +149,10 @@ const Matches = () => {
                             <div className="col-md-9">
                                 <div className="short-all">
                                     <div className="short-lhs">
-                                        Showing <b>{currentProfiles.length}</b> profiles
+                                        <b>{currentProfiles.length}</b> profiles matching
                                     </div>
                                     <div className="short-rhs">
                                         <ul>
-                                            <li>Sort by:</li>
-                                            <li>
-                                                <div className="form-group">
-                                                    <select className="chosen-select">
-                                                        <option value="">Most relative</option>
-                                                        <option value="newest">Date listed: Newest</option>
-                                                        <option value="oldest">Date listed: Oldest</option>
-                                                    </select>
-                                                </div>
-                                            </li>
                                             <li>
                                                 <div className="sort-grid sort-grid-1">
                                                     <i className="fa fa-th-large" aria-hidden="true"></i>
@@ -134,20 +169,25 @@ const Matches = () => {
 
                                 <div className="all-list-sh">
                                     <ul>
-
                                         {currentProfiles.length > 0 ? (
                                             currentProfiles.map((profile, index) => {
-
-                                                const encryptedUserId = CryptoJS.AES.encrypt(profile.user_id.toString(), secretKey).toString();
-                                                // Replace with actual logic to check if the user is paid
-
-                                                const profileLink = `/profiledetails/${encodeURIComponent(encryptedUserId)}`;
+                                                const encodedUserId = btoa(profile.user_id.toString()); // Base64 encode user ID
+                                                const profileLink = `/profiledetails/${encodeURIComponent(encodedUserId)}`;
                                                 const profilePicture = profile.profile_picture || `${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`;
+                                                const isInterestSent = sentInterests.some(interest => interest.partner_id === profile.user_id); // Check if interest already sent
 
-                                                // Helper function to handle profile link click
+                                                // Helper function for handling link click
                                                 const handleProfileClick = (e) => {
                                                     if (!isPaidUser) {
-                                                        e.preventDefault();
+                                                        e.preventDefault(); // Prevent navigation if user is not paid
+                                                    }
+                                                };
+
+                                                // Helper function for chat action
+                                                const handleChatAction = (e) => {
+                                                    if (!isPaidUser) {
+                                                        e.preventDefault(); // Prevent chat action if user is not paid
+                                                        navigateToPricing(); // Navigate to pricing page
                                                     }
                                                 };
 
@@ -178,25 +218,49 @@ const Matches = () => {
                                                                     <span>{profile.age} Years old</span>
                                                                     <span>Height: {profile.height || 'N/A'}</span>
                                                                 </div>
+
                                                                 <div className="links">
                                                                     {isPaidUser ? (
                                                                         <span className="cta-chat">Chat now</span>
                                                                     ) : (
-                                                                        <span className="cta-chat blurred-action" onClick={navigateToPricing}>
+                                                                        <span className="cta-chat blurred-action" onClick={handleChatAction}>
                                                                             Unlock chat
                                                                         </span>
                                                                     )}
+
                                                                     <a href={isPaidUser ? profileLink : '#'} onClick={handleProfileClick}>
                                                                         More details
                                                                     </a>
+
+                                                                    {/* Conditionally disable send interest if already sent */}
+                                                                    {!isInterestSent ? (
+                                                                        <a href="#!" className="cta cta-sendint" onClick={(e) => {
+                                                                            e.preventDefault(); // Prevent default behavior
+                                                                            sendInterest(profile.user_id); // Send interest
+                                                                        }}>
+                                                                            Send interest
+                                                                        </a>
+                                                                    ) : (
+                                                                        <span className="cta cta-sendint disabled">
+                                                                            <i className="fa fa-check-circle" style={{ color: 'green' }} aria-hidden="true"></i> Interest sent
+                                                                        </span>
+
+                                                                    )}
                                                                 </div>
                                                             </div>
 
-                                                            <span className="enq-sav" data-toggle="tooltip" title="Click to save this profile.">
-                                                                <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                                            <span className="enq-sav" data-toggle="tooltip" title="Interest Sent">
+                                                                <i
+                                                                    className="fa fa-thumbs-up"
+                                                                    aria-hidden="true"
+                                                                    style={{ color: isInterestSent ? 'green' : '' }} // Changes color based on isInterestSent
+                                                                ></i>
                                                             </span>
 
-                                                            {!isPaidUser ? (
+
+
+                                                            {/* Show subscription message if user is not paid */}
+                                                            {!isPaidUser && (
                                                                 <div className="buy-now-container">
                                                                     <p className="subscription-message">
                                                                         Choose a subscription plan to unlock full profiles and connect with your ideal match today
@@ -205,7 +269,7 @@ const Matches = () => {
                                                                         Purchase Plan
                                                                     </button>
                                                                 </div>
-                                                            ) : ''}
+                                                            )}
                                                         </div>
                                                     </li>
                                                 );
@@ -214,6 +278,7 @@ const Matches = () => {
                                             <p>No profiles found</p>
                                         )}
                                     </ul>
+
                                 </div>
                             </div>
                             {/* Pagination */}
@@ -235,7 +300,9 @@ const Matches = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+
+            </section >
+
         </>
     );
 };

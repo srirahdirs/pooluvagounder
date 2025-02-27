@@ -31,6 +31,7 @@ import PaymentCancel from '../src/components/PaymentCancel';
 import UserHoroscope from '../src/pages/User/UserHoroscope';
 import { HelmetProvider } from "react-helmet-async";
 import PremiumUserBenefits from "./pages/User/PremiumUserBenefits";
+import UserInterests from "./pages/User/UserInterests";
 function App() {
   return (
     <Provider store={store}> {/* Wrap with Provider for Redux */}
@@ -67,6 +68,7 @@ function App() {
                 <Route path="/payment-cancel" element={<PaymentCancel />} />
                 <Route path="/userhoroscope" element={<UserHoroscope />} />
                 <Route path="/premiumuserbenefits" element={<PremiumUserBenefits />} />
+                <Route path="/userinterests" element={<UserInterests />} />
               </Routes>
             </div>
           </Router>

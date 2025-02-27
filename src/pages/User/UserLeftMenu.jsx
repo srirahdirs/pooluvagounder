@@ -63,8 +63,8 @@ const UserLeftMenu = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/home" className={location.pathname === '/home' ? 'active' : ''}>
-                            <i className="fa fa-tachometer" aria-hidden="true"></i>Interests
+                        <Link to="/userinterests" className={location.pathname === '/userinterests' ? 'active' : ''}>
+                            <i className="fa fa-heart" aria-hidden="true"></i>Interests
                         </Link>
                     </li>
                     <li>
