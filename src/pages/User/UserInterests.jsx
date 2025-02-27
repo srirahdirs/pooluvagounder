@@ -7,44 +7,160 @@ import { Navigate } from 'react-router-dom';
 import UserLeftMenu from './UserLeftMenu';
 
 const UserInterests = () => {
-    const { user, setUser } = useAuth();
+    const { user } = useAuth();
     const { toast, showToast } = useToast();
-    const [sentInterests, setSentInterests] = useState([]);
+    const [InterestedProfiles, setInterestedProfiles] = useState([]);
+    const [IncomingInterests, setIncomingInterests] = useState([]);
+    const [showDot, setShowDot] = useState(false);
 
+    const apiUrl = config?.apiUrl;
 
+    useEffect(() => {
+        fetchData('getSentInterests', setInterestedProfiles); // Fetch sent interests on component mount
+        fetchData('getIncomingInterests', setIncomingInterests); // Fetch incoming interests on component mount
+    }, [user]);
 
-    const fetchSentInterests = async () => {
-        if (apiUrl) {
-            const fullApiUrl = `${apiUrl}getSentInterests/${user.id}`;
+    useEffect(() => {
+        const newRequests = IncomingInterests.some(interest =>
+            interest.status !== 'Accepted' && interest.status !== 'Rejected'
+        );
+        setShowDot(newRequests);
+    }, [IncomingInterests]);
+
+    const fetchData = async (endpoint, setState) => {
+        if (apiUrl && user) {
+            const fullApiUrl = `${apiUrl}${endpoint}/${user?.id}`;
             try {
                 const response = await fetch(fullApiUrl);
                 const data = await response.json();
                 if (response.ok) {
-                    setSentInterests(data); // Set the sent interests
+                    setState(data);
                 } else {
-                    console.error('Failed to fetch sent interests');
+                    console.error(`Failed to fetch ${endpoint}`);
                 }
             } catch (error) {
                 console.error('Error:', error);
             }
         }
     };
-    useEffect(() => {
-        fetchSentInterests(); // Fetch sent interests on component mount
-    }, []);
+
+    const handleInterestResponse = async (id, status) => {
+        if (apiUrl) {
+            const fullApiUrl = `${apiUrl}updateInterest`;
+            try {
+                const response = await fetch(fullApiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ id, status }),
+                });
+                if (response.ok) {
+                    showToast(`Interest ${status.toLowerCase()} successfully`);
+                    fetchData('getIncomingInterests', setIncomingInterests); // Refresh the list after action
+                } else {
+                    showToast('error', 'Error', `Failed to ${status.toLowerCase()} interest`);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    };
+
+    const renderProfile = (profile, buttonActions = true) => {
+        const encodedUserId = btoa(profile.user_id.toString());
+        const profileLink = `/profiledetails/${encodeURIComponent(encodedUserId)}`;
+
+        return (
+            <li key={profile.user_id}>
+                <div className="db-int-pro-1">
+                    <img
+                        src={profile.user_profile_picture || `${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`}
+                        alt={profile.name}
+                    />
+                    {profile.premium_user === 1 && (
+                        <span className="badge bg-warning user-prem-pat">Premium User</span>
+                    )}
+                </div>
+                <div className="db-int-pro-2 user_interests_ol">
+                    <h5>{profile.name || 'Name not available'}</h5>
+                    <ol className="poi">
+                        <li>City: <strong>{profile.city || 'City not available'}</strong></li>
+                        <li>State: <strong>{profile.state || 'State not available'}</strong></li>
+                        <li>Age: <strong>{profile.age || 'Age not available'}</strong></li>
+                        <li>Job: <strong>{profile.job || 'Not available'}</strong></li>
+                    </ol>
+                    <ol className="poi poi-date">
+                        <li>Request on: {new Date(profile.requested_on).toLocaleString()}</li>
+                        {profile.status === 'Accepted' && (
+                            <li className='text-success'>Accepted on: {new Date(profile.updated_on).toLocaleString()}</li>
+                        )}
+                        {profile.status === 'Rejected' && (
+                            <li className='text-danger'>Rejected on: {new Date(profile.updated_on).toLocaleString()}</li>
+                        )}
+                    </ol>
+                    <a href={profileLink} className="cta-5" target="_blank" rel="noopener noreferrer">
+                        View full profile
+                    </a>
+                </div>
+
+                {buttonActions && (
+                    <div className="db-int-pro-3">
+                        {profile.status === 'Rejected' ? (
+                            <>
+                                <button
+                                    type="button"
+                                    className="btn btn-success btn-sm"
+                                    onClick={() => handleInterestResponse(profile.id, 'Accepted')}
+                                >
+                                    Accept
+                                </button>
+                                <span className="status-text text-danger">{profile.status}</span>
+                            </>
+                        ) : profile.status === 'Accepted' ? (
+                            <>
+
+                                <button
+                                    type="button"
+                                    className="btn btn-danger btn-sm"
+                                    onClick={() => handleInterestResponse(profile.id, 'Rejected')}
+                                >
+                                    Reject
+                                </button>
+                                <span className="status-text text-success">{profile.status}</span>
+                            </>
+
+
+                        ) : (
+                            <>
+                                <button
+                                    type="button"
+                                    className="btn btn-success btn-sm"
+                                    onClick={() => handleInterestResponse(profile.id, 'Accepted')}
+                                >
+                                    Accept
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn btn-danger btn-sm"
+                                    onClick={() => handleInterestResponse(profile.id, 'Rejected')}
+                                >
+                                    Reject
+                                </button>
+                            </>
+                        )}
+                    </div>
+                )}
+            </li>
+        );
+    };
 
 
     if (!user) {
         return <Navigate to="/login" state={{ message: 'Login required' }} replace />;
     }
-    const apiUrl = config?.apiUrl;
-    let fullApiUrl;
-    if (apiUrl) {
-        fullApiUrl = apiUrl + 'search';
-    } else {
-        console.error('Invalid API URL');
-    }
 
+    const filteredInterests = IncomingInterests.filter(profile => profile.status === 'Accepted' || profile.status === 'Rejected');
 
     return (
         <>
@@ -56,105 +172,70 @@ const UserInterests = () => {
                             <div className="col-md-4 col-lg-3">
                                 <UserLeftMenu />
                             </div>
-                            <div class="col-md-8 col-lg-9">
-                                <div class="row">
-                                    <div class="col-md-12 db-sec-com">
-
-                                        <div class="db-pro-stat">
-                                            <div class="dropdown">
-                                                <h2 class="db-tit">Interest requests</h2>
-                                            </div>
-                                            <div class="db-inte-main">
-
-                                                <ul class="nav nav-tabs" role="tablist">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link active" data-bs-toggle="tab" href="#home">New requests</a>
+                            <div className="col-md-8 col-lg-9">
+                                <div className="row">
+                                    <div className="col-md-12 db-sec-com">
+                                        <div className="db-pro-stat">
+                                            <h2 className="db-tit">Interest Requests</h2>
+                                            <div className="db-inte-main">
+                                                <ul className="nav nav-tabs" role="tablist">
+                                                    <li className="nav-item">
+                                                        <a className="nav-link active" data-bs-toggle="tab" href="#home">Sent Interests</a>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-bs-toggle="tab" href="#menu1">Accepted requests</a>
+                                                    <li className="nav-item">
+                                                        <a className="nav-link" data-bs-toggle="tab" href="#menu1">
+                                                            Incoming Interests
+                                                            {IncomingInterests.length >= 1 && showDot && (
+                                                                <span className="notification-dot"></span>
+                                                            )}
+                                                        </a>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-bs-toggle="tab" href="#menu2">Declined requests</a>
+                                                    <li className="nav-item">
+                                                        <a className="nav-link" data-bs-toggle="tab" href="#menu2">Accepted / Declined Interests</a>
                                                     </li>
                                                 </ul>
 
-                                                <div class="tab-content">
-                                                    <div id="home" class="container tab-pane active"><br />
-                                                        <div class="db-inte-prof-list">
+                                                <div className="tab-content">
+                                                    {/* Sent Interests */}
+                                                    <div id="home" className="container tab-pane active">
+                                                        <br />
+                                                        <div className="db-inte-prof-list">
                                                             <ul>
-                                                                <li>
-                                                                    <div class="db-int-pro-1"> <img src="images/profiles/men1.jpg" alt="" /> <span class="badge bg-primary user-pla-pat">Platinum user</span></div>
-                                                                    <div class="db-int-pro-2">
-                                                                        <h5>John Smith</h5>
-                                                                        <ol class="poi">
-                                                                            <li>City: <strong>Illunois</strong></li>
-                                                                            <li>Age: <strong>21</strong></li>
-                                                                            <li>Height: <strong>5.7</strong></li>
-                                                                            <li>Job: <strong>Working</strong></li>
-                                                                        </ol>
-                                                                        <ol class="poi poi-date">
-                                                                            <li>Request on: 10:30 AM, 18 August 2024</li>
-                                                                        </ol>
-                                                                        <a href="profile-details.html" class="cta-5" target="_blank">View full profile</a>
-                                                                    </div>
-                                                                    <div class="db-int-pro-3">
-                                                                        <button type="button" class="btn btn-success btn-sm">Accept</button>
-                                                                        <button type="button" class="btn btn-outline-danger btn-sm">Denay</button>
-                                                                    </div>
-                                                                </li>
+                                                                {InterestedProfiles.length > 0 ? (
+                                                                    InterestedProfiles.map(profile => renderProfile(profile, false))
+                                                                ) : (
+                                                                    <p>No interests sent</p>
+                                                                )}
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <div id="menu1" class="container tab-pane fade"><br />
-                                                        <div class="db-inte-prof-list">
+
+                                                    {/* Incoming Interests */}
+                                                    <div id="menu1" className="container tab-pane fade">
+                                                        <br />
+                                                        <div className="db-inte-prof-list">
                                                             <ul>
-                                                                <li>
-                                                                    <div class="db-int-pro-1"> <img src="images/profiles/men5.jpg" alt="" /> </div>
-                                                                    <div class="db-int-pro-2">
-                                                                        <h5>John Smith</h5>
-                                                                        <ol class="poi">
-                                                                            <li>City: <strong>Illunois</strong></li>
-                                                                            <li>Age: <strong>21</strong></li>
-                                                                            <li>Height: <strong>5.7</strong></li>
-                                                                            <li>Job: <strong>Working</strong></li>
-                                                                        </ol>
-                                                                        <ol class="poi poi-date">
-                                                                            <li>Request on: 10:30 AM, 18 August 2024</li>
-                                                                            <li>Accept on: 3:000 PM, 21 August 2024</li>
-                                                                        </ol>
-                                                                        <a href="profile-details.html" class="cta-5" target="_blank">View full profile</a>
-                                                                    </div>
-                                                                    <div class="db-int-pro-3">
-                                                                        <button type="button" class="btn btn-outline-danger btn-sm">Denay</button>
-                                                                    </div>
-                                                                </li>
+                                                                {IncomingInterests.length > 0 ? (
+                                                                    IncomingInterests.map(profile => renderProfile(profile))
+                                                                ) : (
+                                                                    <p>No incoming interests</p>
+                                                                )}
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <div id="menu2" class="container tab-pane fade"><br />
-                                                        <div class="db-inte-prof-list">
+
+                                                    {/* Accepted / Declined Interests */}
+                                                    <div id="menu2" className="container tab-pane fade">
+                                                        <br />
+                                                        <div className="db-inte-prof-list">
                                                             <ul>
-                                                                <li>
-                                                                    <div class="db-int-pro-1"> <img src="images/profiles/men1.jpg" alt="" /> </div>
-                                                                    <div class="db-int-pro-2">
-                                                                        <h5>John Smith</h5>
-                                                                        <ol class="poi">
-                                                                            <li>City: <strong>Illunois</strong></li>
-                                                                            <li>Age: <strong>21</strong></li>
-                                                                            <li>Height: <strong>5.7</strong></li>
-                                                                            <li>Job: <strong>Working</strong></li>
-                                                                        </ol>
-                                                                        <ol class="poi poi-date">
-                                                                            <li>Request on: 10:30 AM, 18 August 2024</li>
-                                                                            <li>Denay on: 3:000 PM, 21 August 2024</li>
-                                                                        </ol>
-                                                                        <a href="profile-details.html" class="cta-5" target="_blank">View full profile</a>
-                                                                    </div>
-                                                                    <div class="db-int-pro-3">
-                                                                        <button type="button" class="btn btn-success btn-sm">Accept</button>
-                                                                    </div>
-                                                                </li>
+                                                                {filteredInterests.length > 0 ? (
+                                                                    filteredInterests.map(profile => renderProfile(profile, false))
+                                                                ) : (
+                                                                    <p>No accepted or declined interests</p>
+                                                                )}
                                                             </ul>
+
                                                         </div>
                                                     </div>
                                                 </div>

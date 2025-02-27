@@ -43,7 +43,7 @@ const Matches = () => {
     const isPaidUser = user?.premium_user;
     const fetchSentInterests = async () => {
         if (apiUrl) {
-            const fullApiUrl = `${apiUrl}getSentInterests/${user.id}`;
+            const fullApiUrl = `${apiUrl}getSentInterests/${user?.id}`;
             try {
                 const response = await fetch(fullApiUrl);
                 const data = await response.json();
@@ -97,6 +97,8 @@ const Matches = () => {
     useEffect(() => {
         fetchSentInterests(); // Fetch sent interests on component mount
     }, []);
+
+
     const sendInterest = async (partner_id) => {
         if (apiUrl) {
             fullApiUrl = apiUrl + 'sendInterest';

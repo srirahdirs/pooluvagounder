@@ -1,28 +1,24 @@
-import { React, useEffect } from "react";
-import { useAuth } from '../../context/AuthContext'
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useAuth } from '../../context/AuthContext';
 import { Link, useLocation } from "react-router-dom";
 
 const UserLeftMenu = () => {
     const location = useLocation();
-    // const { user } = useAuth();
-    const [userProfileEditRequired, setUserProfileEditRequired] = useState(false);
+    const { user } = useAuth();
+    const [userProfileEditRequired, setUserProfileEditRequired] = useState(true);
     const [profilePicture, setProfilePicture] = useState(null);
-    const { user, setUser } = useAuth();
 
     useEffect(() => {
-
-        if (user?.user_profile_picture && user?.user_profile_picture !== '') {
-            setProfilePicture(user?.user_profile_picture);
+        // Set the profile picture if it's available
+        if (user && user.user_profile_picture) {
+            setProfilePicture(user.user_profile_picture);
         }
 
-
-        if (user?.user_gender === null) {
-            setUserProfileEditRequired(true);
+        // Check user_gender to determine if profile edit is required
+        if (user?.user_details?.gender !== null && user?.user_details?.gender !== undefined) {
+            setUserProfileEditRequired(false);
         }
     }, [user]);
-
-
 
     return (
         <div className="db-nav">
@@ -59,7 +55,7 @@ const UserLeftMenu = () => {
                     </li>
                     <li>
                         <Link to="/partnerpreferences" state={{ dataExists: userProfileEditRequired }} className={location.pathname === '/partnerpreferences' ? 'active' : ''}>
-                            <i className="fa fa-handshake-o" aria-hidden="true"></i>Partner Preferences
+                            <i className="fa fa-handshake-o" aria-hidden="true"></i>Partner Preferences {userProfileEditRequired}
                         </Link>
                     </li>
                     <li>

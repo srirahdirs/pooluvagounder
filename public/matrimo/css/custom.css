@@ -706,7 +706,7 @@ h6 {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px 0; 
+    margin: 20px 0;
 }
 
 .pagination-container button {
@@ -725,10 +725,48 @@ h6 {
     margin: 0 10px;
 }
 
-.fol-sett-box h5{
+.fol-sett-box h5 {
     color: #333;
 }
 
-.fol-sett-box p{
+.fol-sett-box p {
     color: #4b5563;
+}
+
+.user_interests_ol li {
+    color: #333;
+    margin: 0;
+}
+
+
+.notification-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: red;
+    border-radius: 50%;
+    margin-left: 5px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.sett-rad-left h5 {
+    color: #333;
+}
+
+.sett-rad-left p {
+    color: #374151;
 }
