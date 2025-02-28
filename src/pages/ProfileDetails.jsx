@@ -9,6 +9,7 @@ const ProfileDetails = () => {
   const [user, setUser] = useState('');
   const [userDetails, setUserDetails] = useState('');
   const [userImages, setUserImages] = useState([]);
+  const [userHoroscopes, setUserHoroscopes] = useState([]);
   const [userProfilePicture, setUserProfilePicture] = useState('');
   const [loading, setLoading] = useState(true); // State for loading
   const [hasAccess, setHasAccess] = useState(true); // State for access control
@@ -30,7 +31,7 @@ const ProfileDetails = () => {
 
 
   const userId = atob(id);
-  console.log(userId, 'userId')
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -45,9 +46,12 @@ const ProfileDetails = () => {
 
         if (response.ok) {
           const getuserdetails = await response.json();
+          console.log(getuserdetails, 'getuserdetails');
+
           setUser(getuserdetails.user);
           setUserDetails(getuserdetails.user?.user_details);
           setUserImages(getuserdetails.user.user_images);
+          setUserHoroscopes(getuserdetails.user.user_horoscopes);
           setUserProfilePicture(getuserdetails.user?.user_profile_picture);
         } else {
           if (response.status === 401) {
@@ -98,8 +102,6 @@ const ProfileDetails = () => {
   }
 
   const image = userDetails.gender === 'Male' ? 'user_default_boy.png' : 'user_default_girl.png';
-  console.log(userDetails, 'userDetails');
-
   return (
     <>
       <section>
@@ -173,7 +175,7 @@ const ProfileDetails = () => {
                   <div className="pr-bio-c pr-bio-gal" id="gallery">
                     <h3>Photo gallery</h3>
                     <div id="image-gallery">
-                      {userImages && userImages.length > 0 ? (
+                      {userImages && userImages.length > 0 && user?.photos_visibility === 0 ? (
                         userImages.map(image => (
                           <div className="pro-gal-imag" key={image.image_id}>
                             <div className="img-wrapper">
@@ -187,7 +189,7 @@ const ProfileDetails = () => {
                           </div>
                         ))
                       ) : (
-                        <p style={{ color: 'inherit' }}>No images available</p>
+                        <p style={{ color: 'inherit' }}> {user?.photos_visibility === 1 ? 'Photos are locked by the user.' : 'No images available'}</p>
                       )}
                     </div>
                   </div>
@@ -200,7 +202,7 @@ const ProfileDetails = () => {
                       <li>
                         <span>
                           <i className="fa fa-mobile" aria-hidden="true"></i>
-                          <b>Phone:</b> {user.phone || "Not specified"}
+                          <b>Phone:</b> {user?.mobile_number_visibility === 1 ? "Phone number is hidden" : (user.phone || "Phone number not specified")}
                         </span>
                       </li>
                       <li>
@@ -272,7 +274,45 @@ const ProfileDetails = () => {
                         </span>
 
                       </li>
+                      <br />
                     </ul>
+                  </div>
+                  <div className="pr-bio-c pr-bio-gal" id="horoscope-gallery">
+                    <h3>Horoscope gallery</h3>
+                    <div id="horoscope-gallery">
+                      {userHoroscopes && userHoroscopes.length > 0 && user?.horoscope_visibility === 0 ? (
+                        userHoroscopes.map(horoscope => (
+                          <div className="pro-gal-imag text-center" key={horoscope.id}>
+                            <div className="img-wrapper">
+                              <a href={user?.premium_user ? horoscope.premium_path : horoscope.premium_path} target="_blank" rel="noopener noreferrer">
+                                <img
+                                  src={user?.premium_user ? horoscope.premium_path : horoscope.premium_path}
+                                  className="img-responsive"
+                                  alt={`Horoscope image ${horoscope.id}`}
+                                />
+                              </a>
+                              <div className="img-overlay">
+                                <i className="fa fa-arrows-alt" aria-hidden="true"></i>
+                              </div>
+                            </div>
+                            <div className="download-wrapper">
+                              <a
+                                href={user?.premium_user ? horoscope.premium_path : horoscope.premium_path}
+                                download={`horoscope_${horoscope.file_name}`}
+                                className="btn btn-download "
+                                style={{ 'color': '#b5345e', 'font-weight': 'bold', 'textDecoration': 'underline' }}
+                              >
+                                View
+                              </a>
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <p style={{ color: 'inherit' }}>
+                          {user?.horoscope_visibility === 1 ? 'Horoscopes are locked by the user.' : 'No horoscopes available'}
+                        </p>
+                      )}
+                    </div>
                   </div>
 
                   <div className="pr-bio-c menu-pop-soci pr-bio-soc">
