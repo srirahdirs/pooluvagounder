@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import config from '../../config'
+import React, { useState, useEffect } from 'react';
+import config from '../../config';
 import { Toast } from 'primereact/toast';
 import { useToast } from '../../assets/utils/toastUtil';
 import { useAuth } from '../../context/AuthContext';
@@ -14,10 +14,11 @@ const UserInterests = () => {
     const [showDot, setShowDot] = useState(false);
 
     const apiUrl = config?.apiUrl;
+    const isPaidUser = user?.premium_user;
 
     useEffect(() => {
-        fetchData('getSentInterests', setInterestedProfiles); // Fetch sent interests on component mount
-        fetchData('getIncomingInterests', setIncomingInterests); // Fetch incoming interests on component mount
+        fetchData('getSentInterests', setInterestedProfiles);
+        fetchData('getIncomingInterests', setIncomingInterests);
     }, [user]);
 
     useEffect(() => {
@@ -57,7 +58,7 @@ const UserInterests = () => {
                 });
                 if (response.ok) {
                     showToast(`Interest ${status.toLowerCase()} successfully`);
-                    fetchData('getIncomingInterests', setIncomingInterests); // Refresh the list after action
+                    fetchData('getIncomingInterests', setIncomingInterests);
                 } else {
                     showToast('error', 'Error', `Failed to ${status.toLowerCase()} interest`);
                 }
@@ -119,7 +120,6 @@ const UserInterests = () => {
                             </>
                         ) : profile.status === 'Accepted' ? (
                             <>
-
                                 <button
                                     type="button"
                                     className="btn btn-danger btn-sm"
@@ -129,8 +129,6 @@ const UserInterests = () => {
                                 </button>
                                 <span className="status-text text-success">{profile.status}</span>
                             </>
-
-
                         ) : (
                             <>
                                 <button
@@ -155,98 +153,180 @@ const UserInterests = () => {
         );
     };
 
-
     if (!user) {
         return <Navigate to="/login" state={{ message: 'Login required' }} replace />;
     }
-
-    const filteredInterests = IncomingInterests.filter(profile => profile.status === 'Accepted' || profile.status === 'Rejected');
 
     return (
         <>
             <section>
                 <Toast ref={toast} />
-                <div className="db">
+                <div className="db user_interests">
                     <div className="container">
                         <div className="row">
                             <div className="col-md-4 col-lg-3">
                                 <UserLeftMenu />
                             </div>
+
+                            {/* Conditionally apply blur and overlay */}
                             <div className="col-md-8 col-lg-9">
-                                <div className="row">
-                                    <div className="col-md-12 db-sec-com">
-                                        <div className="db-pro-stat">
-                                            <h2 className="db-tit">Interest Requests</h2>
-                                            <div className="db-inte-main">
-                                                <ul className="nav nav-tabs" role="tablist">
-                                                    <li className="nav-item">
-                                                        <a className="nav-link active" data-bs-toggle="tab" href="#home">Sent Interests</a>
-                                                    </li>
-                                                    <li className="nav-item">
-                                                        <a className="nav-link" data-bs-toggle="tab" href="#menu1">
-                                                            Incoming Interests
-                                                            {IncomingInterests.length >= 1 && showDot && (
-                                                                <span className="notification-dot"></span>
-                                                            )}
-                                                        </a>
-                                                    </li>
-                                                    <li className="nav-item">
-                                                        <a className="nav-link" data-bs-toggle="tab" href="#menu2">Accepted / Declined Interests</a>
-                                                    </li>
-                                                </ul>
-
-                                                <div className="tab-content">
-                                                    {/* Sent Interests */}
-                                                    <div id="home" className="container tab-pane active">
-                                                        <br />
-                                                        <div className="db-inte-prof-list">
-                                                            <ul>
-                                                                {InterestedProfiles.length > 0 ? (
-                                                                    InterestedProfiles.map(profile => renderProfile(profile, false))
-                                                                ) : (
-                                                                    <p>No interests sent</p>
-                                                                )}
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Incoming Interests */}
-                                                    <div id="menu1" className="container tab-pane fade">
-                                                        <br />
-                                                        <div className="db-inte-prof-list">
-                                                            <ul>
-                                                                {IncomingInterests.length > 0 ? (
-                                                                    IncomingInterests.map(profile => renderProfile(profile))
-                                                                ) : (
-                                                                    <p>No incoming interests</p>
-                                                                )}
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Accepted / Declined Interests */}
-                                                    <div id="menu2" className="container tab-pane fade">
-                                                        <br />
-                                                        <div className="db-inte-prof-list">
-                                                            <ul>
-                                                                {filteredInterests.length > 0 ? (
-                                                                    filteredInterests.map(profile => renderProfile(profile, false))
-                                                                ) : (
-                                                                    <p>No accepted or declined interests</p>
-                                                                )}
+                                {!isPaidUser ? (
+                                    <div className="blurred-section_user_interests">
+                                        <div className="premium-overlay_user_interests">
+                                            <p>You must upgrade to a premium membership to view and interact with interests.</p>
+                                            <a href="/premium" className="btn btn-primary">Upgrade Now</a>
+                                        </div>
+                                        <div className="blurred-content_user_interests">
+                                            <div className="row">
+                                                <div className="col-md-12 db-sec-com">
+                                                    <div className="db-pro-stat">
+                                                        <h2 className="db-tit">Interest Requests</h2>
+                                                        <div className="db-inte-main">
+                                                            {/* Tabs */}
+                                                            <ul className="nav nav-tabs" role="tablist">
+                                                                <li className="nav-item">
+                                                                    <a className="nav-link" data-bs-toggle="tab" href="#home">Sent Interests</a>
+                                                                </li>
+                                                                <li className="nav-item">
+                                                                    <a className="nav-link active" data-bs-toggle="tab" href="#menu1">
+                                                                        Incoming Interests
+                                                                        {IncomingInterests.length >= 1 && showDot && (
+                                                                            <span className="notification-dot"></span>
+                                                                        )}
+                                                                    </a>
+                                                                </li>
+                                                                {/* <li className="nav-item">
+                                                                    <a className="nav-link" data-bs-toggle="tab" href="#menu2">Accepted / Declined Interests</a>
+                                                                </li> */}
                                                             </ul>
 
+                                                            <div className="tab-content">
+                                                                {/* Sent Interests */}
+                                                                <div id="home" className="container tab-pane fade">
+                                                                    <br />
+                                                                    <div className="db-inte-prof-list">
+                                                                        <ul>
+                                                                            {InterestedProfiles.length > 0 ? (
+                                                                                InterestedProfiles.map(profile => renderProfile(profile, false))
+                                                                            ) : (
+                                                                                <p>No interests sent</p>
+                                                                            )}
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+
+                                                                {/* Incoming Interests */}
+                                                                <div id="menu1" className="container tab-pane active">
+                                                                    <br />
+                                                                    <div className="db-inte-prof-list">
+                                                                        <ul>
+                                                                            {IncomingInterests.length > 0 ? (
+                                                                                IncomingInterests.map(profile => renderProfile(profile))
+                                                                            ) : (
+                                                                                <p>No incoming interests</p>
+                                                                            )}
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+
+                                                                {/* Accepted / Declined Interests */}
+                                                                {/* <div id="menu2" className="container tab-pane fade">
+                                                                    <br />
+                                                                    <div className="db-inte-prof-list">
+                                                                        <ul>
+                                                                            {IncomingInterests.length > 0 ? (
+                                                                                IncomingInterests.map(profile => renderProfile(profile))
+                                                                            ) : (
+                                                                                <p>No accepted or declined interests</p>
+                                                                            )}
+                                                                        </ul>
+                                                                    </div>
+                                                                </div> */}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                ) : (
+                                    // Full content for paid users without blur
+                                    <div className="row">
+                                        <div className="col-md-12 db-sec-com">
+                                            <div className="db-pro-stat">
+                                                <h2 className="db-tit">Interest Requests</h2>
+                                                <div className="db-inte-main">
+                                                    {/* Tabs */}
+                                                    <ul className="nav nav-tabs" role="tablist">
+                                                        <li className="nav-item">
+                                                            <a className="nav-link" data-bs-toggle="tab" href="#home">Sent Interests</a>
+                                                        </li>
+                                                        <li className="nav-item">
+                                                            <a className="nav-link active" data-bs-toggle="tab" href="#menu1">
+                                                                Incoming Interests
+                                                                {IncomingInterests.length >= 1 && showDot && (
+                                                                    <span className="notification-dot"></span>
+                                                                )}
+                                                            </a>
+                                                        </li>
+                                                        {/* <li className="nav-item">
+                                                            <a className="nav-link" data-bs-toggle="tab" href="#menu2">Accepted / Declined Interests</a>
+                                                        </li> */}
+                                                    </ul>
+
+                                                    <div className="tab-content">
+                                                        {/* Sent Interests */}
+                                                        <div id="home" className="container tab-pane fade">
+                                                            <br />
+                                                            <div className="db-inte-prof-list">
+                                                                <ul>
+                                                                    {InterestedProfiles.length > 0 ? (
+                                                                        InterestedProfiles.map(profile => renderProfile(profile, false))
+                                                                    ) : (
+                                                                        <p>No interests sent</p>
+                                                                    )}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Incoming Interests */}
+                                                        <div id="menu1" className="container tab-pane active">
+                                                            <br />
+                                                            <div className="db-inte-prof-list">
+                                                                <ul>
+                                                                    {IncomingInterests.length > 0 ? (
+                                                                        IncomingInterests.map(profile => renderProfile(profile))
+                                                                    ) : (
+                                                                        <p>No incoming interests</p>
+                                                                    )}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Accepted / Declined Interests */}
+                                                        {/* <div id="menu2" className="container tab-pane fade">
+                                                            <br />
+                                                            <div className="db-inte-prof-list">
+                                                                <ul>
+                                                                    {IncomingInterests.length > 0 ? (
+                                                                        IncomingInterests.map(profile => renderProfile(profile))
+                                                                    ) : (
+                                                                        <p>No accepted or declined interests</p>
+                                                                    )}
+                                                                </ul>
+                                                            </div>
+                                                        </div> */}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
                 </div>
+
             </section>
         </>
     );

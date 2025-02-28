@@ -7,59 +7,42 @@ import config from '../../config';
 
 const PremiumUserBenefits = () => {
     const { toast, showToast } = useToast();
-    const { isLoggedIn, user } = useAuth();
+    const { user, setUser } = useAuth();
     const isPaidUser = user?.premium_user;
-    
 
     const apiUrl = config?.apiUrl;
     let fullApiUrl;
     if (apiUrl) {
-        fullApiUrl = apiUrl + 'updateProfile';
+        fullApiUrl = apiUrl + 'updateUser';
     } else {
         console.error('Invalid API url');
     }
 
     const [settings, setSettings] = useState({
-        mobile: false,
+        mobile: user?.mobile_number_visibility === 1,
+        photos: user?.photos_visibility === 1,
+        horoscope: user?.horoscope_visibility === 1,
     });
-    
-    const handleUpdatePhotos = (event) => {
-        const token = localStorage.getItem('authToken');
-        const checked = event.target;
-        const payload = {
-            token,
-            photos_visibility: checked ? 1 : 0           
-        }
-        console.log(payload);
-    }
-    const handleUpdateHrc = (event) => {
-        const token = localStorage.getItem('authToken');
-        const checked = event.target;
-        const payload = {
-            token,
-            horoscope_visibility: checked ? 1 : 0
-        }
-        console.log(payload);
-    }
 
-    const handleUpdateMobile = async (event) => {
-        const { id, checked } = event.target;
-
-        // Set the checkbox state first
+    // Update settings and store them in local state
+    const updateSettings = (key, value) => {
         setSettings((prevSettings) => ({
             ...prevSettings,
-            [id]: checked,
+            [key]: value,
         }));
+    };
 
-        // Log the updated checkbox state to the console
-        console.log(`Checkbox ${id}: ${checked ? 'Checked' : 'Unchecked'}`);
-
+    const handleUpdatePhotos = async (event) => {
+        if (!isPaidUser) {
+            showToast('You must upgrade to a premium membership to change this setting.', 'error');
+            return;
+        }
         const token = localStorage.getItem('authToken');
+        const checked = event.target.checked;
         const payload = {
             token,
-            mobile_number_visibility: checked ? 1 : 0, // directly use `checked` value here
+            photos_visibility: checked ? 1 : 0
         };
-        console.log(payload);  // Log the payload to verify the data
 
         try {
             const response = await fetch(fullApiUrl, {
@@ -67,24 +50,97 @@ const PremiumUserBenefits = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(payload), // Send the form data as JSON
+                body: JSON.stringify(payload),
             });
 
             const data = await response.json();
 
             if (response.ok) {
-                showToast('success', 'Settings updated successfully!');
+                setUser(data.user);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                showToast('Settings updated successfully!');
+                updateSettings('photos', checked);
             } else {
-                showToast('error', data?.message || 'Something went wrong!');
+                showToast(data?.message || 'Something went wrong!', 'error');
             }
         } catch (error) {
             console.error('Error:', error);
-            showToast('error', 'An error occurred while updating settings.');
+            showToast('An error occurred while updating settings.', 'error');
         }
     };
 
-    const handleUpdate = async () => {
-        // Your code for other settings update goes here
+    const handleUpdateHrc = async (event) => {
+        if (!isPaidUser) {
+            showToast('You must upgrade to a premium membership to change this setting.', 'error');
+            return;
+        }
+        const token = localStorage.getItem('authToken');
+        const checked = event.target.checked;
+        const payload = {
+            token,
+            horoscope_visibility: checked ? 1 : 0
+        };
+
+        try {
+            const response = await fetch(fullApiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setUser(data.user);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                showToast('Settings updated successfully!');
+                updateSettings('horoscope', checked);
+            } else {
+                showToast(data?.message || 'Something went wrong!', 'error');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            showToast('An error occurred while updating settings.', 'error');
+        }
+    };
+
+    const handleUpdateMobile = async (event) => {
+        if (!isPaidUser) {
+            showToast('You must upgrade to a premium membership to change this setting.', 'error');
+            return;
+        }
+        const token = localStorage.getItem('authToken');
+        const checked = event.target.checked;
+        const payload = {
+            token,
+            mobile_number_visibility: checked ? 1 : 0
+        };
+
+        try {
+            const response = await fetch(fullApiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setUser(data.user);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                showToast('Settings updated successfully!');
+                updateSettings('mobile', checked);
+            } else {
+                showToast(data?.message || 'Something went wrong!', 'error');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            showToast('An error occurred while updating settings.', 'error');
+        }
     };
 
     return (
@@ -101,7 +157,6 @@ const PremiumUserBenefits = () => {
                                 <div className="rhs">
                                     <div className="form-login">
                                         <form action="#">
-                                            {/* Basic Info */}
                                             <div className="edit-pro-parti">
                                                 <div className="form-tit">
                                                     <h4 className="text-center">Premium User Benefits</h4>
@@ -117,13 +172,13 @@ const PremiumUserBenefits = () => {
                                                                 </div>
                                                                 <div className="sett-rig">
                                                                     <div className="checkboxes-and-radios">
-                                                                        <input 
-                                                                            type="checkbox" 
-                                                                            name="checkbox-cats" 
-                                                                            id="mobile" 
-                                                                            value="1" 
-                                                                            onChange={handleUpdateMobile} 
-                                                                            checked={settings.mobile} 
+                                                                        <input
+                                                                            type="checkbox"
+                                                                            name="checkbox-cats"
+                                                                            id="mobile"
+                                                                            value="1"
+                                                                            onChange={handleUpdateMobile}
+                                                                            checked={settings.mobile}
                                                                         />
                                                                         <label htmlFor="mobile"></label>
                                                                     </div>
@@ -138,12 +193,18 @@ const PremiumUserBenefits = () => {
                                                                 </div>
                                                                 <div className="sett-rig">
                                                                     <div className="checkboxes-and-radios">
-                                                                        <input type="checkbox" name="checkbox-cats" id="photos" value="1" onChange={handleUpdatePhotos} checked={settings.photos} />
+                                                                        <input
+                                                                            type="checkbox"
+                                                                            name="checkbox-cats"
+                                                                            id="photos"
+                                                                            value="1"
+                                                                            onChange={handleUpdatePhotos}
+                                                                            checked={settings.photos}
+                                                                        />
                                                                         <label htmlFor="photos"></label>
                                                                     </div>
                                                                 </div>
                                                             </li>
-                                                            {/* Horoscope privacy */}
                                                             <li className="no-border">
                                                                 <div className="sett-lef">
                                                                     <div className="sett-rad-left">
@@ -153,24 +214,26 @@ const PremiumUserBenefits = () => {
                                                                 </div>
                                                                 <div className="sett-rig">
                                                                     <div className="checkboxes-and-radios">
-                                                                        <input type="checkbox" name="checkbox-cats" id="hrc" value="1" onChange={handleUpdateHrc} checked={settings.hrc} />
+                                                                        <input
+                                                                            type="checkbox"
+                                                                            name="checkbox-cats"
+                                                                            id="hrc"
+                                                                            value="1"
+                                                                            onChange={handleUpdateHrc}
+                                                                            checked={settings.horoscope}
+                                                                        />
                                                                         <label htmlFor="hrc"></label>
                                                                     </div>
                                                                 </div>
                                                             </li>
                                                         </ul>
-                                                        {/* {isPaidUser && (
-                                                            <div className="text-center">
-                                                                <a className="cta-dark" onClick={handleSubmit}>Save</a>
-                                                            </div>
-                                                        )} */}
                                                         {!isPaidUser && (
                                                             <>
                                                                 <div className="alert alert-warning db-plan-canc">
                                                                     <p>This feature is available only for paid members.</p>
                                                                 </div>
                                                                 <div className="text-center">
-                                                                    <a className="cta-dark">UPGRADE</a>
+                                                                    <a className="cta-dark" href="/pricing">UPGRADE</a>
                                                                 </div>
                                                             </>
                                                         )}
