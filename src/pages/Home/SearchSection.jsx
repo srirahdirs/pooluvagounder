@@ -244,6 +244,7 @@ const SearchSection = () => {
                                                             ref={cityRef}  // Attach the ref to city input
                                                             value={searchForm.city}
                                                             onChange={handleInputChange}
+                                                            disabled={cities.length === 0}
                                                         >
                                                             <option value="">Select a City</option>
                                                             {cities.map((city) => (

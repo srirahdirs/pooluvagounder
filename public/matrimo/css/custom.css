@@ -598,32 +598,26 @@ h6 {
     background-color: #fff;
     margin: 0 auto;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 15px;
     width: 300px;
     text-align: center;
+    width: fit-content;
 }
 
-.close {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 30px;
-    cursor: pointer;
+.modal-dialog{
+    margin: auto;
 }
+
+
 
 .modal-content button {
-    padding: 10px 20px;
     margin: 20px 0;
     cursor: pointer;
     color: white;
     background-color: #0040FF;
     border-radius: 8px;
-    width: 60%;
 }
 
-.otp-dialog {
-    max-width: 700px;
-}
 
 .modal-content button:hover {
     transition: all 0.5s ease 0s;
@@ -631,34 +625,19 @@ h6 {
 }
 
 
-.custom-dialog .modal-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* Horizontally center the content */
-    justify-content: center;
-    /* Vertically center the content */
-    height: 100%;
-    /* Ensure the content takes the full height */
-    text-align: center;
-}
 
 .otp-tit {
     font-weight: 500;
     color: black;
 }
 
-.input-container {
-    margin-bottom: 20px;
-    /* Adds space between the input and button */
-}
 
 .otp-container {
-    display: flex;
+    /* display: flex;
     justify-content: center;
     gap: 10px;
     /* Space between input boxes */
-    margin-bottom: 20px;
+    margin-bottom: 20px; 
 }
 
 .modal-content .otp-input {
@@ -814,3 +793,100 @@ h6 {
     border-radius: 50%;
     margin-left: 5px;
 }
+/* For mobile devices */
+@media (max-width: 768px) {
+    .modal-dialog {
+      width: auto; /* Ensure it takes up 90% of the screen width */
+      max-width: 100%; /* Prevent it from exceeding screen width */
+      
+    }
+    .modal-content {
+      width: fit-content; /* Allow content to take full available width */
+      padding: 15px; /* Add padding for better spacing */
+    }
+    
+    .otp-container {
+        gap: 0px;
+        /* Space between input boxes */
+        margin-bottom: 10px;
+        padding: 0;
+    }
+
+    .seninter {
+        padding: 10px;
+    }
+    
+    .modal-content .otp-input {
+        width: 30px;    /* Width of each input box */
+        height: 40px;   /* Height of each input box */
+        text-align: center;  /* Center the text inside */
+        font-size: 14px; 
+    }
+
+    .p-fileupload .p-fileupload-buttonbar .p-button{
+        margin: 40px 50px;  
+        max-width: fit-content;
+    }
+    .modal{
+        padding: 2px;
+    }
+  }
+  
+  /* For tablets and larger devices */
+  @media (min-width: 769px) {
+    .modal-dialog {
+      width: 50%; /* Limit width for larger screens */
+      max-width: 1000px; /* Prevent it from exceeding 1000px */
+    }
+    .modal-content {
+      width: fit-content; /* Allow content to fit based on content size */
+    }
+    .p-fileupload-buttonbar .p-button{
+        margin: 20px 20px;
+    }
+  }
+  
+  /* Backdrop - creates the blur effect */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  z-index: 1040; /* Make sure the backdrop sits below the modal */
+  filter: blur(10px); /* Apply blur effect to the background */
+}
+
+/* For modal content */
+.modal-dialog {
+  z-index: 1050; /* Modal content sits above the backdrop */
+}
+
+/* When modal is open */
+.modal.fade.show {
+  display: block; /* Ensure modal is shown when it has the 'show' class */
+  z-index: 1060; /* Higher than the backdrop */
+}
+
+.p-fileupload-buttonbar .p-button{
+    margin: 50px 200px;  
+}
+
+.p-fileupload-buttonbar{
+    /* border:1px solid #5b5959; */
+    box-shadow: 01px 1px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 426px) {
+    .plans-main .container .row ul {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .plans-main .container .row ul li {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }

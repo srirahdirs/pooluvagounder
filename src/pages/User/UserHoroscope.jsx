@@ -12,7 +12,7 @@ const UserHoroscope = () => {
     const { user, setUser } = useAuth();
     const { toast, showToast } = useToast();
     const [userHoroscopes, setUserHoroscopes] = useState([]);
-    const [visible, setVisible] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
     const [hoveredImage, setHoveredImage] = useState(null);
     const toastRef = useRef(null);
     const apiUrl = config?.apiUrl;
@@ -141,36 +141,69 @@ const UserHoroscope = () => {
         }
     };
 
-    const showModal = () => setVisible(true);
-    const hideModal = () => setVisible(false);
+    // Function to show modal
+   const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  // Function to hide modal
+  const hideModal = () => {
+    setIsModalOpen(false);
+  };
 
     return (
         <>
             <div className="image_upload">
                 <Toast ref={toast} />
-                <Dialog
-                    header="Upload Horoscope"
-                    visible={visible}
-                    style={{ width: '50vw' }}
-                    onHide={hideModal}
-                    modal
-                    className="custom-dialog"
-                >
-                    <div className="card">
-                        <FileUpload
-                            name="image"
-                            onUpload={() => { }} // Callback on file upload completion
-                            accept="image/*" // Accept only image files
-                            maxFileSize={10000000} // Increased limit to 10 MB
-                            chooseLabel="Select Horoscope Image"
-                            auto
-                            customUpload
-                            uploadHandler={uploadHandler} // Custom handler for file upload
-                            multiple
-                            className="file-upload" // Add custom className for file upload styling
-                        />
+                
+                <div>
+                     
+                
+                      {/* Modal */}
+                      {isModalOpen && (
+                        <div
+                          className="modal fade show"
+                          id="sendInter"
+                          aria-modal="true"
+                          role="dialog"
+                          style={{ display: "block" }} // Ensures it's visible when `isModalOpen` is true
+                        >
+                          <div className="modal-dialog modal-dialog-centered modal-lg">
+                            <div className="modal-content position-relative">
+                
+                              {/* Modal Header */}
+                              <div className="modal-header ">
+                                <h4 className="modal-title seninter-tit">Upload Horoscope</h4>
+                                <a
+                                href="#"
+                                type="button"
+                                className="btn-close text-danger  "
+                                aria-label="Close"
+                                onClick={hideModal} // Close modal when clicked
+                              />
+                              </div>
+                
+                              {/* Modal Body */}
+                              <div className="modal-body seninter">
+                                <FileUpload
+                                  name="image"
+                                  url="/upload" // Not used since we are using customUpload
+                                  onUpload={() => {}} // Callback on file upload completion
+                                  accept="image/*" // Accept only image files
+                                  maxFileSize={10000000} // Increased limit to 10 MB
+                                  chooseLabel="Select Image"
+                                  auto
+                                  customUpload
+                                  uploadHandler={uploadHandler} // Custom handler for file upload
+                                  multiple
+                                  className="file-upload" // Add custom className for file upload styling
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                </Dialog>
             </div>
 
             <section>
