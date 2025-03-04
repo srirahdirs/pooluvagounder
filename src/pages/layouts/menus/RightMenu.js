@@ -7,7 +7,84 @@ const RightMenu = () => {
 
     return (
         <>
+            {/* <!-- HEADER & MENU --> */}
             <div className="menu-pop menu-pop2">
+                <span className="menu-pop-clo"><i className="fa fa-times" aria-hidden="true"></i></span>
+                <div className="inn">
+                    <div className="menu-pop-help">
+                        <h4>Your Details</h4>
+                        <div className="user-pro">
+                            {isLoggedIn && user?.user_profile_picture ? (
+                                <img src={`${user?.user_profile_picture}`} alt="" loading="lazy" />
+                            ) : (<img src={`${process.env.PUBLIC_URL}/matrimo/images/user_dummy.png`} alt="" loading="lazy" />)
+                            }
+                        </div>
+                        <div className="user-bio">
+                            <h5>{isLoggedIn ? user?.name : ''}</h5>
+                            <span>{isLoggedIn && user?.email ? user.email : ''}</span> <br />
+                            {isLoggedIn ? <a href="/userprofile" className="btn btn-primary btn-sm">View Profile</a> : ''}
+                        </div>
+                    </div>
+                    <div className="menu-pop-soci">
+                        <ul>
+                            <li><a href="#!" aria-label=""><i className="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#!" aria-label=""><i className="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#!" aria-label=""><i className="fa fa-whatsapp" aria-hidden="true"></i></a></li>
+                            <li><a href="#!" aria-label=""><i className="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#!" aria-label=""><i className="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                            <li><a href="#!" aria-label=""><i className="fa fa-instagram" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+
+                    {/* <div className="late-news">
+                        <h4>Latest news</h4>
+                        <ul>
+                            <li>
+                                <div className="rel-pro-img">
+                                    <img src="images/couples/1.jpg" alt="" loading="lazy">
+                                </div>
+                                <div className="rel-pro-con">
+                                    <h5>Long established fact that a reader distracted</h5>
+                                    <span className="ic-date">12 Dec 2023</span>
+                                </div>
+                                <a href="blog-detail.html" className="fclick"></a>
+                            </li>
+                            <li>
+                                <div className="rel-pro-img">
+                                    <img src="images/couples/3.jpg" alt="" loading="lazy">
+                                </div>
+                                <div className="rel-pro-con">
+                                    <h5>Long established fact that a reader distracted</h5>
+                                    <span className="ic-date">12 Dec 2023</span>
+                                </div>
+                                <a href="blog-detail.html" className="fclick"></a>
+                            </li>
+                            <li>
+                                <div className="rel-pro-img">
+                                    <img src="images/couples/4.jpg" alt="" loading="lazy">
+                                </div>
+                                <div className="rel-pro-con">
+                                    <h5>Long established fact that a reader distracted</h5>
+                                    <span className="ic-date">12 Dec 2023</span>
+                                </div>
+                                <a href="blog-detail.html" className="fclick"></a>
+                            </li>
+                        </ul>
+                    </div> */}
+
+                    {/* <!-- HELP BOX --> */}
+                    <div className="prof-rhs-help mt-8" style={{ "marginTop": "30px" }}>
+                        <div className="inn">
+                            <h3>Complete Your Profile</h3>
+                            <p>Update your details, upload photos, and set your preferences to attract your perfect match.</p>
+                            <a href="/edituserprofile" className="btn btn-primary btn-sm">Update Profile</a>
+                        </div>
+                    </div>
+                    {/* <!-- END HELP BOX --> */}
+                </div>
+            </div>
+            {/* <!-- END HEADER & MENU --> */}
+            {/* <div className="menu-pop menu-pop2">
                 <span className="menu-pop-clo"><i className="fa fa-times" aria-hidden="true"></i></span>
                 <div className="inn">
                     <div className="menu-pop-help">
@@ -35,40 +112,68 @@ const RightMenu = () => {
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
-            <div className="mob-me-all mobile_menu">
+            <div className="mob-me-all mobile_menu dashbord_menu">
                 <div className="mob-me-clo"><img src={process.env.PUBLIC_URL + '/matrimo/images/icon/close.svg'} alt="" /></div>
                 <div className="mv-bus">
-                    <div className="menu-pop-help">
-                        <h4>Your Details</h4>
-                        <div className="user-pro">
-                            {isLoggedIn && user?.user_profile_picture ? (
-                                <img src={`${user?.user_profile_picture}`} alt="" loading="lazy" />
-                            ) : (<img src={`${process.env.PUBLIC_URL}/matrimo/images/user_dummy.png`} alt="" loading="lazy" />)
-                            }
-                        </div>
-                        <div className="user-bio">
-                            <h5>{isLoggedIn && user?.name ? user.name : ''}</h5>
-                            <span>{isLoggedIn && user?.email ? user.email : ''}</span> <br />
-                            <a href="/userprofile" className="btn btn-primary btn-sm">View Profile</a>
-                        </div>
+                    {isLoggedIn &&
+                        <>
+                            <div className="menu-pop-help">
+                                <h4>Your Details</h4>
+                                <div className="user-pro">
+                                    {isLoggedIn && user?.user_profile_picture ? (
+                                        <img src={`${user?.user_profile_picture}`} alt="" loading="lazy" />
+                                    ) : (<img src={`${process.env.PUBLIC_URL}/matrimo/images/user_dummy.png`} alt="" loading="lazy" />)
+                                    }
+                                </div>
+                                <div className="user-bio">
+                                    <h5>{isLoggedIn && user?.name ? user.name : ''}</h5>
+                                    <span>{isLoggedIn && user?.email ? user.email : ''}</span> <br />
 
-                    </div>
-                    <div className="menu-pop-soci">
-                        <ul>
-                            <li><a href="#!" aria-label=""><i className="fa fa-facebook" aria-hidden="true"></i></a></li>
-                            <li><a href="#!" aria-label=""><i className="fa fa-twitter" aria-hidden="true"></i></a></li>
-                            <li><a href="#!" aria-label=""><i className="fa fa-whatsapp" aria-hidden="true"></i></a></li>
-                            <li><a href="#!" aria-label=""><i className="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                            <li><a href="#!" aria-label=""><i className="fa fa-youtube-play" aria-hidden="true"></i></a></li>
-                            <li><a href="#!" aria-label=""><i className="fa fa-instagram" aria-hidden="true"></i></a></li>
-                        </ul>
+                                    {isLoggedIn ? <a href="/userprofile" className="btn btn-primary btn-sm">View Profile</a> : null}
+
+                                </div>
+
+                            </div>
+
+                            <div className="menu-pop-soci">
+                                <ul>
+                                    <li><a href="#!" aria-label=""><i className="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                    <li><a href="#!" aria-label=""><i className="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                    <li><a href="#!" aria-label=""><i className="fa fa-whatsapp" aria-hidden="true"></i></a></li>
+                                    <li><a href="#!" aria-label=""><i className="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                    <li><a href="#!" aria-label=""><i className="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                                    <li><a href="#!" aria-label=""><i className="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </div>
+                        </>
+                    }
+                </div>
+                <div className="prof-rhs-help">
+                    <div className="inn">
+
+                        {isLoggedIn ? (
+                            <li>
+                                <a href="/logout">
+                                    <i className="fa fa-sign-out" aria-hidden="true" style={{ color: 'white' }}></i> Logout
+                                </a>
+                            </li>
+                        ) : (
+                            <li>
+                                <a href="/login">
+                                    <i className="fa fa-sign-in" aria-hidden="true" style={{ color: 'white' }}></i> Login
+                                </a>
+                            </li>
+                        )}
+
                     </div>
                 </div>
             </div>
 
-            <div className="mob-me-all dashbord_menu">
+
+
+            {/* <div className="mob-me-all dashbord_menu">
                 <div className="mob-me-clo"><img src={`${process.env.PUBLIC_URL}/matrimo/images/icon/close.svg`} alt="" /></div>
                 <div className="mv-bus">
                     <div className="head-pro">
@@ -83,7 +188,7 @@ const RightMenu = () => {
                         <li><a href="all-profiles.html" aria-label="">Browse profiles</a></li>
                     </ul>
                 </div>
-            </div>
+            </div> */}
         </>
     );
 };

@@ -83,15 +83,48 @@ const MainMenu = () => {
                             {/* MOBILE MENU */}
                             <div className="mob-menu">
                                 <div className="mob-me-ic">
-
+                                    <span className="mobile-exprt" data-mob="dashbord">
+                                        <img src={`${process.env.PUBLIC_URL}/matrimo/images/icon/users.svg`} alt="users image" />
+                                    </span>
                                     <span className="mobile-menu" data-mob="mobile">
-                                        <img src={`${process.env.PUBLIC_URL}/matrimo/images/icon/menu.svg`} alt="" />
+                                        <img src={`${process.env.PUBLIC_URL}/matrimo/images/icon/menu.svg`} alt="menu image" />
                                     </span>
                                 </div>
                             </div>
+
                             {/* END MOBILE MENU */}
                         </div>
                     </div>
+                </div>
+            </div>
+            <div className="mob-me-all mobile_menu">
+                <div className="mob-me-clo"><img src={`${process.env.PUBLIC_URL}/matrimo/images/icon/close.svg`} alt="close image" /></div>
+                <div className="mv-bus">
+                    <ul>
+                        <li><a href="/home">Home</a></li>
+                        <li><a href="/allprofiles">Profiles</a></li>
+                        <li><a href="/pricing">Pricing</a></li>
+                        <li><a href="/about">About Us</a></li>
+                        {isLoggedIn ? (
+                            <div className="al">
+                                <div className="head-pro">
+                                    {isLoggedIn && user?.user_profile_picture ? (
+                                        <>
+                                            <img src={`${user?.user_profile_picture}`} alt="" loading="lazy" />
+
+                                        </>
+                                    ) : (
+                                        <img src={`${process.env.PUBLIC_URL}/matrimo/images/user_dummy.png`} alt="" loading="lazy" />
+                                    )}
+                                    <b>My Profile</b><br />
+                                    <h4>{user?.name}</h4>  {/* Use optional chaining to avoid errors */}
+                                    <span onClick={handleClick} className="fclick"></span>
+                                </div>
+                            </div>
+                        ) : ''}
+                        <li><a href="/matches">Matches</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                    </ul>
                 </div>
             </div>
         </>

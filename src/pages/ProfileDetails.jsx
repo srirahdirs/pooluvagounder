@@ -284,9 +284,9 @@ const ProfileDetails = () => {
                         userHoroscopes.map(horoscope => (
                           <div className="pro-gal-imag text-center" key={horoscope.id}>
                             <div className="img-wrapper">
-                              <a href={user?.premium_user ? horoscope.premium_path : horoscope.premium_path} target="_blank" rel="noopener noreferrer">
+                              <a href={user?.premium_user ? horoscope.horoscope_premium_path : horoscope.horoscope_premium_path} target="_blank" rel="noopener noreferrer">
                                 <img
-                                  src={user?.premium_user ? horoscope.premium_path : horoscope.premium_path}
+                                  src={user?.premium_user ? horoscope.horoscope_premium_path : horoscope.horoscope_premium_path}
                                   className="img-responsive"
                                   alt={`Horoscope image ${horoscope.id}`}
                                 />
@@ -297,9 +297,10 @@ const ProfileDetails = () => {
                             </div>
                             <div className="download-wrapper">
                               <a
-                                href={user?.premium_user ? horoscope.premium_path : horoscope.premium_path}
+                                href={user?.premium_user ? horoscope.horoscope_premium_path : horoscope.horoscope_premium_path}
                                 download={`horoscope_${horoscope.file_name}`}
                                 className="btn btn-download "
+                                target='_blank'
                                 style={{ 'color': '#b5345e', 'font-weight': 'bold', 'textDecoration': 'underline' }}
                               >
                                 View

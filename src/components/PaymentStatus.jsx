@@ -16,7 +16,7 @@ const PaymentStatus = () => {
                 return;
             }
 
-            const response = await axios.get(`http://localhost:4000/paymentstatus?order_id=${orderId}`);
+            const response = await axios.get(`https://api.weddingsoulmates.com/paymentstatus?order_id=${orderId}`);
             console.log('Payment status updated:', response?.data?.message);
 
             if (response?.data?.message === 'PAID') {
