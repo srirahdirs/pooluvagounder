@@ -153,101 +153,100 @@ const PremiumUserBenefits = () => {
                             <div className="col-md-4 col-lg-3">
                                 <UserLeftMenu />
                             </div>
-                            <div className="inn">
-                                <div className="rhs">
-                                    <div className="form-login">
-                                        <form action="#">
-                                            <div className="edit-pro-parti">
-                                                <div className="form-tit">
-                                                    <h4 className="text-center">Premium User Benefits</h4>
-                                                    <h3 className="text-center text-dark">Set your privacy benefits</h3>
-                                                    <div className="fol-sett-box">
-                                                        <ul>
-                                                            <li>
-                                                                <div className="sett-lef">
-                                                                    <div className="sett-rad-left">
-                                                                        <h5>Hide mobile number, allow contact via email</h5>
-                                                                        <p>Your phone number is hidden, and users can only reach you by email.</p>
-                                                                    </div>
+                            <div className="col-md-8 col-lg-9">
+                                <div className="form-login">
+                                    <form action="#">
+                                        <div className="edit-pro-parti">
+                                            <div className="form-tit">
+                                                <h4 className="text-center">Premium User Benefits</h4>
+                                                <h3 className="text-center text-dark">Set your privacy benefits</h3>
+                                                <div className="fol-sett-box">
+                                                    <ul>
+                                                        <li>
+                                                            <div className="sett-lef">
+                                                                <div className="sett-rad-left">
+                                                                    <h5>Hide mobile number, allow contact via email</h5>
+                                                                    <p>Your phone number is hidden, and users can only reach you by email.</p>
                                                                 </div>
-                                                                <div className="sett-rig">
-                                                                    <div className="checkboxes-and-radios">
-                                                                        <input
-                                                                            type="checkbox"
-                                                                            name="checkbox-cats"
-                                                                            id="mobile"
-                                                                            value="1"
-                                                                            onChange={handleUpdateMobile}
-                                                                            checked={settings.mobile}
-                                                                        />
-                                                                        <label htmlFor="mobile"></label>
-                                                                    </div>
+                                                            </div>
+                                                            <div className="sett-rig">
+                                                                <div className="checkboxes-and-radios">
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        name="checkbox-cats"
+                                                                        id="mobile"
+                                                                        value="1"
+                                                                        onChange={handleUpdateMobile}
+                                                                        checked={settings.mobile}
+                                                                    />
+                                                                    <label htmlFor="mobile"></label>
                                                                 </div>
-                                                            </li>
-                                                            <li>
-                                                                <div className="sett-lef">
-                                                                    <div className="sett-rad-left">
-                                                                        <h5>Hide my photos from everyone</h5>
-                                                                        <p>Your photos will be private and not visible to anyone.</p>
-                                                                    </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div className="sett-lef">
+                                                                <div className="sett-rad-left">
+                                                                    <h5>Hide my photos from everyone</h5>
+                                                                    <p>Your photos will be private and not visible to anyone.</p>
                                                                 </div>
-                                                                <div className="sett-rig">
-                                                                    <div className="checkboxes-and-radios">
-                                                                        <input
-                                                                            type="checkbox"
-                                                                            name="checkbox-cats"
-                                                                            id="photos"
-                                                                            value="1"
-                                                                            onChange={handleUpdatePhotos}
-                                                                            checked={settings.photos}
-                                                                        />
-                                                                        <label htmlFor="photos"></label>
-                                                                    </div>
+                                                            </div>
+                                                            <div className="sett-rig">
+                                                                <div className="checkboxes-and-radios">
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        name="checkbox-cats"
+                                                                        id="photos"
+                                                                        value="1"
+                                                                        onChange={handleUpdatePhotos}
+                                                                        checked={settings.photos}
+                                                                    />
+                                                                    <label htmlFor="photos"></label>
                                                                 </div>
-                                                            </li>
-                                                            <li className="no-border">
-                                                                <div className="sett-lef">
-                                                                    <div className="sett-rad-left">
-                                                                        <h5>Hide my horoscope from everyone</h5>
-                                                                        <p>Your horoscope will be private and not visible to anyone.</p>
-                                                                    </div>
+                                                            </div>
+                                                        </li>
+                                                        <li className="no-border">
+                                                            <div className="sett-lef">
+                                                                <div className="sett-rad-left">
+                                                                    <h5>Hide my horoscope from everyone</h5>
+                                                                    <p>Your horoscope will be private and not visible to anyone.</p>
                                                                 </div>
-                                                                <div className="sett-rig">
-                                                                    <div className="checkboxes-and-radios">
-                                                                        <input
-                                                                            type="checkbox"
-                                                                            name="checkbox-cats"
-                                                                            id="hrc"
-                                                                            value="1"
-                                                                            onChange={handleUpdateHrc}
-                                                                            checked={settings.horoscope}
-                                                                        />
-                                                                        <label htmlFor="hrc"></label>
-                                                                    </div>
+                                                            </div>
+                                                            <div className="sett-rig">
+                                                                <div className="checkboxes-and-radios">
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        name="checkbox-cats"
+                                                                        id="hrc"
+                                                                        value="1"
+                                                                        onChange={handleUpdateHrc}
+                                                                        checked={settings.horoscope}
+                                                                    />
+                                                                    <label htmlFor="hrc"></label>
                                                                 </div>
-                                                            </li>
-                                                        </ul>
-                                                        {!isPaidUser && (
-                                                            <>
-                                                                <div className="alert alert-warning db-plan-canc">
-                                                                    <p>This feature is available only for paid members.</p>
-                                                                </div>
-                                                                <div className="text-center">
-                                                                    <a className="cta-dark" href="/pricing">UPGRADE</a>
-                                                                </div>
-                                                            </>
-                                                        )}
-                                                    </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                    {!isPaidUser && (
+                                                        <>
+                                                            <div className="alert alert-warning db-plan-canc">
+                                                                <p>This feature is available only for paid members.</p>
+                                                            </div>
+                                                            <div className="text-center">
+                                                                <a className="cta-dark" href="/pricing">UPGRADE</a>
+                                                            </div>
+                                                        </>
+                                                    )}
                                                 </div>
                                             </div>
-                                        </form>
-                                    </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
+
         </>
     );
 };

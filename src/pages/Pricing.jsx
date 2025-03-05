@@ -12,12 +12,12 @@ const Pricing = () => {
   const user_id = user?.id ? user.id : 0;
   const dispatch = useDispatch();
   const { isModalOpen } = useSelector((state) => state.pricing); // Access isModalOpen from Redux store
-
+  const activePlanPrice = user?.active_plan?.plan_price;
   const loginRequired = () => {
     navigate("/login");
   };
   const plans = {
-    1: { name: "Silver", price: "1400", validity: "1 month" },
+    1: { name: "Silver", price: "1499", validity: "1 month" },
     2: { name: "Gold", price: "4999", validity: "6 months" },
     3: { name: "Platinum", price: "9999", validity: "12 months" },
   };
@@ -44,7 +44,7 @@ const Pricing = () => {
           offers: {
             "@type": "Offer",
             priceCurrency: "INR",
-            price: "1400",
+            price: "1499",
             validFor: "P1M",
             eligibleQuantity: {
               "@type": "QuantitativeValue",
@@ -131,13 +131,17 @@ const Pricing = () => {
                       Perfect for exploring our platform with basic features.
                     </p>
                     {user_id ? (
-                      <a
-                        href="#"
-                        className="cta desk-menu fol cta-chat"
-                        onClick={() => handlePlanSelection(1)}
-                      >
-                        Get Started
-                      </a>
+                      Number(activePlanPrice) === Number(plans[1].price) ? (
+                        <a className="cta disabled" href="#" style={{ 'background': 'green' }}>Selected Plan</a>
+                      ) : (
+                        <a
+                          href="#"
+                          className="cta desk-menu fol cta-chat"
+                          onClick={() => handlePlanSelection(1)}
+                        >
+                          Get Started
+                        </a>
+                      )
                     ) : (
                       <a onClick={loginRequired} className="cta">
                         Get Started
@@ -188,13 +192,17 @@ const Pricing = () => {
                       interaction.
                     </p>
                     {user_id ? (
-                      <a
-                        href="#"
-                        className="cta desk-menu fol cta-chat"
-                        onClick={() => handlePlanSelection(2)}
-                      >
-                        Get Started
-                      </a>
+                      Number(activePlanPrice) === Number(plans[2].price) ? (
+                        <a className="cta disabled" href="#" style={{ 'background': 'green' }}>Selected Plan</a>
+                      ) : (
+                        <a
+                          href="#"
+                          className="cta desk-menu fol cta-chat"
+                          onClick={() => handlePlanSelection(2)}
+                        >
+                          Get Started
+                        </a>
+                      )
                     ) : (
                       <a onClick={loginRequired} className="cta">
                         Get Started
@@ -240,13 +248,17 @@ const Pricing = () => {
                       and full access to features.
                     </p>
                     {user_id ? (
-                      <a
-                        href="#"
-                        className="cta desk-menu fol cta-chat"
-                        onClick={() => handlePlanSelection(3)}
-                      >
-                        Get Started
-                      </a>
+                      Number(activePlanPrice) === Number(plans[3].price) ? (
+                        <a className="cta disabled" href="#" style={{ 'background': 'green' }}>Selected Plan</a>
+                      ) : (
+                        <a
+                          href="#"
+                          className="cta desk-menu fol cta-chat"
+                          onClick={() => handlePlanSelection(3)}
+                        >
+                          Get Started
+                        </a>
+                      )
                     ) : (
                       <a onClick={loginRequired} className="cta">
                         Get Started
@@ -257,11 +269,11 @@ const Pricing = () => {
                     </span>
                     <small>(12 months)</small>
                     <br />
-                    <span className="discount">40% Off</span>
+                    <span className="discount">50% Off</span>
                     <ol>
                       <li>
-                        <i className="fa fa-check" aria-hidden="true"></i>{" "}
-                        Unlimited Premium Profiles{" "}
+                        <i className="fa fa-check" aria-hidden="true"></i> 100
+                        Premium Profiles view /mo
                       </li>
                       <li>
                         <i className="fa fa-check" aria-hidden="true"></i> Free
@@ -276,8 +288,8 @@ const Pricing = () => {
                         interest
                       </li>
                       <li>
-                        <i className="fa fa-check" aria-hidden="true"></i> Start
-                        chat
+                        <i className="fa fa-check" aria-hidden="true"></i> Chat
+                        feature
                       </li>
                     </ol>
                   </div>
@@ -286,8 +298,9 @@ const Pricing = () => {
             </div>
           </div>
         </div>
-        {isModalOpen && <LeftMenu />} {/* Render LeftMenu when modal is open */}
       </section>
+
+      <LeftMenu isModalOpen={isModalOpen} />
     </>
   );
 };

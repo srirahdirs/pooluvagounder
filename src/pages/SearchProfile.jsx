@@ -349,7 +349,7 @@ const SearchProfile = ({ user }) => {
         </div>
 
         <div className="form-group">
-          <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
+          <button type="submit" className="btn btn-primary" id="search_filter" onClick={handleSubmit}>
             Search
           </button>
         </div>

@@ -64,6 +64,9 @@ $(document).ready(function () {
     $('.fil-mob').on('click', function () {
         $('.fil-mob-view').slideDown();
     });
+    $('#search_filter').on('click', function () {
+        $('.fil-mob-view').slideUp();
+    });
     $('.filter-clo').on('click', function () {
         $('.fil-mob-view').slideUp();
     });
