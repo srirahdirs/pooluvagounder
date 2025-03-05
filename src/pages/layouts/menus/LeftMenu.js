@@ -128,15 +128,12 @@ const LeftMenu = () => {
                     console.log('planData.plan.status:', planData.plan.status);
 
                     if (planData.plan.status === 'Approved') {
-                        // Stop polling
                         clearInterval(intervalId);
-
-                        // Update user context and local storage
-                        console.log(data.user, 'data.user');
-                        setUser(data.user);
-                        localStorage.setItem('user', JSON.stringify(user));
+                        const updatedUser = { ...data.user, premium_user: 1 };
+                        setUser(updatedUser);
+                        localStorage.setItem('user', JSON.stringify(updatedUser));
                         showToast('Payment approved! Your plan is now active.', 'success');
-                        setIsPlanActive(true); // Set plan status to active
+                        setIsPlanActive(true);
                     } else if (planData.plan.status === 'Rejected') {
                         clearInterval(intervalId);
                     }

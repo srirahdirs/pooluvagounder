@@ -168,11 +168,17 @@ const Pricing = () => {
                       </li>
                       <li>
                         <i className="fa fa-check" aria-hidden="true"></i>{" "}
-                        contact details view
+                        View contact details
                       </li>
                       <li>
                         <i className="fa fa-check" aria-hidden="true"></i>{" "}
-                        Can't send interest
+                        Send interest
+                      </li>
+                      <li>
+                        <i className="fa fa-close close" aria-hidden="true"></i> Premium User Benefits
+                      </li>
+                      <li>
+                        <i className="fa fa-close close" aria-hidden="true"></i> Horoscope View
                       </li>
                       <li>
                         <i className="fa fa-close close" aria-hidden="true"></i>{" "}
@@ -216,7 +222,7 @@ const Pricing = () => {
                     <span className="discount">40% Off</span>
                     <ol>
                       <li>
-                        <i className="fa fa-check" aria-hidden="true"></i> 50
+                        <i className="fa fa-check" aria-hidden="true"></i> 100
                         Premium Profiles view /mo
                       </li>
                       <li>
@@ -231,6 +237,13 @@ const Pricing = () => {
                         <i className="fa fa-check" aria-hidden="true"></i> Send
                         interest
                       </li>
+                      <li>
+                        <i className="fa fa-check" aria-hidden="true"></i> Premium User Benefits
+                      </li>
+                      <li>
+                        <i className="fa fa-check" aria-hidden="true"></i> Horoscope View
+                      </li>
+
                       <li>
                         <i className="fa fa-close close" aria-hidden="true"></i>{" "}
                         No chat feature
@@ -272,8 +285,8 @@ const Pricing = () => {
                     <span className="discount">50% Off</span>
                     <ol>
                       <li>
-                        <i className="fa fa-check" aria-hidden="true"></i> 100
-                        Premium Profiles view /mo
+                        <i className="fa fa-check" aria-hidden="true"></i> Unlimited
+                        Premium Profiles view
                       </li>
                       <li>
                         <i className="fa fa-check" aria-hidden="true"></i> Free
@@ -287,6 +300,13 @@ const Pricing = () => {
                         <i className="fa fa-check" aria-hidden="true"></i> Send
                         interest
                       </li>
+                      <li>
+                        <i className="fa fa-check" aria-hidden="true"></i> Premium User Benefits
+                      </li>
+                      <li>
+                        <i className="fa fa-check" aria-hidden="true"></i> Horoscope View
+                      </li>
+
                       <li>
                         <i className="fa fa-check" aria-hidden="true"></i> Chat
                         feature

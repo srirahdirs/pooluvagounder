@@ -4,13 +4,22 @@ import { useAuth } from "../../context/AuthContext";
 import { Navigate } from 'react-router-dom';
 
 const UserPlan = () => {
-    const { user, setUser } = useAuth();
+    const { user } = useAuth();
+    const activePlan = user?.active_plan;
 
+    // Determine the plan name based on the active plan's price
+    let planName = "No Plan Selected";
+    if (activePlan?.plan_price === 1499) {
+        planName = "Silver";
+    } else if (activePlan?.plan_price === 4999) {
+        planName = "Gold";
+    } else if (activePlan?.plan_price === 9999) {
+        planName = "Platinum";
+    }
 
     if (!user) {
         return <Navigate to="/login" state={{ message: 'Login required' }} replace />;
     }
-
 
     return (
         <>
@@ -32,10 +41,16 @@ const UserPlan = () => {
                                             </div>
                                             <div className="db-plan-detil">
                                                 <ul>
-                                                    <li>Plan name: <strong>Standard</strong></li>
-                                                    <li>Validity: <strong>6 Months</strong></li>
-                                                    <li>Valid till <strong>24 June 2024</strong></li>
-                                                    <li><a href="#" className="cta-3">Upgrade now</a></li>
+                                                    {activePlan && activePlan.status === 'Approved' ? (
+                                                        <>
+                                                            <li>Plan name: <strong>{planName}</strong></li>
+                                                            <li>Price: <strong>&#8377;{activePlan.plan_price}</strong></li>
+                                                            <li>Valid till: <strong>{new Date(activePlan.expiry_date).toLocaleDateString()}</strong></li>
+                                                            <li><a href="/pricing" className="cta-3">Upgrade now</a></li>
+                                                        </>
+                                                    ) : (
+                                                        <li>No plan selected</li>
+                                                    )}
                                                 </ul>
                                             </div>
                                         </div>
@@ -49,27 +64,23 @@ const UserPlan = () => {
                                                         <th>Plan type</th>
                                                         <th>Duration</th>
                                                         <th>Cost</th>
-                                                        {/* <th>Invoice</th> */}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
                                                         <td>Silver</td>
-                                                        <td>1 Months </td>
-                                                        <td>&#8377;1400</td>
-                                                        {/* <td><a href="#" className="cta-dark cta-sml" download><span>Download</span></a></td> */}
+                                                        <td>1 Month</td>
+                                                        <td>&#8377;1499</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Gold</td>
                                                         <td>6 Months</td>
                                                         <td>&#8377;4999</td>
-                                                        {/* <td><a href="#" className="cta-dark cta-sml" download><span>Download</span></a></td> */}
                                                     </tr>
                                                     <tr>
                                                         <td>Platinum</td>
                                                         <td>12 Months</td>
                                                         <td>&#8377;9999</td>
-                                                        {/* <td><a href="#" className="cta-dark cta-sml" download><span>Download</span></a></td> */}
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -77,7 +88,23 @@ const UserPlan = () => {
                                     </div>
                                     <div className="col-md-12 db-sec-com">
                                         <div className="alert alert-warning db-plan-canc">
-                                            {/* <p><strong>Plan cancellation:</strong> <a href="#" data-bs-toggle="modal" data-bs-target="#plancancel">Click here</a> to cancell the current plan.</p> */}
+                                            {activePlan && activePlan.status === 'Approved' ? (
+                                                <>
+                                                    <p>Enjoy plan benefits until <strong>{new Date(activePlan.expiry_date).toLocaleDateString()}</strong>.</p>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <p><strong>No active plan:</strong> Upgrade to a premium plan to enjoy the following benefits:</p>
+                                                    <ul>
+                                                        <li>Access to all premium profiles.</li>
+                                                        <li>Send interest.</li>
+                                                        <li>View contact details of matches.</li>
+                                                        <li>View photos of partner's profiles.</li>
+                                                        <li>Get priority customer support.</li>
+                                                    </ul>
+                                                    <p><a href="/pricing" className="cta-3">Upgrade now</a> </p>
+                                                </>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -87,6 +114,7 @@ const UserPlan = () => {
                 </div>
             </section>
         </>
-    )
+    );
 }
+
 export default UserPlan;
