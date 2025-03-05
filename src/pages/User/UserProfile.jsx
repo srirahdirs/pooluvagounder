@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FileUpload } from "primereact/fileupload";
-import { Dialog } from "primereact/dialog";
 import { Toast } from "primereact/toast";
 import { useToast } from "../../assets/utils/toastUtil";
 import { useAuth } from "../../context/AuthContext";
@@ -16,6 +15,9 @@ const UserProfile = () => {
   const [hoveredImage, setHoveredImage] = useState(null);
   const [profilePicture, setProfilePicture] = useState(null);
   const [profileCompletion, setProfileCompletion] = useState(0);
+  const [isUploading, setIsUploading] = useState(false); // State to handle upload loader
+  const [uploadProgress, setUploadProgress] = useState(0);
+
   const toastRef = useRef(null);
   const apiUrl = config?.apiUrl;
   const fullApiUrl = apiUrl ? `${apiUrl}makeProfilePicture` : null;
@@ -122,7 +124,7 @@ const UserProfile = () => {
       const response = await fetch(fullApiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: user.id, image_id: image.id }),
+        body: JSON.stringify({ user_id: user.id, image_id: image.id })
       });
 
       if (response.ok) {
@@ -131,7 +133,7 @@ const UserProfile = () => {
 
         const updatedUser = {
           ...user,
-          user_profile_picture: image.file_path,
+          user_profile_picture: image.file_path
         };
         setUser(updatedUser);
       } else {
@@ -154,7 +156,7 @@ const UserProfile = () => {
       const response = await fetch(deleteApiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: user.id, image_id: image.id }),
+        body: JSON.stringify({ user_id: user.id, image_id: image.id })
       });
 
       if (response.ok) {
@@ -178,7 +180,7 @@ const UserProfile = () => {
         const updatedUser = {
           ...user,
           user_images: updatedImages,
-          user_profile_picture: newProfilePicture,
+          user_profile_picture: newProfilePicture
         };
 
         setUser(updatedUser);
@@ -218,20 +220,31 @@ const UserProfile = () => {
 
     formData.append("user_id", user.id);
 
-    try {
-      const uploadPhotosApiUrl = apiUrl ? `${apiUrl}uploadPhotos` : null;
-      if (!uploadPhotosApiUrl) {
-        console.error("Invalid API URL");
-        return;
+    setIsUploading(true); // Set loading to true when uploading starts
+
+    const uploadPhotosApiUrl = apiUrl ? `${apiUrl}uploadPhotos` : null;
+    if (!uploadPhotosApiUrl) {
+      console.error("Invalid API URL");
+      return;
+    }
+
+    // Create a new XMLHttpRequest to upload the files and track progress
+    const xhr = new XMLHttpRequest();
+
+    // Track upload progress
+    xhr.upload.addEventListener("progress", (event) => {
+      if (event.lengthComputable) {
+        const percent = Math.round((event.loaded / event.total) * 100);
+        console.log(`Upload progress: ${percent}%`);
+        setUploadProgress(percent); // Update the progress state
       }
+    });
 
-      const response = await fetch(uploadPhotosApiUrl, {
-        method: "POST",
-        body: formData,
-      });
+    xhr.open("POST", uploadPhotosApiUrl, true);
 
-      if (response.ok) {
-        const responseData = await response.json();
+    xhr.onload = async () => {
+      if (xhr.status === 200) {
+        const responseData = JSON.parse(xhr.responseText);
         console.log(responseData, "responseData");
 
         if (responseData.user?.user_images) {
@@ -259,7 +272,7 @@ const UserProfile = () => {
             user_images: updatedImages,
             user_profile_picture: newProfilePicture
               ? newProfilePicture.file_path
-              : user.user_profile_picture, // Update the profile picture
+              : user.user_profile_picture // Update the profile picture
           };
 
           console.log(updatedUser, "updatedUser");
@@ -274,20 +287,36 @@ const UserProfile = () => {
           // Show a success message
           showToast("Photos uploaded successfully");
           setTimeout(hideModal, 1000);
+
+          // Reset the progress bar after the upload completes
+          setUploadProgress(0); // Reset progress to 0
+          setIsUploading(false); // Hide progress bar after upload
         } else {
           console.error("User images not found in response");
         }
       } else {
-        const errorResponse = await response.json();
+        const errorResponse = JSON.parse(xhr.responseText);
         console.error("Error uploading files:", errorResponse);
+
+        // Handle errors here and reset progress
+        setUploadProgress(0);
+        setIsUploading(false);
       }
-    } catch (error) {
-      console.error("Error uploading files:", error);
-    }
+    };
+
+    xhr.onerror = (error) => {
+      console.error("Upload failed:", error);
+      // Reset progress and hide the progress bar in case of error
+      setUploadProgress(0);
+      setIsUploading(false);
+    };
+
+    // Send the form data
+    xhr.send(formData);
   };
 
-   // Function to show modal
-   const showModal = () => {
+  // Function to show modal
+  const showModal = () => {
     setIsModalOpen(true);
   };
 
@@ -296,60 +325,75 @@ const UserProfile = () => {
     setIsModalOpen(false);
   };
 
-
   return (
     <>
       <div className="image_upload">
         <Toast ref={toast} />
-        
-        <div>
-     
+        {/* Modal */}
+        {isModalOpen && (
+          <div
+            className="modal fade show"
+            id="sendInter"
+            aria-modal="true"
+            role="dialog"
+            style={{ display: "block" }} // Ensures it's visible when `isModalOpen` is true
+          >
+            <div className="modal-dialog modal-dialog-centered modal-lg">
+              <div className="modal-content position-relative">
+                {/* Modal Header */}
+                <div className="modal-header ">
+                  <h4 className="modal-title seninter-tit">Upload Images</h4>
+                  <a
+                    href="#"
+                    type="button"
+                    className="btn-close text-danger"
+                    aria-label="Close"
+                    onClick={hideModal} // Close modal when clicked
+                  />
+                </div>
 
-      {/* Modal */}
-      {isModalOpen && (
-        <div
-          className="modal fade show"
-          id="sendInter"
-          aria-modal="true"
-          role="dialog"
-          style={{ display: "block" }} // Ensures it's visible when `isModalOpen` is true
-        >
-          <div className="modal-dialog modal-dialog-centered modal-lg">
-            <div className="modal-content position-relative">
+                {/* Modal Body */}
+                <div className="modal-body seninter">
+                  <FileUpload
+                    name="image"
+                    url="/upload" // Not used since we are using customUpload
+                    onUpload={() => {}} // Callback on file upload completion
+                    accept="image/*" // Accept only image files
+                    maxFileSize={10000000} // Increased limit to 10 MB
+                    chooseLabel="Select Image"
+                    auto
+                    customUpload
+                    uploadHandler={uploadHandler} // Custom handler for file upload
+                    multiple
+                    className="file-upload" // Add custom className for file upload styling
+                  />
 
-              {/* Modal Header */}
-              <div className="modal-header ">
-                <h4 className="modal-title seninter-tit">Upload Images</h4>
-                <a
-                href="#"
-                type="button"
-                className="btn-close text-danger  "
-                aria-label="Close"
-                onClick={hideModal} // Close modal when clicked
-              />
-              </div>
+                  {/* Loader Spinner */}
+                  {isUploading && (
+                    <div className="loader">
+                      <div className="spinner"></div>
+                    </div>
+                  )}
 
-              {/* Modal Body */}
-              <div className="modal-body seninter">
-                <FileUpload
-                  name="image"
-                  url="/upload" // Not used since we are using customUpload
-                  onUpload={() => {}} // Callback on file upload completion
-                  accept="image/*" // Accept only image files
-                  maxFileSize={10000000} // Increased limit to 10 MB
-                  chooseLabel="Select Image"
-                  auto
-                  customUpload
-                  uploadHandler={uploadHandler} // Custom handler for file upload
-                  multiple
-                  className="file-upload" // Add custom className for file upload styling
-                />
+                  {/* Progress bar */}
+                  {isUploading && uploadProgress > 0 && (
+                    <div>
+                      <div
+                        className="progress-bar"
+                        style={{
+                          width: `${uploadProgress}%`,
+                          height: "20px",
+                          backgroundColor: "green"
+                        }}
+                      ></div>
+                      <p>{uploadProgress}%</p>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
       </div>
 
       <section>
@@ -370,6 +414,7 @@ const UserProfile = () => {
                           key={index}
                           onMouseEnter={() => handleMouseEnter(index)}
                           onMouseLeave={handleMouseLeave}
+                          onClick={() => handleMouseEnter(index)}
                         >
                           <div className="img-wrapper">
                             <a href={image.file_path}>
@@ -384,11 +429,14 @@ const UserProfile = () => {
                               className="img-overlay"
                               style={{
                                 opacity: hoveredImage === index ? 1 : 0,
-                                cursor: "pointer",
+                                cursor: "pointer"
                               }}
-                              onClick={() => deletePicture(image)}
                             >
-                              <i className="fa fa-trash" aria-hidden="true"></i>
+                              <i
+                                className="fa fa-trash"
+                                aria-hidden="true"
+                                onClick={() => deletePicture(image)}
+                              ></i>
                             </div>
 
                             {hoveredImage === index && (
@@ -403,7 +451,7 @@ const UserProfile = () => {
                                   padding: "5px 10px",
                                   backgroundColor: "#fff",
                                   border: "1px solid #000",
-                                  cursor: "pointer",
+                                  cursor: "pointer"
                                 }}
                               >
                                 Set Avatar

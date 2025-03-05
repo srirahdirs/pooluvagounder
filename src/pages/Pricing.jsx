@@ -159,8 +159,8 @@ const Pricing = () => {
 
                     <ol>
                       <li>
-                        <i className="fa fa-close close" aria-hidden="true"></i>{" "}
-                        5 Premium Profiles view /mo
+                        <i className="fa fa-check" aria-hidden="true"></i>{" "}
+                        15 Premium Profiles view /mo
                       </li>
                       <li>
                         <i className="fa fa-check" aria-hidden="true"></i> Free
@@ -171,7 +171,7 @@ const Pricing = () => {
                         contact details view
                       </li>
                       <li>
-                        <i className="fa fa-close close" aria-hidden="true"></i>{" "}
+                        <i className="fa fa-check" aria-hidden="true"></i>{" "}
                         Can't send interest
                       </li>
                       <li>

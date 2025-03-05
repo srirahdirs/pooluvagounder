@@ -67,7 +67,7 @@ const SearchResults = () => {
                                     </div>
                                     <div className="short-rhs">
                                         <ul>
-                                            <li>Sort by:</li>
+                                            {/* <li>Sort by:</li>
                                             <li>
                                                 <div className="form-group">
                                                     <select className="chosen-select">
@@ -76,7 +76,7 @@ const SearchResults = () => {
                                                         <option value="oldest">Date listed: Oldest</option>
                                                     </select>
                                                 </div>
-                                            </li>
+                                            </li> */}
                                             <li>
                                                 <div className="sort-grid sort-grid-1">
                                                     <i className="fa fa-th-large" aria-hidden="true"></i>
@@ -146,9 +146,9 @@ const SearchResults = () => {
                                                                 </div>
                                                             </div>
 
-                                                            <span className="enq-sav" data-toggle="tooltip" title="Click to save this profile.">
+                                                            {/* <span className="enq-sav" data-toggle="tooltip" title="Click to save this profile.">
                                                                 <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                                                            </span>
+                                                            </span> */}
 
                                                             {!isPaidUser ? (
                                                                 <div className="buy-now-container">

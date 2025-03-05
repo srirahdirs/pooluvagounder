@@ -659,6 +659,10 @@ h6 {
     /* Change border color when focused */
 }
 
+.modal-content a{
+    font-size: small;
+}
+
 .modal-content a:disabled {
     cursor: not-allowed;
 }
@@ -890,3 +894,23 @@ h6 {
       margin-bottom: 20px;
     }
   }
+
+  @media (max-width: 426px) {
+    
+    .img-wrapper  i{
+        font-size: 18px;
+    }
+    .img-wrapper  button{
+        font-size: 10px;
+    }
+  }
+
+  .progress-bar {
+    background-color: #4caf50;
+    height: 20px;
+    border-radius: 5px;
+    transition: width 0.5s;
+  }
+
+  
+  
