@@ -15,7 +15,6 @@ const Upi = () => {
             } else {
                 setQrCodeUrl(url); // Set the generated QR code URL
             }
-            console.log('QR Code URL:', url);
         });
     }, []);
 

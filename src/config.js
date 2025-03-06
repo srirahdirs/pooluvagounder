@@ -1,5 +1,4 @@
 
-console.log('API URL:', process.env.REACT_APP_API_URL);
 const config = {
     apiUrl: process.env.REACT_APP_API_URL,  // Assign apiUrl to the environment variable
     cryptoSecretKey: 'jira@123',

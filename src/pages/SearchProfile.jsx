@@ -40,7 +40,6 @@ const SearchProfile = ({ user }) => {
 
   const fetchCities = async (e) => {
     const selectedState = e.target.value;
-    console.log('Selected State:', selectedState);
     // Update the form state
     setFormData({
       ...formData,
@@ -50,7 +49,6 @@ const SearchProfile = ({ user }) => {
 
     // If no state is selected, reset the cities list and return early
     if (!selectedState) {
-      console.log('Selected State:', cityRef);
 
       // Reset city value in searchForm
       setSearchForm((prevState) => ({
@@ -101,7 +99,6 @@ const SearchProfile = ({ user }) => {
 
   // Handle form change
   const handleInputChange = (e) => {
-    console.log('Input Changed:', e.target.name, e.target.value);  // Log the name and value of the input
     setSearchForm({
       ...searchForm,
       [e.target.name]: e.target.value,

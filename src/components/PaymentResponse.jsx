@@ -8,7 +8,6 @@ const PaymentResponse = () => {
 
         axios.post('https://api.weddingsoulmates.com/decryptResponse', { encResponse })
             .then(response => {
-                console.log(response.data);
             });
     }, []);
 

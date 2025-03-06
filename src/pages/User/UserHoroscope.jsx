@@ -23,7 +23,6 @@ const UserHoroscope = () => {
                 horoscope => horoscope.horoscope_premium_path && horoscope.id
             ) || [];
             setUserHoroscopes(validUserHoroscopes);
-            console.log(validUserHoroscopes, 'validUserHoroscopes');
         }
     }, [user]);
 
@@ -35,7 +34,6 @@ const UserHoroscope = () => {
     const handleMouseLeave = () => setHoveredImage(null);
 
     const deleteHoroscope = async (horoscope) => {
-        console.log(horoscope);
         const deleteApiUrl = apiUrl ? `${apiUrl}deleteHoroscope` : null;
         if (!deleteApiUrl) {
             console.error('Invalid API URL');
@@ -108,7 +106,6 @@ const UserHoroscope = () => {
 
             if (response.ok) {
                 const responseData = await response.json();
-                console.log(responseData, 'responseData');
 
                 if (responseData.user?.user_horoscopes) {
                     const existingHoroscopes = user.user_horoscopes || [];
@@ -142,68 +139,68 @@ const UserHoroscope = () => {
     };
 
     // Function to show modal
-   const showModal = () => {
-    setIsModalOpen(true);
-  };
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
 
-  // Function to hide modal
-  const hideModal = () => {
-    setIsModalOpen(false);
-  };
+    // Function to hide modal
+    const hideModal = () => {
+        setIsModalOpen(false);
+    };
 
     return (
         <>
             <div className="image_upload">
                 <Toast ref={toast} />
-                
+
                 <div>
-                     
-                
-                      {/* Modal */}
-                      {isModalOpen && (
+
+
+                    {/* Modal */}
+                    {isModalOpen && (
                         <div
-                          className="modal fade show"
-                          id="sendInter"
-                          aria-modal="true"
-                          role="dialog"
-                          style={{ display: "block" }} // Ensures it's visible when `isModalOpen` is true
+                            className="modal fade show"
+                            id="sendInter"
+                            aria-modal="true"
+                            role="dialog"
+                            style={{ display: "block" }} // Ensures it's visible when `isModalOpen` is true
                         >
-                          <div className="modal-dialog modal-dialog-centered modal-lg">
-                            <div className="modal-content position-relative">
-                
-                              {/* Modal Header */}
-                              <div className="modal-header ">
-                                <h4 className="modal-title seninter-tit">Upload Horoscope</h4>
-                                <a
-                                href="#"
-                                type="button"
-                                className="btn-close text-danger  "
-                                aria-label="Close"
-                                onClick={hideModal} // Close modal when clicked
-                              />
-                              </div>
-                
-                              {/* Modal Body */}
-                              <div className="modal-body seninter">
-                                <FileUpload
-                                  name="image"
-                                  url="/upload" // Not used since we are using customUpload
-                                  onUpload={() => {}} // Callback on file upload completion
-                                  accept="image/*" // Accept only image files
-                                  maxFileSize={10000000} // Increased limit to 10 MB
-                                  chooseLabel="Select Image"
-                                  auto
-                                  customUpload
-                                  uploadHandler={uploadHandler} // Custom handler for file upload
-                                  multiple
-                                  className="file-upload" // Add custom className for file upload styling
-                                />
-                              </div>
+                            <div className="modal-dialog modal-dialog-centered modal-lg">
+                                <div className="modal-content position-relative">
+
+                                    {/* Modal Header */}
+                                    <div className="modal-header ">
+                                        <h4 className="modal-title seninter-tit">Upload Horoscope</h4>
+                                        <a
+                                            href="#"
+                                            type="button"
+                                            className="btn-close text-danger  "
+                                            aria-label="Close"
+                                            onClick={hideModal} // Close modal when clicked
+                                        />
+                                    </div>
+
+                                    {/* Modal Body */}
+                                    <div className="modal-body seninter">
+                                        <FileUpload
+                                            name="image"
+                                            url="/upload" // Not used since we are using customUpload
+                                            onUpload={() => { }} // Callback on file upload completion
+                                            accept="image/*" // Accept only image files
+                                            maxFileSize={10000000} // Increased limit to 10 MB
+                                            chooseLabel="Select Image"
+                                            auto
+                                            customUpload
+                                            uploadHandler={uploadHandler} // Custom handler for file upload
+                                            multiple
+                                            className="file-upload" // Add custom className for file upload styling
+                                        />
+                                    </div>
+                                </div>
                             </div>
-                          </div>
                         </div>
-                      )}
-                    </div>
+                    )}
+                </div>
             </div>
 
             <section>

@@ -7,7 +7,6 @@ const Logout = () => {
     const { setUser, setIsLoggedIn } = useAuth(); // Destructure setUser and setIsLoggedIn from context
 
     useEffect(() => {
-        console.log('User signed out');
         localStorage.removeItem('user');
         localStorage.removeItem('authToken');
 

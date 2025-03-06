@@ -105,7 +105,6 @@ const Registration = () => {
         }
 
         setLoading(true); // Start loading
-        console.log('Sending registration request...');
 
         try {
             const response = await fetch(fullApiUrl, {
@@ -116,7 +115,6 @@ const Registration = () => {
                 body: JSON.stringify({ name, email, phone, password }),
             });
 
-            console.log('Received response from backend');
 
             if (!response.ok) {
                 const errorData = await response.json();

@@ -89,14 +89,11 @@ const VerifyOtp = () => {
         const currentTime = Math.floor(Date.now() / 1000); // Get the current time in seconds (for comparison with exp)
 
         if (currentTime > exp) {
-          console.log("OTP has expired. Please request a new OTP.");
           setErrorMessage("OTP has expired. Please request a new OTP.");
           setOtp(Array(6).fill("")); // Clear the OTP input
           return;
         }
 
-        console.log("userEnteredOTP", userEnteredOTP);
-        console.log("storedOTP", storedOTP);
 
         if (userEnteredOTP === storedOTP) {
           setIsLoggedIn(true); // Update login status
@@ -123,12 +120,10 @@ const VerifyOtp = () => {
           setOtp(Array(6).fill("")); // Clear the OTP input
         }
       } catch (error) {
-        console.log("Error decoding OTP:", error);
         setErrorMessage("Invalid OTP format.");
         setOtp(Array(6).fill("")); // Clear the OTP input
       }
     } else {
-      console.log("No OTP token found. Please request an OTP.");
       setErrorMessage("No OTP token found. Please request an OTP.");
     }
   };
@@ -145,12 +140,10 @@ const VerifyOtp = () => {
           body: JSON.stringify({ email }),
         });
 
-        console.log("Received response from backend", response);
 
         // Check if the response was successful
         if (response.ok) {
           const result = await response.json();
-          console.log(result.message); // Backend response message
           const decoded = jwtDecode(result.otpToken);
           sessionStorage.setItem("decodedOTP", JSON.stringify(decoded));
           // If OTP was successfully sent
@@ -173,7 +166,7 @@ const VerifyOtp = () => {
   };
 
   return (
-    
+
     <section>
       <Toast ref={toast} />
       <div style={{ margin: "200px" }}></div>

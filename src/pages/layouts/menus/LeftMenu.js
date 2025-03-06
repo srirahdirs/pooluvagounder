@@ -41,7 +41,6 @@ const LeftMenu = () => {
     useEffect(() => {
         const checkActivePlan = () => {
             const activePlan = user?.active_plan; // Access the active_plan object directly
-            console.log('Active plan:', activePlan);
 
             if (activePlan) {
                 const expiryDate = new Date(activePlan.expiry_date); // Convert expiry_date to a Date object
@@ -49,14 +48,11 @@ const LeftMenu = () => {
 
                 if (expiryDate > currentDate) {
                     setIsPlanActive(true); // Plan is active
-                    console.log('Plan is active. Expiry date:', expiryDate);
                 } else {
                     setIsPlanActive(false); // Plan is expired
-                    console.log('Plan is expired. Expiry date:', expiryDate);
                 }
             } else {
                 setIsPlanActive(false); // No active plan
-                console.log('No active plan found.');
             }
         };
 
@@ -78,7 +74,6 @@ const LeftMenu = () => {
                 } else {
                     setQrCodeUrl(url); // Set the generated QR code URL
                 }
-                console.log('QR Code URL:', url);
             });
         }
     }, [planPrice, upiId, isPlanActive]);
@@ -90,7 +85,6 @@ const LeftMenu = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSubmitted(true);
-        console.log("Transaction ID submitted:", transactionId);
         const token = localStorage.getItem('authToken');
         const payload = {
             token,
@@ -98,7 +92,6 @@ const LeftMenu = () => {
             order_id: orderId,
             plan_price: planPrice,
         };
-        console.log(payload);
         try {
             const response = await fetch(fullApiUrl, {
                 method: 'POST',
@@ -124,8 +117,6 @@ const LeftMenu = () => {
                     });
 
                     const planData = await planResponse.json();
-                    console.log('Plan Details:', planData);
-                    console.log('planData.plan.status:', planData.plan.status);
 
                     if (planData.plan.status === 'Approved') {
                         clearInterval(intervalId);

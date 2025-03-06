@@ -96,7 +96,6 @@ const UserProfile = () => {
         user.user_images?.filter((image) => image.file_path && image.id) || [];
 
       setUserImages(validUserImages);
-      console.log(validUserImages, "validUserImages");
       if (user.user_profile_picture && user.user_profile_picture !== "") {
         setProfilePicture(user.user_profile_picture);
       } else if (validUserImages.length > 0) {
@@ -145,7 +144,6 @@ const UserProfile = () => {
   };
 
   const deletePicture = async (image) => {
-    console.log(image);
     const deleteApiUrl = apiUrl ? `${apiUrl}deletePicture` : null;
     if (!deleteApiUrl) {
       console.error("Invalid API URL");
@@ -184,7 +182,6 @@ const UserProfile = () => {
         };
 
         setUser(updatedUser);
-        console.log("newProfilePicture", newProfilePicture);
         setProfilePicture(newProfilePicture);
       } else {
         console.error("Failed to delete picture");
@@ -235,7 +232,6 @@ const UserProfile = () => {
     xhr.upload.addEventListener("progress", (event) => {
       if (event.lengthComputable) {
         const percent = Math.round((event.loaded / event.total) * 100);
-        console.log(`Upload progress: ${percent}%`);
         setUploadProgress(percent); // Update the progress state
       }
     });
@@ -245,7 +241,6 @@ const UserProfile = () => {
     xhr.onload = async () => {
       if (xhr.status === 200) {
         const responseData = JSON.parse(xhr.responseText);
-        console.log(responseData, "responseData");
 
         if (responseData.user?.user_images) {
           const existingImages = user.user_images || [];
@@ -275,7 +270,6 @@ const UserProfile = () => {
               : user.user_profile_picture // Update the profile picture
           };
 
-          console.log(updatedUser, "updatedUser");
 
           // Save the updated user to localStorage and update state globally
           localStorage.setItem("user", JSON.stringify(updatedUser));
@@ -357,7 +351,7 @@ const UserProfile = () => {
                   <FileUpload
                     name="image"
                     url="/upload" // Not used since we are using customUpload
-                    onUpload={() => {}} // Callback on file upload completion
+                    onUpload={() => { }} // Callback on file upload completion
                     accept="image/*" // Accept only image files
                     maxFileSize={10000000} // Increased limit to 10 MB
                     chooseLabel="Select Image"

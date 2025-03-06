@@ -3,7 +3,6 @@ import { useAuth } from "../../../context/AuthContext";
 
 const RightMenu = () => {
     const { isLoggedIn, user } = useAuth();
-    console.log(user, 'user');
 
     return (
         <>

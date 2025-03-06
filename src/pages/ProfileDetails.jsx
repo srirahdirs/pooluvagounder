@@ -46,7 +46,6 @@ const ProfileDetails = () => {
 
         if (response.ok) {
           const getuserdetails = await response.json();
-          console.log(getuserdetails, 'getuserdetails');
 
           setUser(getuserdetails.user);
           setUserDetails(getuserdetails.user?.user_details);

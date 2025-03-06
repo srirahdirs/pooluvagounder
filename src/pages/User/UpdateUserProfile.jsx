@@ -38,7 +38,6 @@ const UpdateUserProfile = () => {
     //     return savedUser ? JSON.parse(savedUser) : {};
     // });
 
-    // console.log(user, "hello ")
 
     function calculateAge(dob) {
         if (!dob) return "";
@@ -273,8 +272,6 @@ const UpdateUserProfile = () => {
             }
         }
         if (name === 'marital_status') {
-            console.log(name, 'marital_status');
-            console.log(value, 'marital_status value');
             if (value.trim() === '') {
                 setMaritalStatusError('Marital Status is required');
             } else {
@@ -403,7 +400,6 @@ const UpdateUserProfile = () => {
                 about: formData.about,
                 marital_status: formData.marital_status,
             };
-            console.log(payload);
             try {
                 const response = await fetch(fullApiUrl, {
                     method: 'POST',
@@ -414,7 +410,6 @@ const UpdateUserProfile = () => {
                 });
 
                 const data = await response.json();
-                console.log(data, "data");
                 if (data?.message) {
                     setUser(data.user);
                     localStorage.setItem('user', JSON.stringify(data.user));
@@ -427,7 +422,6 @@ const UpdateUserProfile = () => {
             }
         } else {
             showToast('please fill all the values', 'error');
-            console.log('Form has validation errors.', 'error');
             return false;
         }
     };
@@ -516,7 +510,6 @@ const UpdateUserProfile = () => {
     };
     const handleReligionSubmit = async (e) => {
         e.preventDefault();
-        console.log("handleReligionSubmit", formData);
 
         // Perform full form validation before submission
         if (!formData.religion || formData.religion === '') {
@@ -557,7 +550,6 @@ const UpdateUserProfile = () => {
             });
 
             const data = await response.json();
-            console.log(data, 'data');
 
             if (data?.message) {
                 setUser(data.user);

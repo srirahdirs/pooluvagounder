@@ -52,8 +52,6 @@ const SearchSection = () => {
             state: selectedState,
             city: '' // Reset city
         });
-        console.log(formData, 'formData');
-        console.log(selectedState, 'selectedState');
 
         setSearchForm({
             ...searchForm,
@@ -90,7 +88,6 @@ const SearchSection = () => {
 
     // Handle form change
     const handleInputChange = (e) => {
-        console.log('Input Changed:', e.target.name, e.target.value); // Log the name and value of the input
         setSearchForm({
             ...searchForm,
             [e.target.name]: e.target.value, // Update the specific field

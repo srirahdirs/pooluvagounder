@@ -54,7 +54,6 @@ const PartnerPreferences = () => {
 
 
     const userGender = user?.user_details?.gender || ''; // Get user's gender
-    console.log(userGender, 'userGender');
     const partnerGender = userGender === 'Male' ? 'Female' : (userGender === 'Female' ? 'Male' : '');
     const [formData, setFormData] = useState({
         gender: partnerGender || user?.partner_preferences?.gender || '',  // Default to empty string if undefined
@@ -117,8 +116,6 @@ const PartnerPreferences = () => {
         //     }
         // }
         if (name === 'caste') {
-            console.log(name, 'caste');
-            console.log(value, 'marital_scastetatus value');
             if (value.trim() === '') {
                 setCasteError('Caste is required');
             } else {
@@ -137,9 +134,6 @@ const PartnerPreferences = () => {
 
 
         let isValid = true;
-        console.log("fieldValues");
-        console.log(fieldValues);
-        console.log(fieldValues.age, 'age');
         // Validate gender
         if (!fieldValues.gender || fieldValues.gender === '') {
             setGenderError('Gender is required');
@@ -215,7 +209,6 @@ const PartnerPreferences = () => {
                 sub_caste: formData.sub_caste,
                 dosam: formData.dosam,
             };
-            console.log(payload);
             try {
                 const response = await fetch(fullApiUrl, {
                     method: 'POST',
@@ -247,7 +240,6 @@ const PartnerPreferences = () => {
             }
         } else {
             showToast('please fill all the values', 'error');
-            console.log('Form has validation errors.', 'error');
             return false;
         }
     };
