@@ -162,10 +162,7 @@ const Pricing = () => {
                         <i className="fa fa-check" aria-hidden="true"></i>{" "}
                         15 Premium Profiles view /mo
                       </li>
-                      <li>
-                        <i className="fa fa-check" aria-hidden="true"></i> Free
-                        user profile view
-                      </li>
+
                       <li>
                         <i className="fa fa-check" aria-hidden="true"></i>{" "}
                         View contact details
@@ -179,6 +176,9 @@ const Pricing = () => {
                       </li>
                       <li>
                         <i className="fa fa-close close" aria-hidden="true"></i> Horoscope View
+                      </li>
+                      <li>
+                        <i className="fa fa-close close" aria-hidden="true"></i> Priority Customer Support
                       </li>
                       <li>
                         <i className="fa fa-close close" aria-hidden="true"></i>{" "}
@@ -225,10 +225,7 @@ const Pricing = () => {
                         <i className="fa fa-check" aria-hidden="true"></i> 100
                         Premium Profiles view /mo
                       </li>
-                      <li>
-                        <i className="fa fa-check" aria-hidden="true"></i> Free
-                        user profile view
-                      </li>
+
                       <li>
                         <i className="fa fa-check" aria-hidden="true"></i> View
                         contact details
@@ -244,6 +241,10 @@ const Pricing = () => {
                         <i className="fa fa-check" aria-hidden="true"></i> Horoscope View
                       </li>
 
+
+                      <li>
+                        <i className="fa fa-check" aria-hidden="true"></i> Priority Customer Support
+                      </li>
                       <li>
                         <i className="fa fa-close close" aria-hidden="true"></i>{" "}
                         No chat feature
@@ -288,10 +289,7 @@ const Pricing = () => {
                         <i className="fa fa-check" aria-hidden="true"></i> Unlimited
                         Premium Profiles view
                       </li>
-                      <li>
-                        <i className="fa fa-check" aria-hidden="true"></i> Free
-                        user profile view
-                      </li>
+
                       <li>
                         <i className="fa fa-check" aria-hidden="true"></i> View
                         contact details
@@ -307,6 +305,10 @@ const Pricing = () => {
                         <i className="fa fa-check" aria-hidden="true"></i> Horoscope View
                       </li>
 
+
+                      <li>
+                        <i className="fa fa-check" aria-hidden="true"></i> Priority Customer Support
+                      </li>
                       <li>
                         <i className="fa fa-check" aria-hidden="true"></i> Chat
                         feature
