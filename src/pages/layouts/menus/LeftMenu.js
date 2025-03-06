@@ -120,7 +120,14 @@ const LeftMenu = () => {
 
                     if (planData.plan.status === 'Approved') {
                         clearInterval(intervalId);
-                        const updatedUser = { ...data.user, premium_user: 1 };
+                        const updatedUser = {
+                            ...data.user,
+                            premium_user: 1,
+                            active_plan: {
+                                ...data.user.active_plan,
+                                status: 'Approved'
+                            }
+                        };
                         setUser(updatedUser);
                         localStorage.setItem('user', JSON.stringify(updatedUser));
                         showToast('Payment approved! Your plan is now active.', 'success');
