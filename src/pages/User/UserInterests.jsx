@@ -69,9 +69,9 @@ const UserInterests = () => {
     };
 
     const renderProfile = (profile, buttonActions = true) => {
-        const encodedUserId = btoa(profile.user_id.toString());
+        const encodedUserId = btoa(profile?.user_id.toString());
         const profileLink = `/profiledetails/${encodeURIComponent(encodedUserId)}`;
-
+        console.log(profile, 'xcv');
         return (
             <li key={profile.user_id}>
                 <div className="db-int-pro-1">
@@ -174,7 +174,7 @@ const UserInterests = () => {
                                     <div className="blurred-section_user_interests">
                                         <div className="premium-overlay_user_interests">
                                             <p>You must upgrade to a premium membership to view and interact with interests.</p>
-                                            <a href="/premium" className="btn btn-primary">Upgrade Now</a>
+                                            <a href="/pricing" className="btn btn-primary">Upgrade Now</a>
                                         </div>
                                         <div className="blurred-content_user_interests">
                                             <div className="row">
@@ -195,9 +195,6 @@ const UserInterests = () => {
                                                                         )}
                                                                     </a>
                                                                 </li>
-                                                                {/* <li className="nav-item">
-                                                                    <a className="nav-link" data-bs-toggle="tab" href="#menu2">Accepted / Declined Interests</a>
-                                                                </li> */}
                                                             </ul>
 
                                                             <div className="tab-content">
@@ -228,20 +225,6 @@ const UserInterests = () => {
                                                                         </ul>
                                                                     </div>
                                                                 </div>
-
-                                                                {/* Accepted / Declined Interests */}
-                                                                {/* <div id="menu2" className="container tab-pane fade">
-                                                                    <br />
-                                                                    <div className="db-inte-prof-list">
-                                                                        <ul>
-                                                                            {IncomingInterests.length > 0 ? (
-                                                                                IncomingInterests.map(profile => renderProfile(profile))
-                                                                            ) : (
-                                                                                <p>No accepted or declined interests</p>
-                                                                            )}
-                                                                        </ul>
-                                                                    </div>
-                                                                </div> */}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -269,9 +252,6 @@ const UserInterests = () => {
                                                                 )}
                                                             </a>
                                                         </li>
-                                                        {/* <li className="nav-item">
-                                                            <a className="nav-link" data-bs-toggle="tab" href="#menu2">Accepted / Declined Interests</a>
-                                                        </li> */}
                                                     </ul>
 
                                                     <div className="tab-content">
@@ -302,26 +282,13 @@ const UserInterests = () => {
                                                                 </ul>
                                                             </div>
                                                         </div>
-
-                                                        {/* Accepted / Declined Interests */}
-                                                        {/* <div id="menu2" className="container tab-pane fade">
-                                                            <br />
-                                                            <div className="db-inte-prof-list">
-                                                                <ul>
-                                                                    {IncomingInterests.length > 0 ? (
-                                                                        IncomingInterests.map(profile => renderProfile(profile))
-                                                                    ) : (
-                                                                        <p>No accepted or declined interests</p>
-                                                                    )}
-                                                                </ul>
-                                                            </div>
-                                                        </div> */}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 )}
+
                             </div>
                         </div>
                     </div>

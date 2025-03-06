@@ -604,7 +604,7 @@ h6 {
     width: fit-content;
 }
 
-.modal-dialog{
+.modal-dialog {
     margin: auto;
 }
 
@@ -637,7 +637,7 @@ h6 {
     justify-content: center;
     gap: 10px;
     /* Space between input boxes */
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 
 .modal-content .otp-input {
@@ -659,7 +659,7 @@ h6 {
     /* Change border color when focused */
 }
 
-.modal-content a{
+.modal-content a {
     font-size: small;
 }
 
@@ -761,7 +761,7 @@ h6 {
 }
 
 .user_interests .blurred-content_user_interests {
-    /* filter: blur(8px); */
+    filter: blur(2px);
     pointer-events: none;
 }
 
@@ -797,18 +797,24 @@ h6 {
     border-radius: 50%;
     margin-left: 5px;
 }
+
 /* For mobile devices */
 @media (max-width: 768px) {
     .modal-dialog {
-      width: auto; /* Ensure it takes up 90% of the screen width */
-      max-width: 100%; /* Prevent it from exceeding screen width */
-      
+        width: auto;
+        /* Ensure it takes up 90% of the screen width */
+        max-width: 100%;
+        /* Prevent it from exceeding screen width */
+
     }
+
     .modal-content {
-      width: fit-content; /* Allow content to take full available width */
-      padding: 15px; /* Add padding for better spacing */
+        width: fit-content;
+        /* Allow content to take full available width */
+        padding: 15px;
+        /* Add padding for better spacing */
     }
-    
+
     .otp-container {
         gap: 0px;
         /* Space between input boxes */
@@ -819,98 +825,111 @@ h6 {
     .seninter {
         padding: 10px;
     }
-    
+
     .modal-content .otp-input {
-        width: 30px;    /* Width of each input box */
-        height: 40px;   /* Height of each input box */
-        text-align: center;  /* Center the text inside */
-        font-size: 14px; 
+        width: 30px;
+        /* Width of each input box */
+        height: 40px;
+        /* Height of each input box */
+        text-align: center;
+        /* Center the text inside */
+        font-size: 14px;
     }
 
-    .p-fileupload .p-fileupload-buttonbar .p-button{
-        margin: 40px 50px;  
+    .p-fileupload .p-fileupload-buttonbar .p-button {
+        margin: 40px 50px;
         max-width: fit-content;
     }
-    .modal{
+
+    .modal {
         padding: 2px;
     }
-  }
-  
-  /* For tablets and larger devices */
-  @media (min-width: 769px) {
+}
+
+/* For tablets and larger devices */
+@media (min-width: 769px) {
     .modal-dialog {
-      width: 50%; /* Limit width for larger screens */
-      max-width: 1000px; /* Prevent it from exceeding 1000px */
+        width: 50%;
+        /* Limit width for larger screens */
+        max-width: 1000px;
+        /* Prevent it from exceeding 1000px */
     }
+
     .modal-content {
-      width: fit-content; /* Allow content to fit based on content size */
+        width: fit-content;
+        /* Allow content to fit based on content size */
     }
-    .p-fileupload-buttonbar .p-button{
+
+    .p-fileupload-buttonbar .p-button {
         margin: 20px 20px;
     }
-  }
-  
-  /* Backdrop - creates the blur effect */
+}
+
+/* Backdrop - creates the blur effect */
 .modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
-  z-index: 1040; /* Make sure the backdrop sits below the modal */
-  filter: blur(10px); /* Apply blur effect to the background */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent black background */
+    z-index: 1040;
+    /* Make sure the backdrop sits below the modal */
+    filter: blur(10px);
+    /* Apply blur effect to the background */
 }
 
 /* For modal content */
 .modal-dialog {
-  z-index: 1050; /* Modal content sits above the backdrop */
+    z-index: 1050;
+    /* Modal content sits above the backdrop */
 }
 
 /* When modal is open */
 .modal.fade.show {
-  display: block; /* Ensure modal is shown when it has the 'show' class */
-  z-index: 1060; /* Higher than the backdrop */
+    display: block;
+    /* Ensure modal is shown when it has the 'show' class */
+    z-index: 1060;
+    /* Higher than the backdrop */
 }
 
-.p-fileupload-buttonbar .p-button{
-    margin: 50px 200px;  
+.p-fileupload-buttonbar .p-button {
+    margin: 50px 200px;
 }
 
-.p-fileupload-buttonbar{
+.p-fileupload-buttonbar {
     /* border:1px solid #5b5959; */
     box-shadow: 01px 1px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 426px) {
     .plans-main .container .row ul {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
-  
-    .plans-main .container .row ul li {
-      width: 100%;
-      margin-bottom: 20px;
-    }
-  }
 
-  @media (max-width: 426px) {
-    
-    .img-wrapper  i{
+    .plans-main .container .row ul li {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 426px) {
+
+    .img-wrapper i {
         font-size: 18px;
     }
-    .img-wrapper  button{
+
+    .img-wrapper button {
         font-size: 10px;
     }
-  }
+}
 
-  .progress-bar {
+.progress-bar {
     background-color: #4caf50;
     height: 20px;
     border-radius: 5px;
     transition: width 0.5s;
-  }
-
-  
-  
+}

@@ -85,7 +85,7 @@ const SearchProfile = ({ user }) => {
   const apiUrl = config?.apiUrl;
   let fullApiUrl;
   if (apiUrl) {
-    fullApiUrl = apiUrl + 'loggedInSearch';
+    fullApiUrl = apiUrl + 'search';
   } else {
     console.error('Invalid API url');
   }
@@ -254,6 +254,7 @@ const SearchProfile = ({ user }) => {
               onChange={handleInputChange}
             >
               <option value="">Select Caste</option>
+              <option value="Any">Any</option>
               <option value="Adi Dravidar">Adi Dravidar</option>
               <option value="Agarwal">Agarwal</option>
               <option value="Arya Vysya">Arya Vysya</option>

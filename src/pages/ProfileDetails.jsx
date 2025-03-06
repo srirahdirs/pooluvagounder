@@ -29,9 +29,10 @@ const ProfileDetails = () => {
     console.error("Encrypted user ID is undefined!");
   }
 
+  console.log(id, 'id');
 
   const userId = atob(id);
-
+  console.log(userId, 'userId');
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -43,6 +44,7 @@ const ProfileDetails = () => {
           },
           body: JSON.stringify({ user_id: userId, token: token }),
         });
+        console.log(response, 'response');
 
         if (response.ok) {
           const getuserdetails = await response.json();

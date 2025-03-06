@@ -19,7 +19,7 @@ const Matches = () => {
     const apiUrl = config?.apiUrl;
     let fullApiUrl;
     if (apiUrl) {
-        fullApiUrl = apiUrl + 'search';
+        fullApiUrl = apiUrl + 'loggedInSearch';
     } else {
         console.error('Invalid API URL');
     }
@@ -62,6 +62,7 @@ const Matches = () => {
     useEffect(() => {
         if (isLoggedIn && user) {
             const fetchData = async () => {
+                const token = localStorage.getItem('authToken');
                 try {
                     const response = await fetch(fullApiUrl, {
                         method: 'POST',
@@ -69,6 +70,7 @@ const Matches = () => {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
+                            token: token,
                             gender: user.partner_preferences.gender,
                             age: user.partner_preferences.age,
                             religion: user.partner_preferences.religion,
