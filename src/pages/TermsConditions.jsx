@@ -51,7 +51,7 @@ const TermsAndConditions = () => {
                 <p>We may update these Terms and Conditions from time to time. Any changes will be posted on this page, and the "Effective Date" at the top of the page will be updated accordingly.</p>
 
                 <h2 className='text-start'>11. Governing Law</h2>
-                <p>These Terms and Conditions are governed by and construed in accordance with the laws of India/Tamilnadu, and you submit to the exclusive jurisdiction of the courts located in [Insert Location] for the resolution of any disputes.</p>
+                <p>These Terms and Conditions are governed by and construed in accordance with the laws of India/Tamilnadu, and you submit to the exclusive jurisdiction of the courts located in India for the resolution of any disputes.</p>
 
                 <h2 className='text-start'>12. Contact Us</h2>
                 <p>If you have any questions about these Terms and Conditions, please contact us at:</p>
