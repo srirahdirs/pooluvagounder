@@ -22,6 +22,10 @@ const UserPlan = () => {
       <Navigate to="/login" state={{ message: "Login required" }} replace />
     );
   }
+  if (user?.is_verified === 0) {
+    return <Navigate to="/verifyotp" state={{ message: 'Verification required' }} replace />;
+  }
+
   return (
     <>
       <section>
@@ -129,7 +133,7 @@ const UserPlan = () => {
                             unlimited opportunities to connect with your perfect
                             match!"
                           </p>
-                    
+
                           <p>
                             <a href="/pricing" className="cta-3">
                               Upgrade now

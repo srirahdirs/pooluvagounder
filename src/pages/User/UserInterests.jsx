@@ -69,11 +69,11 @@ const UserInterests = () => {
     };
 
     const renderProfile = (profile, buttonActions = true) => {
-        const encodedUserId = btoa(profile?.user_id.toString());
+        const encodedUserId = btoa(profile?.partner_id.toString());
         const profileLink = `/profiledetails/${encodeURIComponent(encodedUserId)}`;
         console.log(profile, 'xcv');
         return (
-            <li key={profile.user_id}>
+            <li key={profile.partner_id}>
                 <div className="db-int-pro-1">
                     <img
                         src={profile.user_profile_picture || `${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`}
@@ -155,6 +155,9 @@ const UserInterests = () => {
 
     if (!user) {
         return <Navigate to="/login" state={{ message: 'Login required' }} replace />;
+    }
+    if (user?.is_verified === 0) {
+        return <Navigate to="/verifyotp" state={{ message: 'Verification required' }} replace />;
     }
 
     return (

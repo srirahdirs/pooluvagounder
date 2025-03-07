@@ -247,7 +247,9 @@ const PartnerPreferences = () => {
     if (!user) {
         return <Navigate to="/login" state={{ message: 'Login required' }} replace />;
     }
-
+    if (user?.is_verified === 0) {
+        return <Navigate to="/verifyotp" state={{ message: 'Verification required' }} replace />;
+    }
 
     return (
         <>

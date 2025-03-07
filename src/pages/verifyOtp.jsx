@@ -5,6 +5,7 @@ import config from "../config";
 import { Toast } from "primereact/toast";
 import { useToast } from "../assets/utils/toastUtil";
 import { jwtDecode } from "jwt-decode";
+import { use } from "react";
 
 const VerifyOtp = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -17,13 +18,19 @@ const VerifyOtp = () => {
 
   const apiUrl = config?.apiUrl;
   let fullApiUrl;
+  let fullApiUrlUpdateUser;
   if (apiUrl) {
     fullApiUrl = apiUrl + "send-otp";
+    fullApiUrlUpdateUser = apiUrl + "updateUser";
   } else {
     console.error("Invalid API url");
   }
 
-  const user = JSON.parse(sessionStorage.getItem("user"));
+  let user = JSON.parse(sessionStorage.getItem("user"));
+  if (user === null) {
+    user = JSON.parse(localStorage.getItem("user"));
+  }
+
   useEffect(() => {
     if (timer === 0) {
       setCanResend(true);
@@ -97,23 +104,11 @@ const VerifyOtp = () => {
 
         if (userEnteredOTP === storedOTP) {
           setIsLoggedIn(true); // Update login status
-
-          // Parse the user object from sessionStorage
-          const storedUser = JSON.parse(sessionStorage.getItem("user"));
-
-          // Store the parsed user object in localStorage
-          localStorage.setItem(
-            "authToken",
-            sessionStorage.getItem("authToken")
-          );
-          localStorage.setItem("user", JSON.stringify(storedUser)); // Store the user object in localStorage
-          setUser(storedUser);
-          // Clean up session storage
-          // sessionStorage.removeItem('email');
-          // sessionStorage.removeItem('decodedOTP');
-          // sessionStorage.removeItem('authToken');
-
+          const updatedUser = { ...user, is_verified: 1 };
+          localStorage.setItem("user", JSON.stringify(updatedUser));
+          setUser(updatedUser);
           showToast("Valid OTP");
+          vertifyUser();
           navigate("/edituserprofile");
         } else {
           setErrorMessage("Invalid OTP. Please try again.");
@@ -127,10 +122,42 @@ const VerifyOtp = () => {
       setErrorMessage("No OTP token found. Please request an OTP.");
     }
   };
+  const vertifyUser = async () => {
+    let token = sessionStorage.getItem("authToken");
+    if (token === null) {
+      token = localStorage.getItem("authToken")
+    }
+    const payload = {
+      token: token,
+      is_verified: 1
+    };
 
+    try {
+      const response = await fetch(fullApiUrlUpdateUser, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      showToast("Valid OTP");
+      navigate("/edituserprofile");
+
+    } catch (error) {
+      console.error('Error:', error);
+      showToast('An error occurred while updating settings.', 'error');
+    }
+  }
   const handleResendOtp = async () => {
     if (canResend) {
-      const email = sessionStorage.getItem("email");
+      let email = sessionStorage.getItem("email");
+      if (email === null) {
+        email = user?.email;
+      }
+      console.log(email, 'email')
       try {
         const response = await fetch(fullApiUrl, {
           method: "POST",

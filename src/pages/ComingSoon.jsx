@@ -44,10 +44,6 @@ const ComingSoon = () => {
     }, [targetDate]);
 
 
-    if (!user) {
-        return <Navigate to="/login" state={{ message: 'Login required' }} replace />;
-    }
-
     const styles = {
         container: {
             textAlign: 'center',

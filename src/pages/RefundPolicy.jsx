@@ -37,13 +37,13 @@ const RefundPolicy = () => {
                     <h3>1. No Refunds</h3>
                     <p>As our services involve access to premium features, once a subscription or service is purchased, it is considered final. We do not offer any refunds under any circumstances.</p>
 
-                    <h3>2. Cancellation of Subscription</h3>
-                    <p>If you choose to cancel your subscription, it will be valid until the end of the billing cycle. No partial refunds will be provided.</p>
+                    {/* <h3>2. Cancellation of Subscription</h3>
+                    <p>If you choose to cancel your subscription, it will be valid until the end of the billing cycle. No partial refunds will be provided.</p> */}
 
-                    <h3>3. Exceptional Circumstances</h3>
+                    <h3>2. Exceptional Circumstances</h3>
                     <p>In rare cases of technical failures or errors that prevent you from using the platform, please reach out to our support team. We will work to resolve the issue or provide alternate solutions. However, refunds will not be issued in these cases.</p>
 
-                    <h3>4. Contact Us</h3>
+                    <h3>3. Contact Us</h3>
                     <p>If you have any questions or need assistance, feel free to contact us:</p>
                     <ul>
                         <li>Email: <a href={`mailto:${supportEmail}`}><strong>{supportEmail}</strong></a></li>

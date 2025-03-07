@@ -67,8 +67,6 @@ const UpdateUserProfile = () => {
         if (user) user.dob = formattedDate;  // No need for optional chaining here
     }
 
-
-
     const [formData, setFormData] = useState({
         name: user?.name,
         email: user?.email,
@@ -569,6 +567,10 @@ const UpdateUserProfile = () => {
     if (!user) {
         return <Navigate to="/login" state={{ message: 'Login required' }} replace />;
     }
+    if (user?.is_verified === 0) {
+        return <Navigate to="/verifyotp" state={{ message: 'Verification required' }} replace />;
+    }
+
 
     return (
         <section>
