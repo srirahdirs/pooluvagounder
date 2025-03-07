@@ -26,9 +26,9 @@ const ServicesSection = () => {
                         <div className="home-acces">
                             <ul className="hom-qui-acc-sli">
                                 {[
-                                    { title: 'Browse Profiles', imgSrc: `${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`, link: 'all-profiles.html', description: 'Find Your Match' },
-                                    { title: 'Wedding', imgSrc: `${process.env.PUBLIC_URL}/matrimo/images/icon/gate.png`, link: 'wedding-video.html', description: 'Find Your Perfect Wedding Partners' },
-                                    { title: 'All Services', imgSrc: `${process.env.PUBLIC_URL}/matrimo/images/icon/couple.png`, link: 'services.html', description: 'Your One-Stop Service Hub' },
+                                    { title: 'Browse Profiles', imgSrc: `${process.env.PUBLIC_URL}/matrimo/images/icon/user.png`, link: '/allprofiles', description: 'Find Your Match' },
+                                    { title: 'Matches', imgSrc: `${process.env.PUBLIC_URL}/matrimo/images/icon/gate.png`, link: '/matches', description: 'Find Your Wedding Partners' },
+                                    { title: 'Premium Plans', imgSrc: `${process.env.PUBLIC_URL}/matrimo/images/icon/couple.png`, link: '/pricing', description: 'Unlock Exclusive Features' },
                                     { title: 'Join Now', imgSrc: `${process.env.PUBLIC_URL}/matrimo/images/icon/hall.png`, link: '/register', description: 'Start for free' }
 
                                 ].map((item, index) => (

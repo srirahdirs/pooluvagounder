@@ -64,9 +64,16 @@ $(document).ready(function () {
     $('.fil-mob').on('click', function () {
         $('.fil-mob-view').slideDown();
     });
-    $('#search_filter').on('click', function () {
-        $('.fil-mob-view').slideUp();
-    });
+    // $('#search_filter').on('click', function () {
+    //     $('.fil-mob-view').slideUp();
+    // });
+    // Check for mobile view (width < 768px)
+    if (window.innerWidth < 768) {
+        $('#search_filter').on('click', function () {
+            $('.fil-mob-view').slideUp();
+        });
+    }
+
     $('.filter-clo').on('click', function () {
         $('.fil-mob-view').slideUp();
     });

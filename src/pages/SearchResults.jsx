@@ -27,7 +27,6 @@ const SearchResults = () => {
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
-
     const secretKey = config?.cryptoSecretKey;
     const isPaidUser = user?.premium_user;
 
@@ -61,7 +60,7 @@ const SearchResults = () => {
                         <div className="row">
                             <SearchProfile />
                             <div className="col-md-9">
-                                <div className="short-all">
+                                <div className="short-all" style={{ paddingLeft: '0px' }}>
                                     <div className="short-lhs">
                                         Showing <b>{currentProfiles.length}</b> profiles
                                     </div>
@@ -158,34 +157,38 @@ const SearchResults = () => {
                                                                     <button className="buy-now-btn" onClick={navigateToPricing}>
                                                                         Purchase Plan
                                                                     </button>
-                                                                </div>  
+                                                                </div>
                                                             ) : ''}
                                                         </div>
                                                     </li>
                                                 );
                                             })
                                         ) : (
-                                            <p>No profiles found</p>
+                                            <p>No profiles found. Try adjusting your filters to find the perfect match<i className="fa fa-arrow-left"></i></p>
+
                                         )}
                                     </ul>
                                 </div>
                             </div>
                             {/* Pagination */}
-                            <div className="pagination-container">
-                                <button
-                                    onClick={() => handlePageChange(currentPage - 1)}
-                                    disabled={currentPage === 1 || searchResults.length === 0}
-                                >
-                                    Previous
-                                </button>
-                                <span>Page {currentPage} of {totalPages}</span>
-                                <button
-                                    onClick={() => handlePageChange(currentPage + 1)}
-                                    disabled={currentPage === totalPages || searchResults.length === 0}
-                                >
-                                    Next
-                                </button>
-                            </div>
+                            {searchResults.length > 0 && (
+                                <div className="pagination-container">
+                                    <button
+                                        onClick={() => handlePageChange(currentPage - 1)}
+                                        disabled={currentPage === 1}
+                                    >
+                                        Previous
+                                    </button>
+                                    <span>Page {currentPage} of {totalPages}</span>
+                                    <button
+                                        onClick={() => handlePageChange(currentPage + 1)}
+                                        disabled={currentPage === totalPages}
+                                    >
+                                        Next
+                                    </button>
+                                </div>
+                            )}
+
                         </div>
                     </div>
                 </div>
