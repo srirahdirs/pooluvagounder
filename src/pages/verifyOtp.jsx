@@ -106,10 +106,13 @@ const VerifyOtp = () => {
           setIsLoggedIn(true); // Update login status
           const updatedUser = { ...user, is_verified: 1 };
           localStorage.setItem("user", JSON.stringify(updatedUser));
+          vertifyUser();
           setUser(updatedUser);
           showToast("Valid OTP");
-          vertifyUser();
-          navigate("/edituserprofile");
+
+          setTimeout(() => {
+            navigate('/edituserprofile');
+          }, 3000);
         } else {
           setErrorMessage("Invalid OTP. Please try again.");
           setOtp(Array(6).fill("")); // Clear the OTP input

@@ -1,44 +1,111 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useSearchParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { Toast } from "primereact/toast";
+import { useToast } from '../../src/assets/utils/toastUtil';
+import { useAuth } from '../../src/context/AuthContext';
 const PaymentStatus = () => {
-    const [searchParams] = useSearchParams();
-    const orderId = searchParams.get('order_id');
-    const [paymentStatus, setPaymentStatus] = useState(null); // State to hold payment status
-    const [error, setError] = useState(null); // State to hold any error
-    const navigate = useNavigate();
-
+    const location = useLocation();
+    const [paymentStatus, setPaymentStatus] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const { toast, showToast } = useToast();
+    const { user, setUser } = useAuth();
+    const [isPlanActive, setIsPlanActive] = useState(false);
     useEffect(() => {
-        const fetchPaymentStatus = async () => {
-            if (!orderId) {
-                setError('Order ID is missing.');
-                return;
-            }
+        const checkPaymentStatus = async () => {
+            const searchParams = new URLSearchParams(location.search);
+            const orderId = searchParams.get('orderId'); // Capture orderId from the URL
+            const token = localStorage.getItem('authToken');
 
-            const response = await axios.get(`https://api.weddingsoulmates.com/paymentstatus?order_id=${orderId}`);
-            if (response?.data?.message === 'PAID') {
-                setPaymentStatus(response?.data?.message);
-            } else {
-                setError('Payment Failed. Please Try Again!',);
+            const payload = {
+                token,
+                orderId: orderId,
+            };
+
+            try {
+                const response = await axios.post('http://localhost:4000/api/payment-status', payload);
+
+                // Destructure the response data
+                const { status, amount, paymentMode, transactionId, timestamp, message, user } = response.data;
+
+                // Check payment status
+                if (status === 'COMPLETED') {
+                    // Update the user object
+                    const updatedUser = {
+                        ...user, // Use the user object from the response
+                        premium_user: 1,
+                        active_plan: {
+                            ...user.active_plan, // Use the active_plan from the user object
+                            status: 'Approved'
+                        }
+                    };
+
+                    // Update state and localStorage
+                    setUser(updatedUser);
+                    localStorage.setItem('user', JSON.stringify(updatedUser));
+
+                    // Show success message
+                    showToast('Payment approved! Your plan is now active.', 'success');
+                    setIsPlanActive(true);
+                } else {
+                    // Show error message if payment is not completed
+                    showToast('Payment failed or is still pending.', 'error');
+                }
+
+                // Update the state with the payment status data
+                setPaymentStatus({
+                    status,
+                    amount,
+                    paymentMode,
+                    transactionId,
+                    timestamp,
+                    message
+                });
+            } catch (error) {
+                console.error('Error checking payment status:', error);
+                showToast('Error checking payment status.', 'error');
+            } finally {
+                setLoading(false);
             }
-            setTimeout(() => {
-                navigate('/home');
-            }, 5000);
         };
 
-        fetchPaymentStatus();
-    }, [orderId]);
+        checkPaymentStatus();
+    }, [location.search]);
 
     return (
-        <div>
-            <h1 style={{ marginTop: '150px' }}>Processing payment status...</h1>
-            {error ? (
-                <h5 style={{ color: 'red', textAlign: 'center', marginTop: '20px' }}>{error}</h5>
-            ) : (
-                <h5 style={{ color: 'green', textAlign: 'center', marginTop: '20px' }}>{paymentStatus}</h5>
-            )}
-        </div>
+        <>
+            <section>
+                <Toast ref={toast} />
+                <div className='login pg-cont'>
+                    <div class="container"><div class="row"><div class="fot-ban-inn">
+
+                        <h1 className='text-center'>Payment Status</h1>
+                        {loading ? (
+                            <p>Checking payment status...</p>
+                        ) : paymentStatus ? (
+                            <div>
+                                <p>Status: {paymentStatus.status}</p>
+                                <p>Amount: {paymentStatus.amount / 100} INR</p> {/* Convert from paise to INR */}
+                                <p>Payment Mode: {paymentStatus.paymentMode}</p>
+                                <p>Transaction ID: {paymentStatus.transactionId}</p>
+                                <p>Timestamp: {new Date(paymentStatus.timestamp).toLocaleString()}</p>
+                                <p>Message: {paymentStatus.message}
+                                    {paymentStatus.status === 'FAILED' && (
+                                        <a href='/pricing' className='btn btn-primary' style={{ margin: '8px' }}>
+                                            Retry Payment
+                                        </a>
+                                    )}
+                                </p>
+                            </div>
+                        ) : (
+                            <p>No status available.</p>
+                        )}
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </section >
+        </>
     );
 };
 

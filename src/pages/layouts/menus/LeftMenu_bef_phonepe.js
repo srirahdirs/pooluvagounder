@@ -23,9 +23,6 @@ const LeftMenu = () => {
         2: { name: "Gold", price: "4999", validity: "6 months" },
         3: { name: "Platinum", price: "9999", validity: "12 months" }
     };
-    const formatPrice = (price) => {
-        return (price / 100).toLocaleString("en-IN");
-    };
 
     const generateOrderId = () => {
         return 'Order_' + Math.floor(100000 + Math.random() * 900000); // Generate a 6-digit random order ID
@@ -40,10 +37,7 @@ const LeftMenu = () => {
     }
 
     const selectedPlan = plans[planId];
-    let planPrice = selectedPlan?.price;
-    if (planPrice === '') {
-        planPrice = 0;
-    }
+    const planPrice = selectedPlan?.price;
 
     useEffect(() => {
         const checkActivePlan = () => {
@@ -173,6 +167,14 @@ const LeftMenu = () => {
                         <h3 className="text-xl font-bold mb-2"> {selectedPlan.name} Plan</h3>
                         <p className="text-gray-700 mb-1"><strong style={{ color: 'black' }}>Price:</strong> &#8377;{selectedPlan.price}</p>
                         <p className="text-gray-700 mb-1"><strong style={{ color: 'black' }}> Validity:</strong> {selectedPlan.validity}</p>
+                        {/* Show Current Plan Badge if Plan is Active */}
+                        {isPlanActive && (
+                            <div className="mt-3">
+                                <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm">
+                                    Current Plan
+                                </span>
+                            </div>
+                        )}
                     </div>
                 ) : (
                     <p className="text-center text-lg text-gray-600 mb-4">No plan selected.</p>
@@ -181,23 +183,69 @@ const LeftMenu = () => {
                 {isPlanActive ? (
                     <div className="bg-white rounded-lg shadow-lg p-4 mb-4 text-center">
                         <p className="text-gray-700 mb-1"><strong style={{ color: 'black' }}>You already have an active plan.</strong></p>
-                        <p className="text-gray-700"><strong style={{ color: 'black' }}>Plan Details:</strong></p>
-                        <p className="text-gray-700 mb-1">Plan Price:  &#8377;{formatPrice(user.active_plan.plan_price)}</p>
-                        <p className="text-gray-700 mb-1">
-                            Expiry Date: {new Date(user.active_plan.expiry_date).toLocaleDateString('en-IN', {
-                                day: '2-digit',
-                                month: 'short',
-                                year: 'numeric',
-                            })}
-                        </p>
                     </div>
                 ) : (
                     <div className="menu-pop-help">
+                        <div className="user-bio1">
+                            <h4>Step 1: Make Payment</h4>
+                            <p style={{ color: 'black' }}>Please scan the QR code below or copy the UPI ID to make the payment using any UPI method such as <span style={{ color: 'crimson' }}>GPay, PhonePe, Paytm,</span> etc.</p>
 
-                        <PaymentPage price={planPrice} />
+                            <div style={{ textAlign: 'center', margin: '20px 0' }}>
+                                {qrCodeUrl ? (
+                                    <img src={qrCodeUrl} alt="UPI Payment QR Code" style={{ margin: '0 auto' }} />
+                                ) : (
+                                    <p>Generating QR Code...</p>
+                                )}
+                            </div>
+
+                            <p style={{ textAlign: 'center' }}><strong>Or copy UPI ID:</strong></p>
+                            <div className="copy-upi-id" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '20px' }}>
+                                <span style={{ marginRight: '10px', fontSize: '18px', fontWeight: 'bold' }}>{upiId}</span>
+                                <button onClick={copyToClipboard} className="btn btn-secondary btn-sm">Copy UPI ID</button>
+                            </div>
+
+                            <p style={{ color: 'black' }}> <strong>Note:</strong> Once you make the payment, you'll need to enter your UPI transaction ID below for verification.</p>
+
+                            {/* Step 2: Transaction ID Form */}
+                            <h4>Step 2: Enter Transaction ID</h4>
+                            <form onSubmit={handleSubmit}>
+                                <div className="form-group">
+                                    <label htmlFor="transactionId">UPI Transaction ID:</label>
+                                    <input
+                                        type="text"
+                                        id="transactionId"
+                                        value={transactionId}
+                                        onChange={handleTransactionIdChange}
+                                        required
+                                        className="form-control"
+                                        placeholder="Enter UPI Transaction ID"
+                                    />
+                                </div>
+                                <button type="submit" className="btn btn-primary btn-sm" disabled={submitted} >Submit Transaction ID</button>
+                            </form>
+
+                            {/* Confirmation Message */}
+                            {submitted && (
+                                <p className="text-black mt-4">
+                                    Thank you! <br /> Your payment is being processed. It will be manually <span style={{ textAlign: 'center' }} >approved within the next 1-10 minutes.</span>  Your payment is secure and guaranteed.
+                                </p>
+                            )}
+                        </div>
+                        <PaymentPage />
                     </div>
                 )}
 
+                {/* Social Media Links */}
+                <div className="menu-pop-soci">
+                    <ul>
+                        <li><a href="#!"><i className="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li><a href="#!"><i className="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        <li><a href="#!"><i className="fa fa-whatsapp" aria-hidden="true"></i></a></li>
+                        <li><a href="#!"><i className="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                        <li><a href="#!"><i className="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                        <li><a href="#!"><i className="fa fa-instagram" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     );

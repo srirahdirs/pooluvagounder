@@ -17,15 +17,19 @@ const Pricing = () => {
     navigate("/login");
   };
   const plans = {
-    1: { name: "Silver", price: "1499", validity: "1 month" },
-    2: { name: "Gold", price: "4999", validity: "6 months" },
-    3: { name: "Platinum", price: "9999", validity: "12 months" },
+    1: { name: "Silver", price: "149900", validity: "1 month" },
+    2: { name: "Gold", price: "499900", validity: "6 months" },
+    3: { name: "Platinum", price: "999900", validity: "12 months" },
+  };
+  const formatPrice = (price) => {
+    return (price / 100).toLocaleString("en-IN");
   };
   const handlePlanSelection = (id) => {
     dispatch(setSelectedPlanId(id));
     const selectedPlan = plans[id];
     dispatch(setPlanPrice(selectedPlan?.price)); // Set the selected plan ID in Redux store
   };
+  console.log(user);
 
   // JSON-LD schema for pricing plans
   const pricingSchema = {
@@ -148,7 +152,7 @@ const Pricing = () => {
                       </a>
                     )}
                     <span className="pri-cou">
-                      <b>&#8377;{plans[1]?.price}</b>
+                      <b>&#8377;{formatPrice(plans[1]?.price)}</b>
                     </span>
                     <small>(1 month)</small>
                     <br />
@@ -215,7 +219,7 @@ const Pricing = () => {
                       </a>
                     )}
                     <span className="pri-cou">
-                      <b>&#8377;{plans[2]?.price}</b>
+                      <b>&#8377;{formatPrice(plans[2]?.price)}</b>
                     </span>
                     <small>(6 months)</small>
                     <br />
@@ -279,7 +283,7 @@ const Pricing = () => {
                       </a>
                     )}
                     <span className="pri-cou">
-                      <b>&#8377;{plans[3]?.price}</b>
+                      <b>&#8377;{formatPrice(plans[3]?.price)}</b>
                     </span>
                     <small>(12 months)</small>
                     <br />

@@ -33,7 +33,7 @@ import { HelmetProvider } from "react-helmet-async";
 import PremiumUserBenefits from "./pages/User/PremiumUserBenefits";
 import UserInterests from "./pages/User/UserInterests";
 import Upi from "../src/components/Upi";
-import CCAvenuePayment from "./components/CCAvenuePayment";
+import PaymentPage from "./components/PaymentPage";
 function App() {
   return (
     <Provider store={store}> {/* Wrap with Provider for Redux */}
@@ -63,7 +63,7 @@ function App() {
                 <Route path="/privacypolicy" element={<><PrivacyPolicy /><Footer /></>} />
                 <Route path="/termsconditions" element={<><TermsConditions /><Footer /></>} />
                 <Route path="/refundpolicy" element={<><RefundPolicy /><Footer /></>} />
-                <Route path="/paymentstatus" element={<><PaymentStatus /><Footer /></>} />
+                <Route path="/payment-status" element={<><PaymentStatus /><Footer /></>} />
                 <Route path="/userplan" element={<><UserPlan /><Footer /></>} />
                 <Route path="/verifyotp" element={<><VerifyOtp /><Footer /></>} />
                 <Route path="/payment-response" element={<PaymentResponse />} />
@@ -71,7 +71,7 @@ function App() {
                 <Route path="/userhoroscope" element={<UserHoroscope />} />
                 <Route path="/premiumuserbenefits" element={<PremiumUserBenefits />} />
                 <Route path="/userinterests" element={<UserInterests />} />
-                <Route path="/ccavenuepayment" element={<CCAvenuePayment />} />
+                <Route path="/PaymentPage" element={<PaymentPage />} />
               </Routes>
             </div>
           </Router>
