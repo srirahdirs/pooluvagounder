@@ -23,7 +23,7 @@ const PaymentStatus = () => {
             };
 
             try {
-                const response = await axios.post('http://localhost:4000/api/payment-status', payload);
+                const response = await axios.post('https://api.weddingsoulmates.com/api/payment-status', payload);
 
                 // Destructure the response data
                 const { status, amount, paymentMode, transactionId, timestamp, message, user } = response.data;

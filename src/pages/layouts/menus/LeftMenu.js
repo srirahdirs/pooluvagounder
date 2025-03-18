@@ -182,9 +182,9 @@ const LeftMenu = () => {
                     <div className="bg-white rounded-lg shadow-lg p-4 mb-4 text-center">
                         <p className="text-gray-700 mb-1"><strong style={{ color: 'black' }}>You already have an active plan.</strong></p>
                         <p className="text-gray-700"><strong style={{ color: 'black' }}>Plan Details:</strong></p>
-                        <p className="text-gray-700 mb-1">Plan Price:  &#8377;{formatPrice(user.active_plan.plan_price)}</p>
+                        <p className="text-gray-700 mb-1">Plan Price:  &#8377;{formatPrice(user?.active_plan?.plan_price)}</p>
                         <p className="text-gray-700 mb-1">
-                            Expiry Date: {new Date(user.active_plan.expiry_date).toLocaleDateString('en-IN', {
+                            Expiry Date: {new Date(user?.active_plan?.expiry_date).toLocaleDateString('en-IN', {
                                 day: '2-digit',
                                 month: 'short',
                                 year: 'numeric',

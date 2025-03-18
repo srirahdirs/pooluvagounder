@@ -127,6 +127,9 @@ const VerifyOtp = () => {
   };
   const vertifyUser = async () => {
     let token = sessionStorage.getItem("authToken");
+    if (token !== '') {
+      localStorage.setItem("authToken", token)
+    }
     if (token === null) {
       token = localStorage.getItem("authToken")
     }
