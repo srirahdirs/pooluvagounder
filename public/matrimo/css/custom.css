@@ -860,6 +860,13 @@ h6 {
         /* Allow content to fit based on content size */
     }
 
+    .password-reset-modal{
+        width: 50%;
+        /* Limit width for larger screens */
+        max-width: 1000px;
+        /* Prevent it from exceeding 1000px */
+    }
+
     .p-fileupload-buttonbar .p-button {
         margin: 20px 20px;
     }
@@ -939,5 +946,6 @@ h6 {
     color: #101010;
     padding-bottom: 10px;
   }
+
 
 

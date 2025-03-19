@@ -16,6 +16,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false); // Added loading state
   const [otpSent, setOtpSent] = useState(false); // New state to manage OTP sending
   const [otp, setOtp] = useState(''); // State to store the OTP input
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
 
   const { setUser, isLoggedIn, setIsLoggedIn } = useAuth();
 
@@ -37,7 +38,7 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    // setLoading(true);  // Show preloader
+    setLoading(true);  // Show preloader
     try {
       const response = await fetch(fullApiUrl, {
         method: 'POST',
@@ -53,7 +54,7 @@ const Login = () => {
       if (!response.ok) {
         const errorData = await response.json();
         showToast(errorData.message || 'Login failed', 'error');
-        // setLoading(false); // Hide preloader on error
+        setLoading(false); // Hide preloader on error
         return;
       }
       const data = await response.json();
@@ -69,7 +70,7 @@ const Login = () => {
     } catch (error) {
       showToast('Something went wrong, please try again.');
     } finally {
-      // setLoading(false);  // Hide preloader after the login process finishes
+      setLoading(false);  // Hide preloader after the login process finishes
     }
   };
 
@@ -92,18 +93,117 @@ const Login = () => {
     }
   };
 
+  // Function to show modal
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  // Function to hide modal
+  const hideModal = () => {
+    setIsModalOpen(false);
+  };
+
+  // Function for forgot password
+  const forgotPassword = async (e) => {
+    e.preventDefault();  // Prevent form from reloading
+    setLoading(true); // Show loading indicator
+    try {
+      const response = await fetch('https://api.weddingsoulmates.com/api/forgot-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+        }),
+      });
+      console.log(response ,"response")
+
+      const data = await response.json();
+      console.log(data , "data")
+      if (data.success) {
+        showToast('Password reset link sent to your email', 'success');
+        // setOtpSent(true); // Show OTP form if needed (or a success message)
+        hideModal(); // Close modal after success
+      } else {
+        showToast(data.message || 'Error sending reset link', 'error');
+        console.log(data.message)
+      }
+    } catch (error) {
+      showToast('Something went wrong, please try again.', 'error');
+    } finally {
+      setLoading(false); // Hide loading indicator
+    }
+  };
+
   return (
     <>
       <Toast ref={toast} />
-      {loading && (
-        <div id="preloader">
-          <div className="plod">
-            <span className="lod1"><img src="%PUBLIC_URL%/matrimo/images/loder/1.png" alt="" loading="lazy" /></span>
-            <span className="lod2"><img src="%PUBLIC_URL%/matrimo/images/loder/2.png" alt="" loading="lazy" /></span>
-            <span className="lod3"><img src="%PUBLIC_URL%/matrimo/images/loder/3.png" alt="" loading="lazy" /></span>
+      <div>
+        {/* Modal */}
+        {isModalOpen && (
+        <div
+          className="modal fade show"
+          id="sendInter"
+          aria-modal="true"
+          role="dialog"
+          style={{ display: "block" }}
+        >
+          <div className="modal-dialog modal-dialog-centered custom-modal-width ">
+            <div className="modal-content position-relative password-reset-modal">
+              {/* Modal Header */}
+              <div className="modal-header">
+                <h4 className="modal-title seninter-tit">Reset Password</h4>
+                <a
+                  href="#"
+                  type="button"
+                  className="btn-close text-danger"
+                  aria-label="Close"
+                  onClick={hideModal} // Close modal when clicked
+                />
+              </div>
+
+              {/* Modal Body */}
+              <form onSubmit={forgotPassword}>
+                <div className="modal-body seninter">
+                  <div className="form-group">
+                    <p>Please enter your registered email</p>
+                    <input
+                      type="email"
+                      className="form-control"
+                      id="email"
+                      value={email}
+                      onChange={(e) => validateEmail(e.target.value)}
+                      placeholder="Enter email"
+                      name="email"
+                      required
+                    />
+                  </div>
+                  {emailError && <p className="error-message">{emailError}</p>}
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    disabled={loading} // Disable the button when loading
+                  >
+                    {loading ? (
+                      <div className="loader">
+                        <span className="dot">.</span>
+                        <span className="dot">.</span>
+                        <span className="dot">.</span>
+                      </div>
+                    ) : (
+                      "Submit"
+                    )}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      )}
+        )}
+
+      </div>
+
       <section>
         <div className="login">
           <div className="container">
@@ -111,7 +211,9 @@ const Login = () => {
               <div className="inn">
                 <div className="lhs">
                   <div className="tit">
-                    <h2>Now <b>Find <br /> your life partner</b> Easy and fast.</h2>
+                    <h2>
+                      Now <b>Find <br /> your life partner</b> Easy and fast.
+                    </h2>
                   </div>
                   <div className="im">
                     <img src={`${process.env.PUBLIC_URL}/matrimo/images/login-couple.png`} alt="" />
@@ -161,7 +263,23 @@ const Login = () => {
                             <input className="form-check-input" type="checkbox" name="agree" /> Remember me
                           </label>
                         </div>
-                        <button type="submit" className="btn btn-primary">Sign in</button>
+                        <button
+                          type="submit"
+                          className="btn btn-primary mb-4"
+                          disabled={loading} // Disable the button when loading
+                        >
+                          {loading ? (
+                            <div className="loader">
+                              <span className="dot">.</span>
+                              <span className="dot">.</span>
+                              <span className="dot">.</span>
+                            </div>
+                          ) : (
+                            'Sign In'
+                          )}
+                        </button>
+                        <a onClick={showModal} className="text-start p-2 cursor-pointer">Forgot password?</a>
+
                       </form>
                     </div>
                   </div>
@@ -176,3 +294,4 @@ const Login = () => {
 };
 
 export default Login;
+

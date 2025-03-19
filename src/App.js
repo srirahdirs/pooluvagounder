@@ -26,6 +26,7 @@ import { store } from './store';  // Import your redux store
 import PaymentStatus from './components/PaymentStatus';
 import UserPlan from "./pages/User/UserPlan";
 import VerifyOtp from "./pages/VerifyOtp";
+import ResetPassword from "./pages/ResetPassword";
 import PaymentResponse from '../src/components/PaymentResponse';
 import PaymentCancel from '../src/components/PaymentCancel';
 import UserHoroscope from '../src/pages/User/UserHoroscope';
@@ -72,6 +73,7 @@ function App() {
                 <Route path="/premiumuserbenefits" element={<PremiumUserBenefits />} />
                 <Route path="/userinterests" element={<UserInterests />} />
                 <Route path="/PaymentPage" element={<PaymentPage />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
               </Routes>
             </div>
           </Router>

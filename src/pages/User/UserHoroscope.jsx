@@ -14,6 +14,9 @@ const UserHoroscope = () => {
     const [userHoroscopes, setUserHoroscopes] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
     const [hoveredImage, setHoveredImage] = useState(null);
+     const [isUploading, setIsUploading] = useState(false); // State to handle upload loader
+      const [uploadProgress, setUploadProgress] = useState(0);
+    
     const toastRef = useRef(null);
     const apiUrl = config?.apiUrl;
 
@@ -74,13 +77,13 @@ const UserHoroscope = () => {
         const maxPhotos = 3;
         const maxFileSize = 10000000; // 10 MB limit per image
         const userHoroscopes = user?.user_horoscopes || [];
-
+    
         // Check if the total number of files (existing + new) exceeds the limit
         if (e.files.length + userHoroscopes.length > maxPhotos) {
             showToast(`You can only upload a total of ${maxPhotos} photos.`, 'error');
             return;
         }
-
+    
         // Validate file size
         for (let file of e.files) {
             if (file.size > maxFileSize) {
@@ -89,54 +92,79 @@ const UserHoroscope = () => {
             }
             formData.append('files[]', file);
         }
-
+    
         formData.append('user_id', user.id);
-
+    
+        setIsUploading(true); // Set loading to true when uploading starts
+        setUploadProgress(0); // Reset progress to 0 before upload
+    
         try {
             const uploadHoroscopeApiUrl = apiUrl ? `${apiUrl}uploadHoroscope` : null;
             if (!uploadHoroscopeApiUrl) {
                 console.error('Invalid API URL');
                 return;
             }
-
-            const response = await fetch(uploadHoroscopeApiUrl, {
-                method: 'POST',
-                body: formData,
-            });
-
-            if (response.ok) {
-                const responseData = await response.json();
-
-                if (responseData.user?.user_horoscopes) {
-                    const existingHoroscopes = user.user_horoscopes || [];
-
-                    const newHoroscopes = responseData.user.user_horoscopes.filter(
-                        newHoroscope => !existingHoroscopes.some(
-                            existingHoroscope => existingHoroscope.id === newHoroscope.id
-                        )
-                    );
-
-                    const updatedHoroscopes = [...existingHoroscopes, ...newHoroscopes];
-                    const updatedUser = {
-                        ...user,
-                        user_horoscopes: updatedHoroscopes,
-                    };
-
-                    localStorage.setItem('user', JSON.stringify(updatedUser));
-                    setUser(updatedUser); // Update the user in context
-                    showToast('Horoscope uploaded successfully');
-                    setTimeout(hideModal, 1000);
-                } else {
-                    console.error('Horoscope images not found in response');
+    
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', uploadHoroscopeApiUrl, true);
+    
+            // Handle progress updates
+            xhr.upload.addEventListener('progress', (event) => {
+                if (event.lengthComputable) {
+                    const progress = Math.round((event.loaded / event.total) * 100);
+                    setUploadProgress(progress); // Update progress state
                 }
-            } else {
-                const errorResponse = await response.json();
-                console.error('Error uploading files:', errorResponse);
-            }
+            });
+    
+            // Handle response after upload is completed
+            xhr.onload = async () => {
+                if (xhr.status === 200) {
+                    const responseData = JSON.parse(xhr.responseText);
+    
+                    if (responseData.user?.user_horoscopes) {
+                        const existingHoroscopes = user.user_horoscopes || [];
+    
+                        const newHoroscopes = responseData.user.user_horoscopes.filter(
+                            newHoroscope => !existingHoroscopes.some(
+                                existingHoroscope => existingHoroscope.id === newHoroscope.id
+                            )
+                        );
+    
+                        const updatedHoroscopes = [...existingHoroscopes, ...newHoroscopes];
+                        const updatedUser = {
+                            ...user,
+                            user_horoscopes: updatedHoroscopes,
+                        };
+    
+                        localStorage.setItem('user', JSON.stringify(updatedUser));
+                        setUser(updatedUser); // Update the user in context
+                        showToast('Horoscope uploaded successfully');
+                        setTimeout(hideModal, 1000);
+                    } else {
+                        console.error('Horoscope images not found in response');
+                    }
+                } else {
+                    const errorResponse = JSON.parse(xhr.responseText);
+                    console.error('Error uploading files:', errorResponse);
+                }
+    
+                setIsUploading(false); // Reset the loading state after completion
+            };
+    
+            // Handle error during upload
+            xhr.onerror = () => {
+                console.error('Error uploading files');
+                setIsUploading(false); // Reset the loading state on error
+            };
+    
+            xhr.send(formData);
+    
         } catch (error) {
             console.error('Error uploading files:', error);
+            setIsUploading(false); // Reset the loading state on error
         }
     };
+    
 
     // Function to show modal
     const showModal = () => {
@@ -195,6 +223,27 @@ const UserHoroscope = () => {
                                             multiple
                                             className="file-upload" // Add custom className for file upload styling
                                         />
+                                        {/* Loader Spinner */}
+                                         {isUploading && (
+                                           <div className="loader">
+                                             <div className="spinner"></div>
+                                           </div>
+                                         )}
+                        
+                                         {/* Progress bar */}
+                                         {isUploading && uploadProgress > 0 && (
+                                           <div>
+                                             <div
+                                               className="progress-bar"
+                                               style={{
+                                                 width: `${uploadProgress}%`,
+                                                 height: "20px",
+                                                 backgroundColor: "green"
+                                               }}
+                                             ></div>
+                                             <p>{uploadProgress}%</p>
+                                           </div>
+                                         )}
                                     </div>
                                 </div>
                             </div>
@@ -221,6 +270,7 @@ const UserHoroscope = () => {
                                                     key={index}
                                                     onMouseEnter={() => handleMouseEnter(index)}
                                                     onMouseLeave={handleMouseLeave}
+                                                    onClick={() => handleMouseEnter(index)}
                                                 >
                                                     <div className="img-wrapper">
                                                         <a href={horoscope.horoscope_premium_path}>
@@ -234,10 +284,10 @@ const UserHoroscope = () => {
                                                         <div
                                                             className="img-overlay"
                                                             style={{ opacity: hoveredImage === index ? 1 : 0, cursor: 'pointer' }}
-                                                            onClick={() => deleteHoroscope(horoscope)}
+                                                            
                                                             aria-label="Delete horoscope image"
                                                         >
-                                                            <i className="fa fa-trash" aria-hidden="true"></i>
+                                                            <i className="fa fa-trash" aria-hidden="true" onClick={() => deleteHoroscope(horoscope)}></i>
                                                         </div>
                                                     </div>
                                                 </div>
