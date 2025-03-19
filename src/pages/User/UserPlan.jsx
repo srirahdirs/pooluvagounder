@@ -9,13 +9,17 @@ const UserPlan = () => {
 
   // Determine the plan name based on the active plan's price
   let planName = "No Plan Selected";
-  if (activePlan?.plan_price === 1499) {
+  if (activePlan?.plan_price === 149900) {
     planName = "Silver";
-  } else if (activePlan?.plan_price === 4999) {
+  } else if (activePlan?.plan_price === 499900) {
     planName = "Gold";
-  } else if (activePlan?.plan_price === 9999) {
+  } else if (activePlan?.plan_price === 999900) {
     planName = "Platinum";
   }
+  const formatPrice = (price) => {
+    return (price / 100).toLocaleString("en-IN");
+  };
+  console.log(activePlan);
 
   if (!user) {
     return (
@@ -49,14 +53,14 @@ const UserPlan = () => {
                       </div>
                       <div className="db-plan-detil">
                         <ul>
-                          {activePlan && activePlan.status === "Approved" ? (
+                          {activePlan && (activePlan.status === "Approved" || activePlan.status === "COMPLETED") ? (
                             <>
                               <li>
                                 Plan name: <strong>{planName}</strong>
                               </li>
                               <li>
                                 Price:{" "}
-                                <strong>&#8377;{activePlan.plan_price}</strong>
+                                <strong>&#8377;{formatPrice(activePlan.plan_price)}</strong>
                               </li>
                               <li>
                                 Valid till:{" "}
@@ -112,7 +116,7 @@ const UserPlan = () => {
                   </div>
                   <div className="col-md-12 db-sec-com">
                     <div className="alert alert-warning db-plan-canc">
-                      {activePlan && activePlan.status === "Approved" ? (
+                      {activePlan && (activePlan.status === "Approved" || activePlan.status === "COMPLETED") ? (
                         <>
                           <p>
                             Enjoy plan benefits until{" "}
