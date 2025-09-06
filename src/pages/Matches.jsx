@@ -4,6 +4,7 @@ import config from '../config';
 import { useNavigate } from 'react-router-dom';
 import { Toast } from 'primereact/toast';
 import { useToast } from '../../src/assets/utils/toastUtil';
+import SEO from '../components/SEO';
 const Matches = () => {
     const { isLoggedIn, user } = useAuth();
     const [searchResults, setSearchResults] = useState([]);
@@ -129,8 +130,43 @@ const Matches = () => {
             console.error('Error:', error);
         }
     };
+    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000';
+
+    // Structured data for Matches page
+    const schemaData = {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Your Matrimony Matches - Discover Perfect Life Partners",
+        "description": "View your personalized matrimony matches based on your preferences. Discover compatible profiles and find your perfect life partner with WeddingSoulMates.",
+        "url": `${baseUrl}/matches`,
+        "mainEntity": {
+            "@type": "ItemList",
+            "name": "Personalized Matrimony Matches",
+            "description": "Curated matrimony profiles matching your preferences",
+            "numberOfItems": searchResults.length,
+            "itemListElement": searchResults.slice(0, 10).map((profile, index) => ({
+                "@type": "Person",
+                "name": profile.name,
+                "age": profile.age,
+                "jobTitle": profile.job_type,
+                "description": `${profile.degree || 'N/A'} - ${profile.job_type || 'N/A'}`,
+                "url": `${baseUrl}/profiledetails/${btoa(profile.user_id.toString())}`
+            }))
+        }
+    };
+
     return (
         <>
+            <SEO
+                title="Your Matrimony Matches - Discover Perfect Life Partners | WeddingSoulMates"
+                description="View your personalized matrimony matches based on your preferences. Discover compatible profiles and find your perfect life partner with WeddingSoulMates. Start connecting today!"
+                keywords="matrimony matches, marriage bureau matches, matrimonial matches, wedding soul mates matches, matrimony compatible profiles, marriage website matches, matrimonial platform matches, bride groom matches, matrimony personalized matches, marriage service matches, shaadi matches, muslim matrimony matches, hindu matrimony matches, christian matrimony matches, sikh matrimony matches, gounder matrimony matches, chettiar matrimony matches, brahmin matrimony matches, vellalar matrimony matches, naidu matrimony matches, reddy matrimony matches, patel matrimony matches, gujarati matrimony matches, marathi matrimony matches, bengali matrimony matches, punjabi matrimony matches, tamil matrimony matches, telugu matrimony matches, malayalam matrimony matches, kannada matrimony matches, hindi matrimony matches, inter caste marriage matches, inter religion marriage matches, all community matrimony matches, india matrimony matches, south indian matrimony matches, north indian matrimony matches, east indian matrimony matches, west indian matrimony matches"
+                image={`${baseUrl}/matrimo/images/og-image.png`}
+                url={`${baseUrl}/matches`}
+                canonical={`${baseUrl}/matches`}
+                schema={schemaData}
+                type="website"
+            />
             <section>
                 <Toast ref={toast} />
                 <div className="all-pro-head">

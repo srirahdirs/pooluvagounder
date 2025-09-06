@@ -5,6 +5,8 @@ import { Toast } from 'primereact/toast';
 import { useRef } from 'react';
 import config from '../config';
 import SEO from '../components/SEO';
+import { religions, castes, ageRanges, educationLevels, occupations, incomeRanges, maritalStatus, bodyTypes, heights } from '../data/matrimonyOptions';
+import SearchableSelect from '../components/SearchableSelect';
 
 const SearchProfile = ({ user }) => {
   const [states, setStates] = useState([]);
@@ -242,13 +244,11 @@ const SearchProfile = ({ user }) => {
               value={searchForm.age}
               onChange={handleInputChange}
             >
-              <option value="">Select age</option>
-              <option value="18 to 30">18 to 30</option>
-              <option value="31 to 40">31 to 40</option>
-              <option value="41 to 50">41 to 50</option>
-              <option value="51 to 60">51 to 60</option>
-              <option value="61 to 70">60 & above</option>
-              {/* <option value="71 to 80">71 to 80</option> */}
+              {ageRanges.map((age) => (
+                <option key={age.value} value={age.value}>
+                  {age.label}
+                </option>
+              ))}
             </select>
           </div>
         </div>
@@ -264,12 +264,11 @@ const SearchProfile = ({ user }) => {
               value={searchForm.religion}
               onChange={handleInputChange}
             >
-              <option value="">Religion</option>
-              <option value="Any">Any</option>
-              <option value="Hindu">Hindu</option>
-              <option value="Muslim">Muslim</option>
-              <option value="Jain">Jain</option>
-              <option value="Christian">Christian</option>
+              {religions.map((religion) => (
+                <option key={religion.value} value={religion.value}>
+                  {religion.label}
+                </option>
+              ))}
             </select>
           </div>
         </div>
@@ -277,54 +276,14 @@ const SearchProfile = ({ user }) => {
         <div className="filt-com lhs-cate">
           <h4><i className="fa fa-bell-o" aria-hidden="true"></i>Select Caste</h4>
           <div className="form-group">
-            <select
-              className="form-select"
-              name="caste"
-              ref={casteRef}  // Attach the ref to caste input
+            <SearchableSelect
+              options={castes}
               value={searchForm.caste}
               onChange={handleInputChange}
-            >
-              <option value="">Select Caste</option>
-              <option value="Any">Any</option>
-              <option value="Adi Dravidar">Adi Dravidar</option>
-              <option value="Agarwal">Agarwal</option>
-              <option value="Arya Vysya">Arya Vysya</option>
-              <option value="Bania">Bania</option>
-              <option value="Brahmin">Brahmin</option>
-              <option value="Chettiar">Chettiar</option>
-              <option value="Choudhary">Choudhary</option>
-              <option value="Devanga">Devanga</option>
-              <option value="Ezhava">Ezhava</option>
-              <option value="Gounder">Gounder</option>
-              <option value="Gujar">Gujar</option>
-              <option value="Gupta">Gupta</option>
-              <option value="Iyer">Iyer</option>
-              <option value="Iyengar">Iyengar</option>
-              <option value="Jain">Jain</option>
-              <option value="Jat">Jat</option>
-              <option value="Kamma">Kamma</option>
-              <option value="Kayastha">Kayastha</option>
-              <option value="Koli">Koli</option>
-              <option value="Kshatriya">Kshatriya</option>
-              <option value="Kuruba">Kuruba</option>
-              <option value="Lingayat">Lingayat</option>
-              <option value="Maratha">Maratha</option>
-              <option value="Mudaliar">Mudaliar</option>
-              <option value="Nadar">Nadar</option>
-              <option value="Naidu">Naidu</option>
-              <option value="Nair">Nair</option>
-              <option value="Patel">Patel</option>
-              <option value="Pillai">Pillai</option>
-              <option value="Rajput">Rajput</option>
-              <option value="Reddy">Reddy</option>
-              <option value="SC">SC (Scheduled Caste)</option>
-              <option value="ST">ST (Scheduled Tribe)</option>
-              <option value="Thevar">Thevar</option>
-              <option value="Vanniyar">Vanniyar</option>
-              <option value="Vishwakarma">Vishwakarma</option>
-              <option value="Yadav">Yadav</option>
-              <option value="Other">Other</option>
-            </select>
+              name="caste"
+              placeholder="Search and select caste..."
+              className="caste-searchable-select"
+            />
           </div>
         </div>
 

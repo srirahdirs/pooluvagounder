@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import SearchProfile from './SearchProfile';
 import config from '../config';
 import CryptoJS from 'crypto-js';
+import SEO from '../components/SEO';
 
 const SearchResults = () => {
     const { isLoggedIn, user } = useAuth();
@@ -35,8 +36,43 @@ const SearchResults = () => {
         navigate('/pricing');
     };
 
+    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000';
+
+    // Structured data for Search Results page
+    const schemaData = {
+        "@context": "https://schema.org",
+        "@type": "SearchResultsPage",
+        "name": "Matrimony Search Results - Find Your Perfect Match",
+        "description": "Browse through verified matrimony profiles and find your perfect life partner. Search results for all communities, religions, and castes across India.",
+        "url": `${baseUrl}/search`,
+        "mainEntity": {
+            "@type": "ItemList",
+            "name": "Matrimony Profiles",
+            "description": "Verified matrimony profiles for finding life partners",
+            "numberOfItems": searchResults.length,
+            "itemListElement": searchResults.slice(0, 10).map((profile, index) => ({
+                "@type": "Person",
+                "name": profile.name,
+                "age": profile.age,
+                "jobTitle": profile.job_type,
+                "description": `${profile.degree || 'N/A'} - ${profile.job_type || 'N/A'}`,
+                "url": `${baseUrl}/profiledetails/${btoa(profile.user_id.toString())}`
+            }))
+        }
+    };
+
     return (
         <>
+            <SEO
+                title="Matrimony Search Results - Find Your Perfect Match | WeddingSoulMates"
+                description="Browse through verified matrimony profiles and find your perfect life partner. Search results for all communities, religions, and castes across India. Start your journey today!"
+                keywords="matrimony search results, marriage bureau search, matrimonial profiles, wedding soul mates search, matrimony browse profiles, marriage website search, matrimonial platform search, bride groom search, matrimony find partner, marriage service search, shaadi search results, muslim matrimony search, hindu matrimony search, christian matrimony search, sikh matrimony search, gounder matrimony search, chettiar matrimony search, brahmin matrimony search, vellalar matrimony search, naidu matrimony search, reddy matrimony search, patel matrimony search, gujarati matrimony search, marathi matrimony search, bengali matrimony search, punjabi matrimony search, tamil matrimony search, telugu matrimony search, malayalam matrimony search, kannada matrimony search, hindi matrimony search, inter caste marriage search, inter religion marriage search, all community matrimony search, india matrimony search, south indian matrimony search, north indian matrimony search, east indian matrimony search, west indian matrimony search"
+                image={`${baseUrl}/matrimo/images/og-image.png`}
+                url={`${baseUrl}/search`}
+                canonical={`${baseUrl}/search`}
+                schema={schemaData}
+                type="website"
+            />
             <section>
                 <div className="all-pro-head">
                     <div className="container">

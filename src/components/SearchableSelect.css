@@ -1,0 +1,218 @@
+/* SearchableSelect Component Styles */
+.searchable-select-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.searchable-select-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+}
+
+.required-asterisk {
+    color: #e74c3c;
+    margin-left: 3px;
+}
+
+.searchable-select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.searchable-select-input {
+    width: 100%;
+    padding: 10px 40px 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #fff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+
+.searchable-select-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.searchable-select-input.error {
+    border-color: #e74c3c;
+}
+
+.searchable-select-input:disabled {
+    background-color: #f8f9fa;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.searchable-select-arrow {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 12px;
+    color: #666;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchable-select-arrow:hover {
+    color: #333;
+}
+
+.searchable-select-arrow.open {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.searchable-select-arrow:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.searchable-select-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.searchable-select-options {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.searchable-select-option {
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    color: #333;
+}
+
+.searchable-select-option:last-child {
+    border-bottom: none;
+}
+
+.searchable-select-option:hover,
+.searchable-select-option.highlighted {
+    background-color: #f8f9fa;
+}
+
+.searchable-select-option.selected {
+    background-color: #e3f2fd;
+    color: #1976d2;
+    font-weight: 500;
+}
+
+.searchable-select-option.selected:hover,
+.searchable-select-option.selected.highlighted {
+    background-color: #bbdefb;
+}
+
+.searchable-select-no-results {
+    padding: 15px 12px;
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    font-size: 14px;
+}
+
+.searchable-select-error {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Custom scrollbar for dropdown */
+.searchable-select-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.searchable-select-dropdown::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.searchable-select-dropdown::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.searchable-select-dropdown::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .searchable-select-input {
+        font-size: 16px;
+        /* Prevents zoom on iOS */
+    }
+
+    .searchable-select-dropdown {
+        max-height: 150px;
+    }
+
+    .searchable-select-option {
+        padding: 12px;
+        font-size: 16px;
+    }
+}
+
+/* Animation for dropdown */
+.searchable-select-dropdown {
+    animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Focus styles for accessibility */
+.searchable-select-option:focus {
+    outline: 2px solid #007bff;
+    outline-offset: -2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .searchable-select-input {
+        border-width: 2px;
+    }
+
+    .searchable-select-option.selected {
+        background-color: #000;
+        color: #fff;
+    }
+}

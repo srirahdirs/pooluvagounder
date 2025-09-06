@@ -4,6 +4,7 @@ import { useToast } from '../assets/utils/toastUtil';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';  // Import the correct AuthContext
 import config from '../../src/config';
+import SEO from '../components/SEO';
 
 const Login = () => {
   const { toast, showToast } = useToast();
@@ -117,10 +118,10 @@ const Login = () => {
           email: email,
         }),
       });
-      console.log(response ,"response")
+      console.log(response, "response")
 
       const data = await response.json();
-      console.log(data , "data")
+      console.log(data, "data")
       if (data.success) {
         showToast('Password reset link sent to your email', 'success');
         // setOtpSent(true); // Show OTP form if needed (or a success message)
@@ -136,70 +137,101 @@ const Login = () => {
     }
   };
 
+  const baseUrl = process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000';
+
+  // Structured data for Login page
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Login to WeddingSoulMates - Access Your Matrimony Account",
+    "description": "Sign in to your WeddingSoulMates matrimony account. Access your profile, view matches, and continue your journey to find your perfect life partner.",
+    "url": `${baseUrl}/login`,
+    "mainEntity": {
+      "@type": "Service",
+      "name": "Matrimony Account Access",
+      "description": "Secure login to access matrimonial services and find your perfect life partner",
+      "provider": {
+        "@type": "Organization",
+        "name": "WeddingSoulMates"
+      },
+      "serviceType": "Matrimonial Account Management"
+    }
+  };
+
   return (
     <>
+      <SEO
+        title="Login to WeddingSoulMates - Access Your Matrimony Account | Sign In"
+        description="Sign in to your WeddingSoulMates matrimony account. Access your profile, view matches, and continue your journey to find your perfect life partner. Secure login for all communities."
+        keywords="matrimony login, marriage bureau login, matrimonial account access, wedding soul mates login, matrimony sign in, marriage website login, matrimonial platform access, bride groom login, matrimony account login, marriage service login, shaadi login, muslim matrimony login, hindu matrimony login, christian matrimony login, sikh matrimony login, gounder matrimony login, chettiar matrimony login, brahmin matrimony login, vellalar matrimony login, naidu matrimony login, reddy matrimony login, patel matrimony login, gujarati matrimony login, marathi matrimony login, bengali matrimony login, punjabi matrimony login, tamil matrimony login, telugu matrimony login, malayalam matrimony login, kannada matrimony login, hindi matrimony login, inter caste marriage login, inter religion marriage login, all community matrimony login, india matrimony login, south indian matrimony login, north indian matrimony login, east indian matrimony login, west indian matrimony login"
+        image={`${baseUrl}/matrimo/images/og-image.png`}
+        url={`${baseUrl}/login`}
+        canonical={`${baseUrl}/login`}
+        schema={schemaData}
+        type="website"
+      />
       <Toast ref={toast} />
       <div>
         {/* Modal */}
         {isModalOpen && (
-        <div
-          className="modal fade show"
-          id="sendInter"
-          aria-modal="true"
-          role="dialog"
-          style={{ display: "block" }}
-        >
-          <div className="modal-dialog modal-dialog-centered custom-modal-width ">
-            <div className="modal-content position-relative password-reset-modal">
-              {/* Modal Header */}
-              <div className="modal-header">
-                <h4 className="modal-title seninter-tit">Reset Password</h4>
-                <a
-                  href="#"
-                  type="button"
-                  className="btn-close text-danger"
-                  aria-label="Close"
-                  onClick={hideModal} // Close modal when clicked
-                />
-              </div>
-
-              {/* Modal Body */}
-              <form onSubmit={forgotPassword}>
-                <div className="modal-body seninter">
-                  <div className="form-group">
-                    <p>Please enter your registered email</p>
-                    <input
-                      type="email"
-                      className="form-control"
-                      id="email"
-                      value={email}
-                      onChange={(e) => validateEmail(e.target.value)}
-                      placeholder="Enter email"
-                      name="email"
-                      required
-                    />
-                  </div>
-                  {emailError && <p className="error-message">{emailError}</p>}
-                  <button
-                    type="submit"
-                    className="btn btn-primary"
-                    disabled={loading} // Disable the button when loading
-                  >
-                    {loading ? (
-                      <div className="loader">
-                        <span className="dot">.</span>
-                        <span className="dot">.</span>
-                        <span className="dot">.</span>
-                      </div>
-                    ) : (
-                      "Submit"
-                    )}
-                  </button>
+          <div
+            className="modal fade show"
+            id="sendInter"
+            aria-modal="true"
+            role="dialog"
+            style={{ display: "block" }}
+          >
+            <div className="modal-dialog modal-dialog-centered custom-modal-width ">
+              <div className="modal-content position-relative password-reset-modal">
+                {/* Modal Header */}
+                <div className="modal-header">
+                  <h4 className="modal-title seninter-tit">Reset Password</h4>
+                  <a
+                    href="#"
+                    type="button"
+                    className="btn-close text-danger"
+                    aria-label="Close"
+                    onClick={hideModal} // Close modal when clicked
+                  />
                 </div>
-              </form>
+
+                {/* Modal Body */}
+                <form onSubmit={forgotPassword}>
+                  <div className="modal-body seninter">
+                    <div className="form-group">
+                      <p>Please enter your registered email</p>
+                      <input
+                        type="email"
+                        className="form-control"
+                        id="email"
+                        value={email}
+                        onChange={(e) => validateEmail(e.target.value)}
+                        placeholder="Enter email"
+                        name="email"
+                        required
+                      />
+                    </div>
+                    {emailError && <p className="error-message">{emailError}</p>}
+                    <button
+                      type="submit"
+                      className="btn btn-primary"
+                      disabled={loading} // Disable the button when loading
+                    >
+                      {loading ? (
+                        <div className="loader">
+                          <span className="dot">.</span>
+                          <span className="dot">.</span>
+                          <span className="dot">.</span>
+                        </div>
+                      ) : (
+                        "Submit"
+                      )}
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
         )}
 
       </div>

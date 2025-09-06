@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import config from '../config';
 import { useToast } from '../assets/utils/toastUtil';
 import { Toast } from 'primereact/toast';
+import SEO from '../components/SEO';
 
 
 const ProfileDetails = () => {
@@ -103,8 +104,49 @@ const ProfileDetails = () => {
   }
 
   const image = userDetails.gender === 'Male' ? 'user_default_boy.png' : 'user_default_girl.png';
+  const baseUrl = process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000';
+
+  // Structured data for Profile Details page
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": user?.name || "Matrimony Profile",
+    "description": `Matrimony profile of ${user?.name || 'user'} - ${userDetails.degree || 'N/A'} - ${userDetails.job_type || 'N/A'}`,
+    "url": `${baseUrl}/profiledetails/${id}`,
+    "age": userDetails.age,
+    "jobTitle": userDetails.job_type,
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": userDetails.city,
+      "addressRegion": userDetails.state,
+      "addressCountry": "IN"
+    },
+    "knowsAbout": [
+      userDetails.religion,
+      userDetails.caste,
+      userDetails.degree,
+      userDetails.job_type
+    ].filter(Boolean),
+    "image": userProfilePicture || `${baseUrl}/matrimo/images/${image}`,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "name": `${user?.name || 'Matrimony Profile'} - WeddingSoulMates`,
+      "description": `View detailed matrimony profile of ${user?.name || 'user'} on WeddingSoulMates`
+    }
+  };
+
   return (
     <>
+      <SEO
+        title={`${user?.name || 'Matrimony Profile'} - View Profile Details | WeddingSoulMates`}
+        description={`View detailed matrimony profile of ${user?.name || 'user'} - ${userDetails.degree || 'N/A'} - ${userDetails.job_type || 'N/A'}. Age ${userDetails.age || 'N/A'}, ${userDetails.city || 'N/A'}, ${userDetails.state || 'N/A'}. Find your perfect life partner on WeddingSoulMates.`}
+        keywords={`${user?.name || 'matrimony profile'}, matrimony profile details, marriage bureau profile, matrimonial profile view, wedding soul mates profile, matrimony user profile, marriage website profile, matrimonial platform profile, bride groom profile, matrimony detailed profile, marriage service profile, shaadi profile, muslim matrimony profile, hindu matrimony profile, christian matrimony profile, sikh matrimony profile, gounder matrimony profile, chettiar matrimony profile, brahmin matrimony profile, vellalar matrimony profile, naidu matrimony profile, reddy matrimony profile, patel matrimony profile, gujarati matrimony profile, marathi matrimony profile, bengali matrimony profile, punjabi matrimony profile, tamil matrimony profile, telugu matrimony profile, malayalam matrimony profile, kannada matrimony profile, hindi matrimony profile, inter caste marriage profile, inter religion marriage profile, all community matrimony profile, india matrimony profile, south indian matrimony profile, north indian matrimony profile, east indian matrimony profile, west indian matrimony profile`}
+        image={userProfilePicture || `${baseUrl}/matrimo/images/${image}`}
+        url={`${baseUrl}/profiledetails/${id}`}
+        canonical={`${baseUrl}/profiledetails/${id}`}
+        schema={schemaData}
+        type="profile"
+      />
       <section>
         <Toast ref={toast} />
         <div className="profi-pg profi-ban">

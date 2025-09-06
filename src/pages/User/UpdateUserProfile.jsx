@@ -7,6 +7,8 @@ import { useToast } from '../../assets/utils/toastUtil';
 import config from '../../config';
 import UserLeftMenu from "./UserLeftMenu";
 import { Navigate } from "react-router-dom";
+import { religions, castes, ageRanges, educationLevels, occupations, incomeRanges, maritalStatus, bodyTypes, heights } from '../../data/matrimonyOptions';
+import SearchableSelect from '../../components/SearchableSelect';
 const UpdateUserProfile = () => {
 
     const [states, setStates] = useState([]);
@@ -993,69 +995,27 @@ const UpdateUserProfile = () => {
                                                         value={formData.religion || ''}
                                                         onChange={handleChange}
                                                     >
-                                                        <option value="">Select Religion</option>
-                                                        <option value="Hindu">Hindu</option>
-                                                        <option value="Muslim">Muslim</option>
-                                                        <option value="Christian">Christian</option>
-                                                        <option value="Sikh">Sikh</option>
-                                                        <option value="Buddhist">Buddhist</option>
-                                                        <option value="Jain">Jain</option>
-                                                        <option value="Parsi">Parsi</option>
-                                                        <option value="Jewish">Jewish</option>
-                                                        <option value="Other">Other</option>
+                                                        {religions.map((religion) => (
+                                                            <option key={religion.value} value={religion.value}>
+                                                                {religion.label}
+                                                            </option>
+                                                        ))}
                                                     </select>
                                                     {religionError && <p className="error-message">{religionError}</p>}
                                                 </div>
 
                                                 <div className="col-md-6 form-group">
-                                                    <label className="lb">Caste:<span>*</span></label>
-                                                    <select
-                                                        className="form-control"
-                                                        name="caste"
+                                                    <SearchableSelect
+                                                        options={castes}
                                                         value={formData.caste || ''}
                                                         onChange={handleChange}
-                                                    >
-                                                        <option value="">Select Caste</option>
-                                                        <option value="Adi Dravidar">Adi Dravidar</option>
-                                                        <option value="Agarwal">Agarwal</option>
-                                                        <option value="Arya Vysya">Arya Vysya</option>
-                                                        <option value="Bania">Bania</option>
-                                                        <option value="Brahmin">Brahmin</option>
-                                                        <option value="Chettiar">Chettiar</option>
-                                                        <option value="Choudhary">Choudhary</option>
-                                                        <option value="Devanga">Devanga</option>
-                                                        <option value="Ezhava">Ezhava</option>
-                                                        <option value="Gounder">Gounder</option>
-                                                        <option value="Gujar">Gujar</option>
-                                                        <option value="Gupta">Gupta</option>
-                                                        <option value="Iyer">Iyer</option>
-                                                        <option value="Iyengar">Iyengar</option>
-                                                        <option value="Jain">Jain</option>
-                                                        <option value="Jat">Jat</option>
-                                                        <option value="Kamma">Kamma</option>
-                                                        <option value="Kayastha">Kayastha</option>
-                                                        <option value="Koli">Koli</option>
-                                                        <option value="Kshatriya">Kshatriya</option>
-                                                        <option value="Kuruba">Kuruba</option>
-                                                        <option value="Lingayat">Lingayat</option>
-                                                        <option value="Maratha">Maratha</option>
-                                                        <option value="Mudaliar">Mudaliar</option>
-                                                        <option value="Nadar">Nadar</option>
-                                                        <option value="Naidu">Naidu</option>
-                                                        <option value="Nair">Nair</option>
-                                                        <option value="Patel">Patel</option>
-                                                        <option value="Pillai">Pillai</option>
-                                                        <option value="Rajput">Rajput</option>
-                                                        <option value="Reddy">Reddy</option>
-                                                        <option value="SC">SC (Scheduled Caste)</option>
-                                                        <option value="ST">ST (Scheduled Tribe)</option>
-                                                        <option value="Thevar">Thevar</option>
-                                                        <option value="Vanniyar">Vanniyar</option>
-                                                        <option value="Vishwakarma">Vishwakarma</option>
-                                                        <option value="Yadav">Yadav</option>
-                                                        <option value="Other">Other</option>
-                                                    </select>
-                                                    {casteError && <p className="error-message">{casteError}</p>}
+                                                        name="caste"
+                                                        placeholder="Search and select caste..."
+                                                        label="Caste"
+                                                        required={true}
+                                                        error={casteError}
+                                                        className="caste-searchable-select"
+                                                    />
                                                 </div>
 
 
