@@ -17,6 +17,7 @@ const UserProfile = () => {
   const [profileCompletion, setProfileCompletion] = useState(0);
   const [isUploading, setIsUploading] = useState(false); // State to handle upload loader
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [showMarquee, setShowMarquee] = useState(true); // State to control marquee visibility
 
   const toastRef = useRef(null);
   const apiUrl = config?.apiUrl;
@@ -25,6 +26,10 @@ const UserProfile = () => {
   useEffect(() => {
     if (user) {
       calculateProfileCompletion(user);
+      // Hide marquee if user already has a profile picture
+      if (user.user_profile_picture) {
+        setShowMarquee(false);
+      }
     }
   }, [user]);
 
@@ -133,6 +138,7 @@ const UserProfile = () => {
       if (response.ok) {
         showToast("Profile picture updated");
         setProfilePicture(image.file_path);
+        setShowMarquee(false); // Hide marquee when profile picture is set
 
         const updatedUser = {
           ...user,
@@ -397,6 +403,62 @@ const UserProfile = () => {
       <section>
         <div className="db">
           <div className="container">
+            {/* Clean Marquee inside container */}
+            {showMarquee && (
+              <div style={{
+                padding: '12px 20px',
+                marginBottom: '20px',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                <button
+                  onClick={() => setShowMarquee(false)}
+                  style={{
+                    position: 'absolute',
+                    right: '15px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    background: 'rgba(108, 117, 125, 0.1)',
+                    border: '1px solid rgba(108, 117, 125, 0.3)',
+                    borderRadius: '50%',
+                    width: '28px',
+                    height: '28px',
+                    fontSize: '16px',
+                    cursor: 'pointer',
+                    color: '#6c757d',
+                    fontWeight: 'bold',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    transition: 'all 0.2s ease',
+                    zIndex: '10'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.background = 'rgba(220, 53, 69, 0.1)';
+                    e.target.style.borderColor = 'rgba(220, 53, 69, 0.3)';
+                    e.target.style.color = '#dc3545';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.background = 'rgba(108, 117, 125, 0.1)';
+                    e.target.style.borderColor = 'rgba(108, 117, 125, 0.3)';
+                    e.target.style.color = '#6c757d';
+                  }}
+                  title="Dismiss"
+                >
+                  ×
+                </button>
+                <marquee behavior="scroll" direction="left" style={{
+                  color: '#495057',
+                  fontWeight: '500',
+                  fontSize: '15px',
+                  fontFamily: 'system-ui, -apple-system, sans-serif',
+                  paddingRight: '50px',
+                  lineHeight: '1.4'
+                }}>
+                  💡 <strong>Pro Tip:</strong> Hover over any image in your gallery to set it as your profile picture! Look for the "Set Avatar" button that appears on hover. 📸
+                </marquee>
+              </div>
+            )}
             <div className="row">
               <div className="col-md-4 col-lg-3">
                 <UserLeftMenu />
