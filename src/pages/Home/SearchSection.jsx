@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import config from '../../config';
+import { religions } from '../../data/matrimonyOptions';
 
 const SearchSection = () => {
     const [states, setStates] = useState([]);
@@ -201,13 +202,11 @@ const SearchSection = () => {
                                                             value={searchForm.religion}
                                                             onChange={handleInputChange}
                                                         >
-                                                            <option value="">Religion</option>
-                                                            <option value="Any">Any</option>
-                                                            <option value="Hindu">Hindu</option>
-                                                            <option value="Muslim">Muslim</option>
-                                                            <option value="Christian">Christian</option>
-                                                            <option value="Jain">Jain</option>
-                                                            <option value="Other">Other</option>
+                                                            {religions.map((religion) => (
+                                                                <option key={religion.value} value={religion.value}>
+                                                                    {religion.label}
+                                                                </option>
+                                                            ))}
                                                         </select>
                                                     </div>
                                                 </li>

@@ -257,6 +257,7 @@ const casteOptions = [
     { value: "Gounder - Kongu Vellala Gounder", label: "Gounder - Kongu Vellala Gounder" },
     { value: "Gounder - Nattu Gounder", label: "Gounder - Nattu Gounder" },
     { value: "Gounder - Others", label: "Gounder - Others" },
+    { value: "Gounder - Pooluva Gounder", label: "Gounder - Pooluva Gounder" },
     { value: "Gounder - Urali Gounder", label: "Gounder - Urali Gounder" },
     { value: "Gounder - Vanniya Kula Kshatriyar", label: "Gounder - Vanniya Kula Kshatriyar" },
     { value: "Gounder - Vettuva Gounder", label: "Gounder - Vettuva Gounder" },
