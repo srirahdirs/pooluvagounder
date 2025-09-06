@@ -2,6 +2,40 @@
   text-align: center;
 }
 
+/* Pricing Page Offer Badge Styling */
+.offer-badge {
+  background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 8px;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(255, 107, 107, 0.3);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.discount {
+  color: #666;
+  font-size: 14px;
+  text-decoration: line-through;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -32,6 +66,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

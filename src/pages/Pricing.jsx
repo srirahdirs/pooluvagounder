@@ -17,12 +17,19 @@ const Pricing = () => {
     navigate("/login");
   };
   const plans = {
-    1: { name: "Silver", price: "149900", validity: "1 month" },
-    2: { name: "Gold", price: "499900", validity: "6 months" },
-    3: { name: "Platinum", price: "999900", validity: "12 months" },
+    1: { name: "Silver", price: "149900", validity: "1 month", originalPrice: "200000" }, // ₹1,499 with ₹2,000 original = 25% OFF
+    2: { name: "Gold", price: "499900", validity: "6 months", originalPrice: "700000" }, // ₹4,999 with ₹7,000 original = 29% OFF
+    3: { name: "Platinum", price: "999900", validity: "12 months", originalPrice: "1500000" }, // ₹9,999 with ₹15,000 original = 33% OFF
   };
   const formatPrice = (price) => {
     return (price / 100).toLocaleString("en-IN");
+  };
+
+  // Calculate offer percentage based on original price
+  const calculateOfferPercentage = (offerPrice, originalPrice) => {
+    // Formula: Offer % = ((Original Price - Offer Price) / Original Price) * 100
+    const percentage = ((originalPrice - offerPrice) / originalPrice) * 100;
+    return Math.round(percentage);
   };
   const handlePlanSelection = (id) => {
     dispatch(setSelectedPlanId(id));
@@ -100,9 +107,9 @@ const Pricing = () => {
     <>
       {/* Add SEO metadata */}
       <SEO
-        title="WeddingSoulMates - Pricing Plans"
-        description="Choose from our flexible subscription plans and get started with WeddingSoulMates. Explore Silver, Gold, and Platinum plans with unique benefits."
-        keywords="WeddingSoulMates, pricing, subscription plans, matchmaking, premium features, Silver plan, Gold plan, Platinum plan"
+        title="WeddingSoulMates Pricing Plans - Affordable Matrimony Subscription | Silver Gold Platinum"
+        description="Choose from WeddingSoulMates flexible subscription plans - Silver, Gold, and Platinum. Affordable matrimony services for all communities. Start your journey to find your perfect life partner today!"
+        keywords="matrimony pricing, marriage bureau pricing, matrimonial subscription plans, wedding soul mates pricing, shaadi pricing, muslim matrimony pricing, hindu matrimony pricing, christian matrimony pricing, sikh matrimony pricing, gounder matrimony pricing, chettiar matrimony pricing, all community matrimony pricing, india matrimony pricing, inter caste marriage pricing, inter religion marriage pricing, silver plan matrimony, gold plan matrimony, platinum plan matrimony, matrimony subscription, marriage service pricing, matrimonial website pricing, affordable matrimony, matrimony plans, marriage bureau subscription, matrimonial service pricing"
         schema={pricingSchema} // Pass schema data to SEO component
       />
 
@@ -157,8 +164,9 @@ const Pricing = () => {
                     <small>(1 month)</small>
                     <br />
                     <span className="discount">
-                      <strike>&#8377; 2000</strike>
+                      <strike>&#8377;{formatPrice(plans[1]?.originalPrice)}</strike>
                     </span>
+                    <span className="offer-badge">{calculateOfferPercentage(plans[1]?.price, plans[1]?.originalPrice)}% OFF</span>
                     <span className="pop-pln">Basic Plan</span>
 
                     <ol>
@@ -223,7 +231,10 @@ const Pricing = () => {
                     </span>
                     <small>(6 months)</small>
                     <br />
-                    <span className="discount">40% Off</span>
+                    <span className="discount">
+                      <strike>&#8377;{formatPrice(plans[2]?.originalPrice)}</strike>
+                    </span>
+                    <span className="offer-badge">{calculateOfferPercentage(plans[2]?.price, plans[2]?.originalPrice)}% OFF</span>
                     <ol>
                       <li>
                         <i className="fa fa-check" aria-hidden="true"></i> 100
@@ -287,7 +298,10 @@ const Pricing = () => {
                     </span>
                     <small>(12 months)</small>
                     <br />
-                    <span className="discount">50% Off</span>
+                    <span className="discount">
+                      <strike>&#8377;{formatPrice(plans[3]?.originalPrice)}</strike>
+                    </span>
+                    <span className="offer-badge">{calculateOfferPercentage(plans[3]?.price, plans[3]?.originalPrice)}% OFF</span>
                     <ol>
                       <li>
                         <i className="fa fa-check" aria-hidden="true"></i> Unlimited

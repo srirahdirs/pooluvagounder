@@ -4,6 +4,7 @@ import { useToast } from '../assets/utils/toastUtil';
 import { Toast } from 'primereact/toast';
 import { useRef } from 'react';
 import config from '../config';
+import SEO from '../components/SEO';
 
 const SearchProfile = ({ user }) => {
   const [states, setStates] = useState([]);
@@ -177,8 +178,38 @@ const SearchProfile = ({ user }) => {
     }
   };
 
+  const baseUrl = process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000';
+
+  // Structured data for Search Profile page
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Search Matrimony Profiles - WeddingSoulMates",
+    "description": "Search for your perfect life partner on WeddingSoulMates. Filter by age, religion, caste, location and find verified profiles from all communities across India.",
+    "url": `${baseUrl}/search`,
+    "mainEntity": {
+      "@type": "Service",
+      "name": "Matrimony Profile Search",
+      "description": "Advanced search functionality to find compatible life partners",
+      "provider": {
+        "@type": "Organization",
+        "name": "WeddingSoulMates"
+      }
+    }
+  };
+
   return (
     <>
+      <SEO
+        title="Search Matrimony Profiles - Find Your Perfect Life Partner | WeddingSoulMates"
+        description="Search for your perfect life partner on WeddingSoulMates. Filter by age, religion, caste, location and find verified profiles from all communities across India. Start your search today!"
+        keywords="search matrimony profiles, find life partner, matrimony search, marriage bureau search, shaadi search, muslim matrimony search, hindu matrimony search, christian matrimony search, sikh matrimony search, gounder matrimony search, chettiar matrimony search, all community matrimony search, india matrimony search, inter caste marriage search, inter religion marriage search, matrimony profile search, marriage partner search, bride search, groom search, matrimonial search, wedding soul mates search, verified profiles search, matrimony filter, marriage bureau filter"
+        image={`${baseUrl}/matrimo/images/og-image.png`}
+        url={`${baseUrl}/search`}
+        canonical={`${baseUrl}/search`}
+        schema={schemaData}
+        type="website"
+      />
       <div className="col-md-3 fil-mob-view">
         <Toast ref={toast} />
         <span className="filter-clo">+</span>

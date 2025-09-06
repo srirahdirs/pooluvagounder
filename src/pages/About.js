@@ -18,10 +18,11 @@ const About = () => {
   return (
     <>
       <SEO
-        title="About Us - WeddingSoulMates"
-        description="Learn more about WeddingSoulMates and our commitment to helping people find their perfect life partners."
-        image={`${process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000'}/images/about-us.jpg`}
-        url={`${process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000'}/about-us`}
+        title="About WeddingSoulMates - India's Most Trusted Matrimony Platform | Our Story"
+        description="Learn about WeddingSoulMates - India's most trusted matrimony platform. Discover our mission to help people from all communities, religions, and castes find their perfect life partners. Join thousands of verified profiles."
+        keywords="about matrimony, wedding soul mates about, matrimony platform story, marriage bureau about, matrimonial service about, shaadi about, muslim matrimony about, hindu matrimony about, christian matrimony about, sikh matrimony about, gounder matrimony about, chettiar matrimony about, all community matrimony about, india matrimony about, inter caste marriage about, inter religion marriage about, trusted matrimony platform, verified profiles matrimony, marriage service about, matrimonial website about"
+        image={`${process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000'}/matrimo/images/about-us.jpg`}
+        url={`${process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000'}/about`}
         canonical={`${process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000'}/about`}
         schema={schemaData}
       />

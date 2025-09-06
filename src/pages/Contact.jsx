@@ -4,11 +4,50 @@ import emailjs from 'emailjs-com';
 import { Toast } from 'primereact/toast';
 import { useToast } from '../assets/utils/toastUtil';
 import config from '../config';
+import SEO from '../components/SEO';
 
 const Contact = () => {
     const youngZenEmail = config?.youngZenEmail;
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { toast, showToast } = useToast();
+    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000';
+
+    // Structured data for Contact page
+    const schemaData = {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": "Contact WeddingSoulMates - Trusted Matrimony Platform",
+        "description": "Get in touch with WeddingSoulMates for matrimonial services support. Contact our customer service team for assistance with your matrimony journey.",
+        "url": `${baseUrl}/contact`,
+        "mainEntity": {
+            "@type": "Organization",
+            "name": "WeddingSoulMates",
+            "url": baseUrl,
+            "contactPoint": [
+                {
+                    "@type": "ContactPoint",
+                    "telephone": "+91-4223568392",
+                    "contactType": "customer service",
+                    "availableLanguage": "English",
+                    "areaServed": "IN"
+                },
+                {
+                    "@type": "ContactPoint",
+                    "email": youngZenEmail,
+                    "contactType": "customer service",
+                    "availableLanguage": "English"
+                }
+            ],
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "No 1a, Ground Floor, Vasantham Nagar, KovaiPudhur",
+                "addressLocality": "Coimbatore",
+                "addressRegion": "Tamil Nadu",
+                "postalCode": "641042",
+                "addressCountry": "IN"
+            }
+        }
+    };
 
     // EmailJS onSubmit handler
     const onSubmit = (data) => {
@@ -44,6 +83,16 @@ const Contact = () => {
 
     return (
         <>
+            <SEO
+                title="Contact WeddingSoulMates - Get Support for Your Matrimony Journey"
+                description="Contact WeddingSoulMates for matrimonial services support. Get help with your matrimony journey, profile creation, and finding your perfect life partner. Call +91-4223568392 or email us."
+                keywords="contact matrimony, marriage bureau contact, matrimonial support, wedding soul mates contact, matrimony help, marriage service support, matrimonial customer service, wedding planning contact, shaadi contact, muslim matrimony contact, hindu matrimony contact, christian matrimony contact, sikh matrimony contact, gounder matrimony contact, chettiar matrimony contact, all community matrimony support, india matrimony contact, inter caste marriage support, inter religion marriage help"
+                image={`${baseUrl}/matrimo/images/og-image.png`}
+                url={`${baseUrl}/contact`}
+                canonical={`${baseUrl}/contact`}
+                schema={schemaData}
+                type="website"
+            />
             <Toast ref={toast} />
             <section>
                 <div className="str">
