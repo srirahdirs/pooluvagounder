@@ -109,7 +109,7 @@ const Login = () => {
     e.preventDefault();  // Prevent form from reloading
     setLoading(true); // Show loading indicator
     try {
-      const response = await fetch('https://api.weddingsoulmates.com/api/forgot-password', {
+      const response = await fetch('https://api.pooluvagounder.com/api/forgot-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -137,14 +137,14 @@ const Login = () => {
     }
   };
 
-  const baseUrl = process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000';
+  const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000';
 
   // Structured data for Login page
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Login to WeddingSoulMates - Access Your Matrimony Account",
-    "description": "Sign in to your WeddingSoulMates matrimony account. Access your profile, view matches, and continue your journey to find your perfect life partner.",
+    "name": "Login to PooluvaGounderMatrimony - Access Your Matrimony Account",
+    "description": "Sign in to your PooluvaGounderMatrimony matrimony account. Access your profile, view matches, and continue your journey to find your perfect life partner.",
     "url": `${baseUrl}/login`,
     "mainEntity": {
       "@type": "Service",
@@ -152,7 +152,7 @@ const Login = () => {
       "description": "Secure login to access matrimonial services and find your perfect life partner",
       "provider": {
         "@type": "Organization",
-        "name": "WeddingSoulMates"
+        "name": "PooluvaGounderMatrimony"
       },
       "serviceType": "Matrimonial Account Management"
     }
@@ -161,8 +161,8 @@ const Login = () => {
   return (
     <>
       <SEO
-        title="Login to WeddingSoulMates - Access Your Matrimony Account | Sign In"
-        description="Sign in to your WeddingSoulMates matrimony account. Access your profile, view matches, and continue your journey to find your perfect life partner. Secure login for all communities."
+        title="Login to PooluvaGounderMatrimony - Access Your Matrimony Account | Sign In"
+        description="Sign in to your PooluvaGounderMatrimony matrimony account. Access your profile, view matches, and continue your journey to find your perfect life partner. Secure login for all communities."
         keywords="matrimony login, marriage bureau login, matrimonial account access, wedding soul mates login, matrimony sign in, marriage website login, matrimonial platform access, bride groom login, matrimony account login, marriage service login, shaadi login, muslim matrimony login, hindu matrimony login, christian matrimony login, sikh matrimony login, gounder matrimony login, chettiar matrimony login, brahmin matrimony login, vellalar matrimony login, naidu matrimony login, reddy matrimony login, patel matrimony login, gujarati matrimony login, marathi matrimony login, bengali matrimony login, punjabi matrimony login, tamil matrimony login, telugu matrimony login, malayalam matrimony login, kannada matrimony login, hindi matrimony login, inter caste marriage login, inter religion marriage login, all community matrimony login, india matrimony login, south indian matrimony login, north indian matrimony login, east indian matrimony login, west indian matrimony login"
         image={`${baseUrl}/matrimo/images/og-image.png`}
         url={`${baseUrl}/login`}
@@ -256,7 +256,7 @@ const Login = () => {
                   <div>
                     <div className="form-tit">
                       <h4>Get Started for Free</h4>
-                      <h1>Signin <em className="em_register">Wedding Soul Mates</em> Matrimony</h1>
+                      <h1>Signin <em className="em_register">PooluvaGounder Matrimony</em> Matrimony</h1>
                       <p>Not a member yet? <a href="/register">Create an account now</a></p>
                     </div>
                     <div className="form-login">

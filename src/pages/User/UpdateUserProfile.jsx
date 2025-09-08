@@ -992,7 +992,7 @@ const UpdateUserProfile = () => {
                                                     <select
                                                         className="form-control"
                                                         name="religion"
-                                                        value={formData.religion || ''}
+                                                        value={formData.religion || 'Hindu'}
                                                         onChange={handleChange}
                                                     >
                                                         {religions.map((religion) => (

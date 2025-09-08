@@ -42,9 +42,9 @@ const Pricing = () => {
   const pricingSchema = {
     "@context": "https://schema.org",
     "@type": "OfferCatalog",
-    name: "WeddingSoulMates Subscription Plans",
+    name: "PooluvaGounderMatrimony Gounder Community Subscription Plans",
     description:
-      "Choose from our flexible subscription plans and get started with WeddingSoulMates.",
+      "Choose from our flexible subscription plans and get started with PooluvaGounderMatrimony for Gounder community matrimony services.",
     itemListElement: [
       {
         "@type": "Offer",
@@ -107,9 +107,9 @@ const Pricing = () => {
     <>
       {/* Add SEO metadata */}
       <SEO
-        title="WeddingSoulMates Pricing Plans - Affordable Matrimony Subscription | Silver Gold Platinum"
-        description="Choose from WeddingSoulMates flexible subscription plans - Silver, Gold, and Platinum. Affordable matrimony services for all communities. Start your journey to find your perfect life partner today!"
-        keywords="matrimony pricing, marriage bureau pricing, matrimonial subscription plans, wedding soul mates pricing, shaadi pricing, muslim matrimony pricing, hindu matrimony pricing, christian matrimony pricing, sikh matrimony pricing, gounder matrimony pricing, chettiar matrimony pricing, all community matrimony pricing, india matrimony pricing, inter caste marriage pricing, inter religion marriage pricing, silver plan matrimony, gold plan matrimony, platinum plan matrimony, matrimony subscription, marriage service pricing, matrimonial website pricing, affordable matrimony, matrimony plans, marriage bureau subscription, matrimonial service pricing"
+        title="PooluvaGounderMatrimony Pricing Plans - Affordable Gounder Matrimony Subscription | Silver Gold Platinum"
+        description="Choose from PooluvaGounderMatrimony flexible subscription plans - Silver, Gold, and Platinum. Affordable Gounder, Pooluva Gounder, VettuvaGounder, Vettuvar, and Pooluvar community matrimony services. Start your journey to find your perfect life partner today!"
+        keywords="gounder matrimony pricing, gounder marriage bureau pricing, gounder matrimonial subscription plans, gounder community pricing, gounder shaadi pricing, tamil gounder matrimony pricing, coimbatore gounder matrimony pricing, chennai gounder matrimony pricing, gounder caste matrimony pricing, gounder family matrimony pricing, gounder traditional marriage pricing, gounder cultural wedding pricing, gounder community website pricing, gounder matrimonial platform pricing, gounder brides pricing, gounder grooms pricing, gounder profiles pricing, silver plan gounder matrimony, gold plan gounder matrimony, platinum plan gounder matrimony, gounder matrimony subscription, gounder marriage service pricing, gounder matrimonial website pricing, affordable gounder matrimony, gounder matrimony plans, gounder marriage bureau subscription, gounder matrimonial service pricing, pooluva gounder pricing, pooluva gounder matrimony pricing, vettuvagounder matrimony pricing, vettuvar pricing, pooluvar pricing, pooluva gounder marriage pricing, vettuvagounder marriage pricing, vettuvar marriage pricing, pooluvar marriage pricing, pooluva gounder community pricing, vettuvagounder community pricing, vettuvar community pricing, pooluvar community pricing"
         schema={pricingSchema} // Pass schema data to SEO component
       />
 

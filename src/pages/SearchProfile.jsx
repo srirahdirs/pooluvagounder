@@ -95,7 +95,7 @@ const SearchProfile = ({ user }) => {
   const [searchForm, setSearchForm] = useState({
     gender: '',
     age: '',
-    religion: '',
+    religion: 'Hindu',
     caste: '',
     city: ''
   });
@@ -125,11 +125,7 @@ const SearchProfile = ({ user }) => {
       ageRef.current.focus(); // Focus on the age select input
       return false;
     }
-    if (searchForm.religion === '') {
-      showToast("Religion Required", 'error');
-      religionRef.current.focus(); // Focus on the religion select input
-      return false;
-    }
+    // Religion is always Hindu, no validation needed
     // if (searchForm.caste === '') {
     //   showToast("Caste Required", 'error');
     //   casteRef.current.focus(); // Focus on the caste select input
@@ -180,14 +176,14 @@ const SearchProfile = ({ user }) => {
     }
   };
 
-  const baseUrl = process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000';
+  const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000';
 
   // Structured data for Search Profile page
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Search Matrimony Profiles - WeddingSoulMates",
-    "description": "Search for your perfect life partner on WeddingSoulMates. Filter by age, religion, caste, location and find verified profiles from all communities across India.",
+    "name": "Search Matrimony Profiles - PooluvaGounderMatrimony",
+    "description": "Search for your perfect life partner on PooluvaGounderMatrimony. Filter by age, religion, caste, location and find verified profiles from all communities across India.",
     "url": `${baseUrl}/search`,
     "mainEntity": {
       "@type": "Service",
@@ -195,7 +191,7 @@ const SearchProfile = ({ user }) => {
       "description": "Advanced search functionality to find compatible life partners",
       "provider": {
         "@type": "Organization",
-        "name": "WeddingSoulMates"
+        "name": "PooluvaGounderMatrimony"
       }
     }
   };
@@ -203,8 +199,8 @@ const SearchProfile = ({ user }) => {
   return (
     <>
       <SEO
-        title="Search Matrimony Profiles - Find Your Perfect Life Partner | WeddingSoulMates"
-        description="Search for your perfect life partner on WeddingSoulMates. Filter by age, religion, caste, location and find verified profiles from all communities across India. Start your search today!"
+        title="Search Matrimony Profiles - Find Your Perfect Life Partner | PooluvaGounderMatrimony"
+        description="Search for your perfect life partner on PooluvaGounderMatrimony. Filter by age, religion, caste, location and find verified profiles from all communities across India. Start your search today!"
         keywords="search matrimony profiles, find life partner, matrimony search, marriage bureau search, shaadi search, muslim matrimony search, hindu matrimony search, christian matrimony search, sikh matrimony search, gounder matrimony search, chettiar matrimony search, all community matrimony search, india matrimony search, inter caste marriage search, inter religion marriage search, matrimony profile search, marriage partner search, bride search, groom search, matrimonial search, wedding soul mates search, verified profiles search, matrimony filter, marriage bureau filter"
         image={`${baseUrl}/matrimo/images/og-image.png`}
         url={`${baseUrl}/search`}

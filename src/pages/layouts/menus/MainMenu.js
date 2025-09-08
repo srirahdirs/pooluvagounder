@@ -32,7 +32,7 @@ const MainMenu = () => {
                                     <i></i><i></i><i></i>
                                 </span> */}
                                 <a href="/home" className="logo-brand">
-                                    <img src={`${process.env.PUBLIC_URL}/matrimo/images/WeddingSoulMates.png`} alt="WeddingSoulMates LOGO" loading="lazy" className="ic-logo" />
+                                    <img src={`${process.env.PUBLIC_URL}/matrimo/images/Pooluvagounder_matrimony.png`} alt="PooluvaGounderMatrimony LOGO" loading="lazy" className="ic-logo" />
                                 </a>
                             </div>
 

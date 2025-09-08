@@ -158,7 +158,7 @@ const LeftMenu = () => {
             <Toast ref={toast} />
             <span className="menu-pop-clo"><i className="fa fa-times" aria-hidden="true"></i></span>
             <div className="inn">
-                <p><strong>Wedding Soul Mates </strong> is rapidly becoming one of the leading Tamil matchmaking services.</p>
+                <p><strong>PooluvaGounder Matrimony </strong> is rapidly becoming one of the leading Tamil matchmaking services.</p>
 
                 {/* Display selected plan details */}
                 {selectedPlan ? (

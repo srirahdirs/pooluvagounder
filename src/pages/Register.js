@@ -152,14 +152,14 @@ const Registration = () => {
         }
     };
 
-    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000';
+    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000';
 
     // Structured data for Registration page
     const schemaData = {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        "name": "Register for WeddingSoulMates - Create Your Matrimony Profile",
-        "description": "Join WeddingSoulMates matrimony platform. Create your profile and start your journey to find your perfect life partner. Free registration with verified profiles.",
+        "name": "Register for PooluvaGounderMatrimony - Create Your Matrimony Profile",
+        "description": "Join PooluvaGounderMatrimony matrimony platform. Create your profile and start your journey to find your perfect life partner. Free registration with verified profiles.",
         "url": `${baseUrl}/register`,
         "mainEntity": {
             "@type": "Service",
@@ -167,7 +167,7 @@ const Registration = () => {
             "description": "Register for trusted matrimonial services and find your perfect life partner",
             "provider": {
                 "@type": "Organization",
-                "name": "WeddingSoulMates"
+                "name": "PooluvaGounderMatrimony"
             },
             "serviceType": "Matrimonial Registration",
             "offers": {
@@ -181,8 +181,8 @@ const Registration = () => {
     return (
         <>
             <SEO
-                title="Register for WeddingSoulMates - Create Your Matrimony Profile | Free Registration"
-                description="Join WeddingSoulMates matrimony platform today! Create your profile for free and start your journey to find your perfect life partner. Thousands of verified profiles waiting for you."
+                title="Register for PooluvaGounderMatrimony - Create Your Matrimony Profile | Free Registration"
+                description="Join PooluvaGounderMatrimony matrimony platform today! Create your profile for free and start your journey to find your perfect life partner. Thousands of verified profiles waiting for you."
                 keywords="matrimony registration, marriage bureau registration, matrimonial profile creation, wedding soul mates register, matrimony sign up, marriage website registration, matrimonial platform join, bride groom registration, matrimony free registration, marriage service signup, shaadi registration, muslim matrimony registration, hindu matrimony registration, christian matrimony registration, sikh matrimony registration, gounder matrimony registration, chettiar matrimony registration, brahmin matrimony registration, vellalar matrimony registration, naidu matrimony registration, reddy matrimony registration, patel matrimony registration, gujarati matrimony registration, marathi matrimony registration, bengali matrimony registration, punjabi matrimony registration, tamil matrimony registration, telugu matrimony registration, malayalam matrimony registration, kannada matrimony registration, hindi matrimony registration, inter caste marriage registration, inter religion marriage registration, all community matrimony registration, india matrimony registration, south indian matrimony registration, north indian matrimony registration, east indian matrimony registration, west indian matrimony registration"
                 image={`${baseUrl}/matrimo/images/og-image.png`}
                 url={`${baseUrl}/register`}
@@ -209,7 +209,7 @@ const Registration = () => {
                                     <div>
                                         <div className="form-tit">
                                             <h4>Get Started for Free</h4>
-                                            <h1>Join <em className="em_register">Wedding Soul Mates</em> Today</h1>
+                                            <h1>Join <em className="em_register">PooluvaGounder Matrimony</em> Today</h1>
                                             <p>Already a member? <Link to="/login" className="font-medium text-blue-500">Log In</Link></p>
                                         </div>
                                         <div className="form-login">

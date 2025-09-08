@@ -48,7 +48,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="row foot-count">
-          <p>Wedding Soul Mates Matrimony – Trusted by individuals across the globe for finding successful and lasting marriages. <a
+          <p>PooluvaGounder Matrimony – Trusted by individuals across the globe for finding successful and lasting marriages. <a
             href="/register" className="btn btn-primary btn-sm">Join us today !</a></p>
         </div>
       </div>

@@ -6,7 +6,7 @@ const PaymentResponse = () => {
         const queryParams = new URLSearchParams(window.location.search);
         const encResponse = queryParams.get('encResponse');
 
-        axios.post('https://api.weddingsoulmates.com/decryptResponse', { encResponse })
+        axios.post('https://api.pooluvagounder.com/decryptResponse', { encResponse })
             .then(response => {
             });
     }, []);

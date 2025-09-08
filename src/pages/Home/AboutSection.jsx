@@ -68,12 +68,12 @@ const AboutSection = () => {
                             <div className="col-lg-6">
                                 <div className="ab-wel-rhs">
                                     <div className="ab-wel-tit">
-                                        <h2>Welcome to <em>Wedding Soul Mates</em></h2>
-                                        <p>Your perfect match awaits!. At Wedding Soul Mates, we connect individuals looking for meaningful, lifelong relationships. Our platform is dedicated to helping you find your ideal partner with ease and trust. Whether you're seeking a soulmate or a lifelong companion, we’re here to guide you on your journey toward a beautiful union. Start your path to forever today with Wedding Soul Mates—where love, commitment, and happiness come together.</p>
+                                        <h2>Welcome to <em>PooluvaGounder Matrimony</em></h2>
+                                        <p>Your perfect match awaits!. At PooluvaGounder Matrimony, we connect individuals looking for meaningful, lifelong relationships. Our platform is dedicated to helping you find your ideal partner with ease and trust. Whether you're seeking a soulmate or a lifelong companion, we're here to guide you on your journey toward a beautiful union. Start your path to forever today with PooluvaGounder Matrimony—where love, commitment, and happiness come together.</p>
                                         <p> <a href="/register">Click here to</a> start your matrimony service now.</p>
                                     </div>
                                     <div className="ab-wel-tit-1">
-                                        <p>At Wedding Soul Mates, we understand that finding your perfect partner is a unique and personal journey. With our platform, we simplify the process of discovering meaningful connections, offering a safe and supportive space for those seeking lifelong companionship. Join us today and take the first step toward a beautiful, committed relationship built on love and trust.</p>
+                                        <p>At PooluvaGounder Matrimony, we understand that finding your perfect partner is a unique and personal journey. With our platform, we simplify the process of discovering meaningful connections, offering a safe and supportive space for those seeking lifelong companionship. Join us today and take the first step toward a beautiful, committed relationship built on love and trust.</p>
                                     </div>
                                     <div className="ab-wel-tit-2">
                                         <ul>

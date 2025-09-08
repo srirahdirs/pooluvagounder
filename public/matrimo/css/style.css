@@ -96,7 +96,7 @@ body {
     --mtop: 75px;
     --cta-dark: #000000;
     --cta-pink1: #607d8b;
-    --cta-pink1h: #b5345e;
+    --cta-pink1h: #a16304;
     --tit-font:
         "Playfair Display", serif;
 }
@@ -159,8 +159,7 @@ input,
 textarea,
 select {
     font-family: Poppins, sans-serif;
-    color: crimson;
-    /* color: #66451c; */
+    color: #66451c;
 }
 
 ul {
@@ -217,7 +216,7 @@ img {
 }
 
 .form-group {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 /*-------------------------------------------------------*/
@@ -438,8 +437,7 @@ img {
 }
 
 .head-top {
-    /* background: linear-gradient(to right, rgb(118, 69, 8), rgb(64, 52, 6)); */
-    background: linear-gradient(to right, rgb(137, 33, 107), rgb(218, 68, 83))
+    background: linear-gradient(to right, rgb(118, 69, 8), rgb(64, 52, 6));
 }
 
 .head-top .rhs ul {
@@ -700,16 +698,15 @@ img {
 }
 
 .hom-nav .ic-logo {
-    width: 292px;
-    /* padding-top: 2px; */
-    height: 53px;
+    width: 230px;
+    padding-top: 2px;
 }
 
 .hom-nav .bl {
     margin: 0px;
     width: calc(100% - 450px);
     float: left;
-    padding: 6px 40px;
+    padding: 0px 40px;
 }
 
 .hom-nav .bl ul {
@@ -734,7 +731,6 @@ img {
     line-height: 40px;
     padding: 15px 3px;
     text-transform: uppercase;
-    color: #5a3c07;
 }
 
 .smenu-open {
@@ -1427,7 +1423,7 @@ i.fa-instagram:hover {
 .head-pro {
     padding: 6px 0px 0px;
     display: inline-block;
-    width: 200px;
+    width: 142px;
 }
 
 .head-pro img {
@@ -1560,7 +1556,7 @@ i.fa-instagram:hover {
 /* BANNER SEARCH
 /*-------------------------------------------------------*/
 .ban-search {
-    width: 100%;
+    width: 90%;
     position: relative;
     background: rgba(0, 0, 0, 0.58);
     padding: 25px;
@@ -1572,7 +1568,7 @@ i.fa-instagram:hover {
 
 .ban-search ul li {
     float: left;
-    width: 16%;
+    width: 15%;
     padding: 0px 5px;
 }
 
@@ -1603,7 +1599,7 @@ i.fa-instagram:hover {
 .ban-search ul li input[type="submit"] {
     background: var(--cta-pink1);
     color: rgb(255, 255, 255);
-    border: 0px solid #b5345e;
+    border: 0px solid rgb(255, 167, 120);
     padding: 8px 25px;
     text-align: center;
     font-size: 18px;
@@ -2507,7 +2503,7 @@ table td {}
     float: left;
     width: 100%;
     padding: 80px 0px 85px 0px;
-    /* margin-top: var(--mtop); */
+    margin-top: var(--mtop);
 }
 
 .login .inn {
@@ -2550,7 +2546,7 @@ table td {}
 .login .lhs .tit h2 b {
     font-weight: 800;
     display: block;
-    font-size: 58px;
+    font-size: 62px;
     font-family: var(--tit-font);
     line-height: 66px;
     margin: 10px 0;
@@ -2768,13 +2764,6 @@ table td {}
     padding: 30px 20px 20px;
     border-radius: 5px;
     position: relative;
-}
-
-.foot-supp a {
-    color: #fff;
-    font-weight: 300;
-    font-size: 20px;
-    font-family: 'Cinzel Decorative';
 }
 
 .wed-hom-footer h4 {
@@ -7004,11 +6993,11 @@ span.mail::before {
 .pg-soon:before {
     content: '';
     position: fixed;
-    top: 125px;
+    top: 121px;
     left: 0;
     width: 188px;
     height: 188px;
-    background: url('../images/leaf/5.png') no-repeat;
+    background: url('../images/leaf/4.png') no-repeat;
     background-size: 300px;
     background-position: -78px -70px;
 }
@@ -7020,8 +7009,8 @@ span.mail::before {
     bottom: 0;
     right: 0;
     width: 123px;
-    height: 300px;
-    background: url('../images/leaf/8.png') no-repeat;
+    height: 420px;
+    background: url('../images/leaf/2.png') no-repeat;
     background-size: 121px;
     background-position: center right;
 }
@@ -9260,14 +9249,11 @@ span.mail::before {
     text-align: center;
 }
 
-.db-nav-list ul li a.active {
+.db-nav-list ul li a.act {
     color: #03A9F4;
     background: #e4f1fc;
     background: linear-gradient(to left, #ffffff, #e4f1fc 70%);
-    /* border-left: 0.4rem solid ; */
 }
-
-.db-nav-list ul li a:hover {}
 
 .db-nav-list ul li a.act i {}
 
@@ -10171,7 +10157,7 @@ select {
     .hom-top:before,
     .pg-soon:before {
         width: 140px;
-        height: 123px;
+        height: 121px;
         background-size: 190px;
         background-position: -33px -43px;
     }
@@ -10935,7 +10921,7 @@ select {
     }
 
     .login .lhs .tit h2 b br {
-        display: block;
+        display: none;
     }
 
     .pg-404 .lhs .tit h2 b {

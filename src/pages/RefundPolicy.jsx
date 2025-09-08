@@ -10,29 +10,29 @@ const RefundPolicy = () => {
     const refundPolicySchema = {
         "@context": "https://schema.org",
         "@type": "RefundPolicy",
-        "name": "WeddingSoulMates Refund Policy",
-        "description": "Review the refund policy for WeddingSoulMates. We do not offer refunds on any subscription or service purchased.",
+        "name": "PooluvaGounder Matrimony Refund Policy",
+        "description": "Review the refund policy for PooluvaGounder Matrimony. We do not offer refunds on any subscription or service purchased.",
         "publisher": {
             "@type": "Organization",
-            "name": "WeddingSoulMates",
-            "url": "https://weddingsoulmates.com",
+            "name": "PooluvaGounder Matrimony",
+            "url": "https://pooluvagounder.com/",
         },
-        "termsOfService": "https://weddingsoulmates.com/terms-of-service"
+        "termsOfService": "https://pooluvagounder.com//terms-of-service"
     };
 
     return (
         <div className="privacy-container mb-5">
             {/* Adding SEO component with Schema */}
             <SEO
-                title="Refund Policy - WeddingSoulMates"
-                description="Review the refund policy for WeddingSoulMates. Please note that we do not offer any refunds on subscription services."
+                title="Refund Policy - PooluvaGounder Matrimony"
+                description="Review the refund policy for PooluvaGounder Matrimony. Please note that we do not offer any refunds on subscription services."
                 schema={refundPolicySchema} // Passing the schema to SEO component
             />
 
             <main className="content">
                 <div className="container">
                     <h2>Refund Policy</h2>
-                    <p>Thank you for choosing WeddingSoulMates. Please carefully review our refund policy outlined below. By using our services, you agree to the terms specified here.</p>
+                    <p>Thank you for choosing PooluvaGounder Matrimony. Please carefully review our refund policy outlined below. By using our services, you agree to the terms specified here.</p>
 
                     <h3>1. No Refunds</h3>
                     <p>As our services involve access to premium features, once a subscription or service is purchased, it is considered final. We do not offer any refunds under any circumstances.</p>

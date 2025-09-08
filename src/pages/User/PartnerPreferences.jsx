@@ -124,13 +124,7 @@ const PartnerPreferences = () => {
                 setCasteError('');
             }
         }
-        if (name === 'religion') {
-            if (value.trim() === '') {
-                setReligionError('Religion is required');
-            } else {
-                setReligionError('');
-            }
-        }
+        // Religion is always Hindu, no validation needed
     };
     const validateForm = (fieldValues = formData) => {
 
@@ -174,12 +168,7 @@ const PartnerPreferences = () => {
         // } else {
         //     setMaritalStatusError('');
         // }
-        if (!fieldValues.religion || fieldValues.religion === '') {
-            setReligionError('Religion is required');
-            isValid = false;
-        } else {
-            setReligionError('');
-        }
+        // Religion is always Hindu, no validation needed
         if (!fieldValues.caste || fieldValues.caste === '') {
             setCasteError('Caste is required');
             isValid = false;
@@ -446,20 +435,10 @@ const PartnerPreferences = () => {
                                                         <select
                                                             className="form-control"
                                                             name="religion"
-                                                            value={formData.religion || ''}
+                                                            value={formData.religion || 'Hindu'}
                                                             onChange={handleChange}
                                                         >
-                                                            <option value="">Select Religion</option>
-                                                            <option value="no_preference">No Preference</option>
                                                             <option value="Hindu">Hindu</option>
-                                                            <option value="Muslim">Muslim</option>
-                                                            <option value="Christian">Christian</option>
-                                                            <option value="Sikh">Sikh</option>
-                                                            <option value="Buddhist">Buddhist</option>
-                                                            <option value="Jain">Jain</option>
-                                                            <option value="Parsi">Parsi</option>
-                                                            <option value="Jewish">Jewish</option>
-                                                            <option value="Other">Other</option>
                                                         </select>
                                                         {religionError && <p className="error-message">{religionError}</p>}
                                                     </div>

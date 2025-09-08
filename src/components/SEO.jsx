@@ -9,18 +9,18 @@ const SEO = ({
     canonical,
     schema,
     keywords,
-    author = "WeddingSoulMates",
+    author = "PooluvaGounder Matrimony",
     type = "website",
     locale = "en_US",
-    siteName = "WeddingSoulMates - Trusted Matrimony Platform",
+    siteName = "PooluvaGounder Matrimony - Gounder Community Matrimony",
     twitterCard = "summary_large_image",
-    twitterSite = "@WeddingSoulMates",
+    twitterSite = "@PooluvaGounder Matrimony",
     noIndex = false,
     noFollow = false
 }) => {
-    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000';
+    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000';
     const defaultImage = `${baseUrl}/matrimo/images/og-image.png`;
-    const defaultDescription = "Find your perfect life partner with WeddingSoulMates - India's most trusted matrimony platform. Join thousands of verified profiles and discover meaningful connections.";
+    const defaultDescription = "Find your perfect Gounder life partner with PooluvaGounder Matrimony - Tamil Nadu's trusted Gounder community matrimony platform. Connect with verified Gounder, Pooluva Gounder, VettuvaGounder, Vettuvar, and Pooluvar brides and grooms from Coimbatore, Chennai, and across Tamil Nadu.";
 
     return (
         <>
@@ -28,7 +28,7 @@ const SEO = ({
                 {/* Basic Meta Tags */}
                 <title>{title}</title>
                 <meta name="description" content={description || defaultDescription} />
-                <meta name="keywords" content={keywords || "matrimony, marriage, wedding, bride, groom, matrimonial, matchmaking, life partner, marriage bureau, wedding planning, matrimonial site, marriage website, find partner, marriage service, shaadi, muslim matrimony, hindu matrimony, christian matrimony, sikh matrimony, gounder matrimony, chettiar matrimony, brahmin matrimony, vellalar matrimony, naidu matrimony, reddy matrimony, patel matrimony, gujarati matrimony, marathi matrimony, bengali matrimony, punjabi matrimony, tamil matrimony, telugu matrimony, malayalam matrimony, kannada matrimony, hindi matrimony, inter caste marriage, inter religion marriage, all community matrimony, india matrimony, south indian matrimony, north indian matrimony, east indian matrimony, west indian matrimony, verified profiles, trusted matrimony, free matrimony registration"} />
+                <meta name="keywords" content={keywords || "gounder matrimony, gounder marriage, gounder wedding, gounder bride, gounder groom, gounder community matrimony, tamil gounder matrimony, coimbatore gounder matrimony, chennai gounder matrimony, tamil nadu gounder matrimony, gounder matrimonial site, gounder marriage bureau, gounder matchmaking, gounder life partner, gounder community, gounder caste matrimony, gounder family matrimony, gounder traditional marriage, gounder cultural wedding, gounder community website, gounder matrimonial service, gounder brides, gounder grooms, gounder profiles, gounder matrimony coimbatore, gounder matrimony chennai, gounder matrimony madurai, gounder matrimony trichy, gounder matrimony salem, gounder matrimony erode, gounder matrimony tamilnadu, verified gounder profiles, trusted gounder matrimony, free gounder matrimony registration, pooluva gounder, pooluva gounder matrimony, vettuvagounder matrimony, vettuvar, pooluvar, pooluva gounder marriage, pooluva gounder wedding, vettuvagounder marriage, vettuvagounder wedding, vettuvar matrimony, vettuvar marriage, pooluvar matrimony, pooluvar marriage, pooluva gounder community, vettuvagounder community, vettuvar community, pooluvar community, pooluva gounder brides, pooluva gounder grooms, vettuvagounder brides, vettuvagounder grooms, vettuvar brides, vettuvar grooms, pooluvar brides, pooluvar grooms"} />
                 <meta name="author" content={author} />
                 <meta name="robots" content={`${noIndex ? 'noindex' : 'index'}, ${noFollow ? 'nofollow' : 'follow'}`} />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -61,8 +61,8 @@ const SEO = ({
                 {/* Additional SEO Meta Tags */}
                 <meta name="theme-color" content="#8B4513" />
                 <meta name="msapplication-TileColor" content="#8B4513" />
-                <meta name="application-name" content="WeddingSoulMates" />
-                <meta name="apple-mobile-web-app-title" content="WeddingSoulMates" />
+                <meta name="application-name" content="PooluvaGounder Matrimony" />
+                <meta name="apple-mobile-web-app-title" content="PooluvaGounder Matrimony" />
                 <meta name="apple-mobile-web-app-capable" content="yes" />
                 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 

@@ -6,24 +6,24 @@ const About = () => {
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "url": process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000',
-    "logo": process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com/images/logo.jpg' : 'http://localhost:3000/images/logo.jpg',
-    "name": "WeddingSoulMates",
-    "description": "Learn more about WeddingSoulMates and our commitment to helping people find their perfect life partners.",
+    "url": process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000',
+    "logo": process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com//images/logo.jpg' : 'http://localhost:3000/images/logo.jpg',
+    "name": "PooluvaGounderMatrimony",
+    "description": "Learn more about PooluvaGounderMatrimony and our commitment to helping Gounder community members find their perfect life partners within the community.",
     "sameAs": [
-      "https://www.facebook.com/WeddingSoulMates",
-      "https://www.instagram.com/WeddingSoulMates"
+      "https://www.facebook.com/PooluvaGounderMatrimony",
+      "https://www.instagram.com/PooluvaGounderMatrimony"
     ]
   };
   return (
     <>
       <SEO
-        title="About WeddingSoulMates - India's Most Trusted Matrimony Platform | Our Story"
-        description="Learn about WeddingSoulMates - India's most trusted matrimony platform. Discover our mission to help people from all communities, religions, and castes find their perfect life partners. Join thousands of verified profiles."
-        keywords="about matrimony, wedding soul mates about, matrimony platform story, marriage bureau about, matrimonial service about, shaadi about, muslim matrimony about, hindu matrimony about, christian matrimony about, sikh matrimony about, gounder matrimony about, chettiar matrimony about, all community matrimony about, india matrimony about, inter caste marriage about, inter religion marriage about, trusted matrimony platform, verified profiles matrimony, marriage service about, matrimonial website about"
-        image={`${process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000'}/matrimo/images/about-us.jpg`}
-        url={`${process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000'}/about`}
-        canonical={`${process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000'}/about`}
+        title="About PooluvaGounderMatrimony - Gounder Community Matrimony Platform | Our Story"
+        description="Learn about PooluvaGounderMatrimony - Tamil Nadu's trusted Gounder community matrimony platform. Discover our mission to help Gounder, Pooluva Gounder, VettuvaGounder, Vettuvar, and Pooluvar community members find their perfect life partners within the community. Join thousands of verified profiles."
+        keywords="about gounder matrimony, gounder community matrimony about, gounder marriage bureau about, gounder matrimonial service about, tamil gounder matrimony about, coimbatore gounder matrimony about, chennai gounder matrimony about, gounder community about, gounder caste matrimony about, gounder family matrimony about, gounder traditional marriage about, gounder cultural wedding about, gounder community website about, gounder matrimonial platform about, gounder brides about, gounder grooms about, gounder profiles about, trusted gounder matrimony platform, verified gounder profiles, gounder marriage service about, gounder matrimonial website about, about pooluva gounder, about pooluva gounder matrimony, about vettuvagounder matrimony, about vettuvar, about pooluvar, pooluva gounder community about, vettuvagounder community about, vettuvar community about, pooluvar community about, pooluva gounder marriage about, vettuvagounder marriage about, vettuvar marriage about, pooluvar marriage about"
+        image={`${process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000'}/matrimo/images/about-us.jpg`}
+        url={`${process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000'}/about`}
+        canonical={`${process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000'}/about`}
         schema={schemaData}
       />
 
@@ -35,7 +35,7 @@ const About = () => {
               <div className="row">
                 <div className="hom-ban">
                   <div className="ban-tit">
-                    <span><i className="no1"> <em style={{ fontFamily: 'Cinzel Decorative', fontStyle: 'cursive' }}>Wedding Soul Mates</em></i> <br />Matrimony</span>
+                    <span><i className="no1"> <em style={{ fontFamily: 'Cinzel Decorative', fontStyle: 'cursive' }}>PooluvaGounder Matrimony</em></i> <br />Matrimony</span>
                     <h1>About Us</h1>
                     <p>Your Most Trusted Premium Matrimony Platform, where meaningful connections lead to lifelong happiness.</p>
                   </div>
@@ -95,8 +95,8 @@ const About = () => {
               <div className="col-lg-6">
                 <div className="ab-wel-rhs">
                   <div className="ab-wel-tit">
-                    <h2>Welcome to <em>Wedding Soul Mates</em></h2>
-                    <p>Wedding Soul Mates is more than a matrimony service. We are a platform that understands the importance of finding a partner who shares your values and dreams. Our goal is to connect people for life-long happiness and mutual respect.</p>
+                    <h2>Welcome to <em>PooluvaGounder Matrimony</em></h2>
+                    <p>PooluvaGounder Matrimony is more than a matrimony service. We are a platform that understands the importance of finding a partner who shares your values and dreams. Our goal is to connect people for life-long happiness and mutual respect.</p>
                     <p><a href="plans.html">Start your journey</a> today and find your perfect match with us.</p>
                   </div>
                   <div className="ab-wel-tit-1">

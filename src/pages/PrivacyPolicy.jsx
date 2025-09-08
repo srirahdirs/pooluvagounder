@@ -7,25 +7,25 @@ const PrivacyPolicy = () => {
     const schemaData = {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        "name": "Privacy Policy - WeddingSoulMates",
-        "description": "Read the Privacy Policy of WeddingSoulMates to understand how we collect, use, and protect your information.",
-        "url": process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com/privacy-policy' : 'http://localhost:3000/privacy-policy'
+        "name": "Privacy Policy - PooluvaGounder Matrimony",
+        "description": "Read the Privacy Policy of PooluvaGounder Matrimony to understand how we collect, use, and protect your information.",
+        "url": process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com//privacy-policy' : 'http://localhost:3000/privacy-policy'
     };
     return (
         <>
             <SEO
-                title="Privacy Policy - WeddingSoulMates"
-                description="Learn how WeddingSoulMates handles your personal information and the steps we take to ensure your privacy."
-                image={`${process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000'}/images/privacy-policy.jpg`}
-                url={`${process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000'}/privacy-policy`}
-                canonical={`${process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000'}/privacy-policy`}
+                title="Privacy Policy - PooluvaGounder Matrimony"
+                description="Learn how PooluvaGounder Matrimony handles your personal information and the steps we take to ensure your privacy."
+                image={`${process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000'}/images/privacy-policy.jpg`}
+                url={`${process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000'}/privacy-policy`}
+                canonical={`${process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000'}/privacy-policy`}
                 schema={schemaData}
             />
             <div className="privacy-container mb-5">
                 <h1>Privacy Policy</h1>
                 <p><strong>Effective Date:</strong> December 2024</p>
                 <div className="privacy-content">
-                    <p>At <strong>WeddingSoulMates.com</strong>, your privacy is of utmost importance to us. This Privacy Policy explains how we collect, use, and protect your personal information when you visit and use our website. By using our website, you consent to the practices described in this policy.</p>
+                    <p>At <strong>pooluvagounder.com</strong>, your privacy is of utmost importance to us. This Privacy Policy explains how we collect, use, and protect your personal information when you visit and use our website. By using our website, you consent to the practices described in this policy.</p>
 
                     <h2 className='text-start'>1. Information We Collect</h2>
                     <p>We collect various types of personal information to provide you with a safe and customized experience. The types of information we collect include:</p>

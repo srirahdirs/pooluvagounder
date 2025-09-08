@@ -52,7 +52,7 @@ const ResetPassword = () => {
 
     try {
       const response = await fetch(
-        "https://api.weddingsoulmates.com/api/reset-password",
+        "https://api.pooluvagounder.com/api/reset-password",
         {
           method: "POST",
           headers: {
@@ -69,7 +69,7 @@ const ResetPassword = () => {
 
       if (data.success) {
         showToast("Password reset successful! Please login with your new password.", "success");
-        
+
         console.log('login with your new password');
       } else {
         showToast(data.message || "Failed to reset password.", "error");

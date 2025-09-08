@@ -17,7 +17,7 @@ const PaymentPage = ({ price = 0 }) => {
 
     const { toast, showToast } = useToast();
     const [loading, setLoading] = useState(false);
-    const CALLBACK_URL = 'https://api.weddingsoulmates.com/api/payment-status'; // Reusable callback URL
+    const CALLBACK_URL = 'https://api.pooluvagounder.com/api/payment-status'; // Reusable callback URL
 
     useEffect(() => {
         setPaymentData((prevData) => ({
@@ -44,7 +44,7 @@ const PaymentPage = ({ price = 0 }) => {
 
         try {
             setLoading(true);
-            const response = await axios.post('https://api.weddingsoulmates.com/api/payment/initiate', {
+            const response = await axios.post('https://api.pooluvagounder.com/api/payment/initiate', {
                 amount: parseInt(amount), // Send the amount in INR, it will be converted in the backend
                 orderId: merchantOrderId,
                 customerId: merchantUserId,

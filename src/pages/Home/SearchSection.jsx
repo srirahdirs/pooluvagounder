@@ -17,7 +17,7 @@ const SearchSection = () => {
     const [searchForm, setSearchForm] = useState({
         gender: '',
         age: '',
-        religion: '',
+        religion: 'Hindu',
         state: '',
         city: ''
     });
@@ -146,7 +146,7 @@ const SearchSection = () => {
                             <div className="row">
                                 <div className="hom-ban">
                                     <div className="ban-tit">
-                                        <span><i className="no1"><em style={{ fontFamily: 'Cinzel Decorative', fontStyle: 'cursive' }}>Wedding Soul Mates</em></i><br />Matrimony</span>
+                                        <span><i className="no1"><em style={{ fontFamily: 'Cinzel Decorative', fontStyle: 'cursive' }}>PooluvaGounder Matrimony</em></i><br />Matrimony</span>
                                         <h1>Find your<br /><b>Right Match</b> here</h1>
                                         <p>The leading choice for finding lifelong partners.</p>
                                     </div>

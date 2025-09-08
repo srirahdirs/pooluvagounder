@@ -10,18 +10,18 @@ const Contact = () => {
     const youngZenEmail = config?.youngZenEmail;
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { toast, showToast } = useToast();
-    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000';
+    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000';
 
     // Structured data for Contact page
     const schemaData = {
         "@context": "https://schema.org",
         "@type": "ContactPage",
-        "name": "Contact WeddingSoulMates - Trusted Matrimony Platform",
-        "description": "Get in touch with WeddingSoulMates for matrimonial services support. Contact our customer service team for assistance with your matrimony journey.",
+        "name": "Contact PooluvaGounderMatrimony - Gounder Community Matrimony",
+        "description": "Get in touch with PooluvaGounderMatrimony for Gounder community matrimonial services support. Contact our customer service team for assistance with your Gounder matrimony journey.",
         "url": `${baseUrl}/contact`,
         "mainEntity": {
             "@type": "Organization",
-            "name": "WeddingSoulMates",
+            "name": "PooluvaGounderMatrimony",
             "url": baseUrl,
             "contactPoint": [
                 {
@@ -84,9 +84,9 @@ const Contact = () => {
     return (
         <>
             <SEO
-                title="Contact WeddingSoulMates - Get Support for Your Matrimony Journey"
-                description="Contact WeddingSoulMates for matrimonial services support. Get help with your matrimony journey, profile creation, and finding your perfect life partner. Call +91-4223568392 or email us."
-                keywords="contact matrimony, marriage bureau contact, matrimonial support, wedding soul mates contact, matrimony help, marriage service support, matrimonial customer service, wedding planning contact, shaadi contact, muslim matrimony contact, hindu matrimony contact, christian matrimony contact, sikh matrimony contact, gounder matrimony contact, chettiar matrimony contact, all community matrimony support, india matrimony contact, inter caste marriage support, inter religion marriage help"
+                title="Contact PooluvaGounderMatrimony - Get Support for Your Gounder Matrimony Journey"
+                description="Contact PooluvaGounderMatrimony for Gounder community matrimonial services support. Get help with your Gounder, Pooluva Gounder, VettuvaGounder, Vettuvar, and Pooluvar matrimony journey, profile creation, and finding your perfect life partner. Call +91-4223568392 or email us."
+                keywords="contact gounder matrimony, gounder marriage bureau contact, gounder matrimonial support, gounder community contact, gounder matrimony help, gounder marriage service support, gounder matrimonial customer service, gounder wedding planning contact, gounder shaadi contact, tamil gounder matrimony contact, coimbatore gounder matrimony contact, chennai gounder matrimony contact, gounder community support, gounder caste matrimony contact, gounder family matrimony contact, gounder traditional marriage contact, gounder cultural wedding contact, gounder community website contact, gounder matrimonial platform contact, gounder brides contact, gounder grooms contact, gounder profiles contact, trusted gounder matrimony support, verified gounder profiles contact, gounder marriage service contact, gounder matrimonial website contact, contact pooluva gounder, contact pooluva gounder matrimony, contact vettuvagounder matrimony, contact vettuvar, contact pooluvar, pooluva gounder community contact, vettuvagounder community contact, vettuvar community contact, pooluvar community contact, pooluva gounder marriage contact, vettuvagounder marriage contact, vettuvar marriage contact, pooluvar marriage contact"
                 image={`${baseUrl}/matrimo/images/og-image.png`}
                 url={`${baseUrl}/contact`}
                 canonical={`${baseUrl}/contact`}

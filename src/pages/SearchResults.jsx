@@ -36,7 +36,7 @@ const SearchResults = () => {
         navigate('/pricing');
     };
 
-    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000';
+    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000';
 
     // Structured data for Search Results page
     const schemaData = {
@@ -64,7 +64,7 @@ const SearchResults = () => {
     return (
         <>
             <SEO
-                title="Matrimony Search Results - Find Your Perfect Match | WeddingSoulMates"
+                title="Matrimony Search Results - Find Your Perfect Match | PooluvaGounderMatrimony"
                 description="Browse through verified matrimony profiles and find your perfect life partner. Search results for all communities, religions, and castes across India. Start your journey today!"
                 keywords="matrimony search results, marriage bureau search, matrimonial profiles, wedding soul mates search, matrimony browse profiles, marriage website search, matrimonial platform search, bride groom search, matrimony find partner, marriage service search, shaadi search results, muslim matrimony search, hindu matrimony search, christian matrimony search, sikh matrimony search, gounder matrimony search, chettiar matrimony search, brahmin matrimony search, vellalar matrimony search, naidu matrimony search, reddy matrimony search, patel matrimony search, gujarati matrimony search, marathi matrimony search, bengali matrimony search, punjabi matrimony search, tamil matrimony search, telugu matrimony search, malayalam matrimony search, kannada matrimony search, hindi matrimony search, inter caste marriage search, inter religion marriage search, all community matrimony search, india matrimony search, south indian matrimony search, north indian matrimony search, east indian matrimony search, west indian matrimony search"
                 image={`${baseUrl}/matrimo/images/og-image.png`}
@@ -77,7 +77,7 @@ const SearchResults = () => {
                 <div className="all-pro-head">
                     <div className="container">
                         <div className="row">
-                            <h1>Find Your Forever with Wedding Soul Mates</h1>
+                            <h1>Find Your Forever with PooluvaGounder Matrimony</h1>
                             {isLoggedIn
                                 ? (<a href="#" className='disabled-link'>Start Searching for Your Soulmate, {user?.name}!<i className="fa fa-handshake-o" aria-hidden="true"></i></a>)
                                 : (<a href="/register">Join now for Free <i className="fa fa-handshake-o" aria-hidden="true"></i></a>)

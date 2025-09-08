@@ -5,18 +5,18 @@ import SEO from '../components/SEO';
 
 const TermsAndConditions = () => {
     const supportEmail = config?.supportEmail;
-    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://weddingsoulmates.com' : 'http://localhost:3000';
+    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000';
 
     // Structured data for Terms and Conditions page
     const schemaData = {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        "name": "Terms and Conditions - WeddingSoulMates",
-        "description": "Read the Terms and Conditions of WeddingSoulMates to understand the rules and guidelines for using our matrimony platform.",
+        "name": "Terms and Conditions - PooluvaGounderMatrimony",
+        "description": "Read the Terms and Conditions of PooluvaGounderMatrimony to understand the rules and guidelines for using our matrimony platform.",
         "url": `${baseUrl}/termsconditions`,
         "mainEntity": {
             "@type": "Organization",
-            "name": "WeddingSoulMates",
+            "name": "PooluvaGounderMatrimony",
             "url": baseUrl,
             "contactPoint": {
                 "@type": "ContactPoint",
@@ -29,8 +29,8 @@ const TermsAndConditions = () => {
     return (
         <>
             <SEO
-                title="Terms and Conditions - WeddingSoulMates Matrimony Platform"
-                description="Read the Terms and Conditions of WeddingSoulMates matrimony platform. Understand the rules, guidelines, and user responsibilities for using our trusted matrimonial services."
+                title="Terms and Conditions - PooluvaGounderMatrimony Matrimony Platform"
+                description="Read the Terms and Conditions of PooluvaGounderMatrimony matrimony platform. Understand the rules, guidelines, and user responsibilities for using our trusted matrimonial services."
                 keywords="terms and conditions matrimony, marriage bureau terms, matrimonial platform terms, wedding soul mates terms, matrimony user agreement, marriage website terms, matrimonial service terms, bride groom terms, matrimony platform rules, marriage service terms, shaadi terms, muslim matrimony terms, hindu matrimony terms, christian matrimony terms, sikh matrimony terms, gounder matrimony terms, chettiar matrimony terms, brahmin matrimony terms, vellalar matrimony terms, naidu matrimony terms, reddy matrimony terms, patel matrimony terms, gujarati matrimony terms, marathi matrimony terms, bengali matrimony terms, punjabi matrimony terms, tamil matrimony terms, telugu matrimony terms, malayalam matrimony terms, kannada matrimony terms, hindi matrimony terms, inter caste marriage terms, inter religion marriage terms, all community matrimony terms, india matrimony terms, south indian matrimony terms, north indian matrimony terms, east indian matrimony terms, west indian matrimony terms"
                 image={`${baseUrl}/matrimo/images/og-image.png`}
                 url={`${baseUrl}/termsconditions`}
@@ -44,7 +44,7 @@ const TermsAndConditions = () => {
 
                 <div className="terms-content">
                     <h2 className='text-start'>1. Introduction</h2>
-                    <p>Welcome to <strong>WeddingSoulMates.com</strong>, operated by <strong>YoungZen Technologies</strong>. By using our website, you agree to the following terms and conditions. Please read these terms carefully. If you do not agree with any part of these terms, you should not use our website.</p>
+                    <p>Welcome to <strong>PooluvaGounderMatrimony.com</strong>, operated by <strong>YoungZen Technologies</strong>. By using our website, you agree to the following terms and conditions. Please read these terms carefully. If you do not agree with any part of these terms, you should not use our website.</p>
 
                     <h2 className='text-start'>2. Eligibility</h2>
                     <p>To use our services, you must be at least 18 years of age and legally capable of entering into a binding contract. By registering with us, you warrant that you meet these eligibility requirements.</p>

@@ -2,18 +2,7 @@
 import casteOptions from './casteOptions.js';
 
 export const religions = [
-    { value: "", label: "Select Religion" },
-    { value: "Any", label: "Any" },
-    { value: "Hindu", label: "Hindu" },
-    { value: "Muslim", label: "Muslim" },
-    { value: "Christian", label: "Christian" },
-    { value: "Sikh", label: "Sikh" },
-    { value: "Jain", label: "Jain" },
-    { value: "Buddhist", label: "Buddhist" },
-    { value: "Parsi", label: "Parsi" },
-    { value: "Jewish", label: "Jewish" },
-    { value: "Inter-religion", label: "Inter-religion" },
-    { value: "Other", label: "Other" }
+    { value: "Hindu", label: "Hindu" }
 ];
 
 // Export the comprehensive caste list from the extracted data
