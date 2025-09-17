@@ -25,8 +25,8 @@ Allow: /terms-conditions
 Crawl-delay: 1
 
 # Sitemap location
-Sitemap: https://pooluvagounder.com//sitemap.xml
+Sitemap: https://pooluvagounder.com/sitemap.xml
 
 # Additional sitemaps for better indexing
-Sitemap: https://pooluvagounder.com//sitemap-profiles.xml
-Sitemap: https://pooluvagounder.com//sitemap-communities.xml
+Sitemap: https://pooluvagounder.com/sitemap-profiles.xml
+Sitemap: https://pooluvagounder.com/sitemap-communities.xml
