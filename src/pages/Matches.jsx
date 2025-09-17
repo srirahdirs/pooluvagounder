@@ -66,11 +66,11 @@ const Matches = () => {
             // Check if partner preferences are filled
             if (!user.partner_preferences || !user.partner_preferences.gender || !user.partner_preferences.age) {
                 setPreferencesMissing(true);
-                showToast('You have not filled partner preferences yet. Please fill that to see your matches.', 'warn');
+                // showToast('You have not filled partner preferences yet. Please fill that to see your matches.', 'warn');
                 // Redirect to partner preferences page after 3 seconds
                 setTimeout(() => {
                     navigate('/partnerpreferences');
-                }, 5000);
+                }, 9000);
                 return;
             }
 
