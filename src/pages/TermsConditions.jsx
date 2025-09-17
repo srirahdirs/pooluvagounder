@@ -5,7 +5,7 @@ import SEO from '../components/SEO';
 
 const TermsAndConditions = () => {
     const supportEmail = config?.supportEmail;
-    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000';
+    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com' : 'http://localhost:3000';
 
     // Structured data for Terms and Conditions page
     const schemaData = {

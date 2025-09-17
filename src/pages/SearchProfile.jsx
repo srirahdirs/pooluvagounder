@@ -176,7 +176,7 @@ const SearchProfile = ({ user }) => {
     }
   };
 
-  const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000';
+  const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com' : 'http://localhost:3000';
 
   // Structured data for Search Profile page
   const schemaData = {

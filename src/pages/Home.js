@@ -8,7 +8,7 @@ import SearchSection from './Home/SearchSection';
 import SEO from '../components/SEO';
 
 const Home = () => {
-    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000';
+    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com' : 'http://localhost:3000';
 
     // Comprehensive structured data for matrimonial website
     const schemaData = {

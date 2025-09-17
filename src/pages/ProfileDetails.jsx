@@ -104,7 +104,7 @@ const ProfileDetails = () => {
   }
 
   const image = userDetails.gender === 'Male' ? 'user_default_boy.png' : 'user_default_girl.png';
-  const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000';
+  const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com' : 'http://localhost:3000';
 
   // Structured data for Profile Details page
   const schemaData = {

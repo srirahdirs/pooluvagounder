@@ -10,7 +10,7 @@ const Contact = () => {
     const youngZenEmail = config?.youngZenEmail;
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { toast, showToast } = useToast();
-    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000';
+    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com' : 'http://localhost:3000';
 
     // Structured data for Contact page
     const schemaData = {
@@ -148,7 +148,7 @@ const Contact = () => {
                                         <span><i className="fa fa-envelope-o" aria-hidden="true"></i><a href={`mailto:${youngZenEmail}`}> {youngZenEmail}</a></span>
                                         <span><i className="fa fa-phone" aria-hidden="true"></i> <a href="tel:+91-4223568392">+91-4223568392</a></span>
                                         <span><i className="fa fa-whatsapp" aria-hidden="true"></i> <a href="https://wa.me/919789253515" target="_blank" rel="noopener noreferrer">+91 9789253515</a></span>
-                                        <span><i className="fa fa-map-marker" aria-hidden="true"></i> No 1a Ground floor, Vasantham Nagar, KovaiPudhur, Coimbatore, Tamilnadu, India. 641042.</span>
+                                        <span><i className="fa fa-map-marker" aria-hidden="true"></i> No 1a, Ground Floor, Vasantham Nagar, KovaiPudhur, Coimbatore, Tamilnadu 641042, India.</span>
                                     </div>
                                 </li>
                                 <li>

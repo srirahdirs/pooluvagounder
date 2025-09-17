@@ -6,8 +6,8 @@ const About = () => {
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "url": process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000',
-    "logo": process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com//images/logo.jpg' : 'http://localhost:3000/images/logo.jpg',
+    "url": process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com' : 'http://localhost:3000',
+    "logo": process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/images/logo.jpg' : 'http://localhost:3000/images/logo.jpg',
     "name": "PooluvaGounderMatrimony",
     "description": "Learn more about PooluvaGounderMatrimony and our commitment to helping Gounder community members find their perfect life partners within the community.",
     "sameAs": [
@@ -21,9 +21,9 @@ const About = () => {
         title="About PooluvaGounderMatrimony - Gounder Community Matrimony Platform | Our Story"
         description="Learn about PooluvaGounderMatrimony - Tamil Nadu's trusted Gounder community matrimony platform. Discover our mission to help Gounder, Pooluva Gounder, VettuvaGounder, Vettuvar, and Pooluvar community members find their perfect life partners within the community. Join thousands of verified profiles."
         keywords="about gounder matrimony, gounder community matrimony about, gounder marriage bureau about, gounder matrimonial service about, tamil gounder matrimony about, coimbatore gounder matrimony about, chennai gounder matrimony about, gounder community about, gounder caste matrimony about, gounder family matrimony about, gounder traditional marriage about, gounder cultural wedding about, gounder community website about, gounder matrimonial platform about, gounder brides about, gounder grooms about, gounder profiles about, trusted gounder matrimony platform, verified gounder profiles, gounder marriage service about, gounder matrimonial website about, about pooluva gounder, about pooluva gounder matrimony, about vettuvagounder matrimony, about vettuvar, about pooluvar, pooluva gounder community about, vettuvagounder community about, vettuvar community about, pooluvar community about, pooluva gounder marriage about, vettuvagounder marriage about, vettuvar marriage about, pooluvar marriage about"
-        image={`${process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000'}/matrimo/images/about-us.jpg`}
-        url={`${process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000'}/about`}
-        canonical={`${process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000'}/about`}
+        image={`${process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com' : 'http://localhost:3000'}/matrimo/images/about-us.jpg`}
+        url={`${process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com' : 'http://localhost:3000'}/about`}
+        canonical={`${process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com' : 'http://localhost:3000'}/about`}
         schema={schemaData}
       />
 

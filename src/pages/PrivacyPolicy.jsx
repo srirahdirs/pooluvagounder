@@ -9,16 +9,16 @@ const PrivacyPolicy = () => {
         "@type": "WebPage",
         "name": "Privacy Policy - PooluvaGounder Matrimony",
         "description": "Read the Privacy Policy of PooluvaGounder Matrimony to understand how we collect, use, and protect your information.",
-        "url": process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com//privacy-policy' : 'http://localhost:3000/privacy-policy'
+        "url": process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/privacy-policy' : 'http://localhost:3000/privacy-policy'
     };
     return (
         <>
             <SEO
                 title="Privacy Policy - PooluvaGounder Matrimony"
                 description="Learn how PooluvaGounder Matrimony handles your personal information and the steps we take to ensure your privacy."
-                image={`${process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000'}/images/privacy-policy.jpg`}
-                url={`${process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000'}/privacy-policy`}
-                canonical={`${process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000'}/privacy-policy`}
+                image={`${process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com' : 'http://localhost:3000'}/images/privacy-policy.jpg`}
+                url={`${process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com' : 'http://localhost:3000'}/privacy-policy`}
+                canonical={`${process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com' : 'http://localhost:3000'}/privacy-policy`}
                 schema={schemaData}
             />
             <div className="privacy-container mb-5">

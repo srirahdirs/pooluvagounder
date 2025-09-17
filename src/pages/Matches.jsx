@@ -143,7 +143,7 @@ const Matches = () => {
             console.error('Error:', error);
         }
     };
-    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000';
+    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com' : 'http://localhost:3000';
 
     // Structured data for Matches page
     const schemaData = {

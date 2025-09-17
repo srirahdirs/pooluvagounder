@@ -18,7 +18,7 @@ const SEO = ({
     noIndex = false,
     noFollow = false
 }) => {
-    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com/' : 'http://localhost:3000';
+    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pooluvagounder.com' : 'http://localhost:3000';
     const defaultImage = `${baseUrl}/matrimo/images/og-image.png`;
     const defaultDescription = "Find your perfect Gounder life partner with PooluvaGounder Matrimony - Tamil Nadu's trusted Gounder community matrimony platform. Connect with verified Gounder, Pooluva Gounder, VettuvaGounder, Vettuvar, and Pooluvar brides and grooms from Coimbatore, Chennai, and across Tamil Nadu.";
 
