@@ -124,7 +124,7 @@ const About = () => {
                         <h5>Our Address:</h5>
                         <p><h4><em><strong><center>YoungZen Technologies</center></strong></em></h4></p>
                         <p> No 1a, Ground Floor<br />Vasantham Nagar,KovaiPudhur, <br />
-                          Coimbatore,Tamilnadu 560032, India.</p>
+                          Coimbatore,Tamilnadu 641042, India.</p>
                       </div>
 
                     </div>

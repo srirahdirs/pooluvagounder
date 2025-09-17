@@ -82,7 +82,7 @@ const PrivacyPolicy = () => {
 
                     <div className="contact-info">
                         <p><strong>Email:</strong><a href={`mailto:${supportEmail}`}> {supportEmail}</a></p>
-                        <p><strong>Address:</strong> YoungZen Technologies, No 8a, 8th Cross, Sultanpalya Main Road, RT Nagar, Bangalore 560032, Karnataka, India.</p>
+                        <p><strong>Address:</strong> YoungZen Technologies, No 1a, Ground Floor, Vasantham Nagar, KovaiPudhur, Coimbatore, Tamilnadu 641042, India.</p>
                     </div>
                 </div>
             </div>

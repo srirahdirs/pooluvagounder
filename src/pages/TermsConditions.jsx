@@ -91,7 +91,7 @@ const TermsAndConditions = () => {
 
                     <div className="contact-info">
                         <p><strong>Email:</strong> <a href={`mailto:${supportEmail}`} className='text-black'>{supportEmail}</a></p>
-                        <p><strong>Address:</strong> YoungZen Technologies, No 1a, Ground Floor Vasantham Nagar, KovaiPudhur, Coimbatore, Tamilnadu 560032, India.</p>
+                        <p><strong>Address:</strong> YoungZen Technologies, No 1a, Ground Floor, Vasantham Nagar, KovaiPudhur, Coimbatore, Tamilnadu 641042, India.</p>
                     </div>
                 </div>
             </div>
