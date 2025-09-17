@@ -147,6 +147,7 @@ const Contact = () => {
 
                                         <span><i className="fa fa-envelope-o" aria-hidden="true"></i><a href={`mailto:${youngZenEmail}`}> {youngZenEmail}</a></span>
                                         <span><i className="fa fa-phone" aria-hidden="true"></i> <a href="tel:+91-4223568392">+91-4223568392</a></span>
+                                        <span><i className="fa fa-whatsapp" aria-hidden="true"></i> <a href="https://wa.me/919789253515" target="_blank" rel="noopener noreferrer">+91 9789253515</a></span>
                                         <span><i className="fa fa-map-marker" aria-hidden="true"></i> No 1a Ground floor, Vasantham Nagar, KovaiPudhur, Coimbatore, Tamilnadu, India. 641042.</span>
                                     </div>
                                 </li>
@@ -155,7 +156,7 @@ const Contact = () => {
                                         <img src={`${process.env.PUBLIC_URL}/matrimo/images/icon/telephone.png`} alt="WhatsApp Support" />
                                         <h4>WhatsApp Support</h4>
                                         <p>Contact us directly on WhatsApp for instant support. Our team is available to assist you with any inquiries you may have regarding our services.</p>
-                                        <a href="https://whatsapp.com/channel/0029Vb0i0A977qVRhoJKR80e" className="cta-rou-line" target="_blank" rel="noopener noreferrer">Join Channel</a>
+                                        <a href="https://wa.me/919789253515" className="cta-rou-line" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
                                     </div>
                                 </li>
                             </ul>

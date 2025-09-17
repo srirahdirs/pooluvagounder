@@ -22,9 +22,9 @@ const TopMenu = () => {
                         <ul>
                             {/* <li><a href="tel:+9704462944"><i className="fa fa-phone" aria-hidden="true"></i>&nbsp;+01 5312 5312</a></li> */}
                             <li><a href={`mailto:${helpEmail}`}><i className="fa fa-envelope-o" aria-hidden="true"></i>&nbsp; {helpEmail}</a></li>
+                            <li><a href="https://wa.me/919789253515" target="_blank" rel="noopener noreferrer"><i className="fa fa-whatsapp" aria-hidden="true"></i>&nbsp; +91 9789253515</a></li>
                             <li><a href="#!" aria-label="facebook"><i className="fa fa-facebook" aria-hidden="true"></i></a></li>
                             <li><a href="#!" aria-label="twitter"><i className="fa fa-twitter" aria-hidden="true"></i></a></li>
-                            <li><a href="#!" aria-label="whatsapp"><i className="fa fa-whatsapp" aria-hidden="true"></i></a></li>
                             {isLoggedIn ? (
                                 <li>
                                     <a href="/logout">
